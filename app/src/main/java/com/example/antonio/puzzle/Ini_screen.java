@@ -22,7 +22,7 @@ public class Ini_screen extends AppCompatActivity {
 
                 try {
                     sleep(3000); // Slpash Screen durante 3 segundos
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), Play.class);
 
                     startActivity(intent);
                     finish();
