@@ -18,4 +18,6 @@
         android:src="@drawable/rect"
         android:layout_gravity="center_horizontal"
         android:layout_weight="0.26" />
+
+
 </LinearLayout>

@@ -35,6 +35,6 @@ public class Assets {
     public void load()
     {
         rect1 = loadBitmap("ic_launcher.png");
-        rect_s = loadBitmap("rect_space.png");
+        rect_s = loadBitmap("");
     }
 }

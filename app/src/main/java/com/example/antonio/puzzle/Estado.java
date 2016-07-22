@@ -7,7 +7,7 @@ import android.view.MotionEvent;
  */
 public abstract class Estado {
 
-    private int nivel;
+   private int nivel;
 
     public void setCurrentState(Estado newEstado)
     {

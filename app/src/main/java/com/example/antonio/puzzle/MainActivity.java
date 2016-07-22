@@ -8,11 +8,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.util.Log;
+
 
 //Clase responsable de iniciar el juego
 
 public class MainActivity extends AppCompatActivity {
 
+
+    private static final String TAG = "MainActivity";
 
     public static AssetManager assets;
     private Button jugar;
@@ -27,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
 
         assets = getAssets();
         setContentView(R.layout.activity_main);
-
+        Log.w(TAG, "activity_main");
 
 
         jugar=(Button)findViewById(R.id.btnjugar);
