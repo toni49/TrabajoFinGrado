@@ -28,20 +28,21 @@ public class CirclesDrawingView extends View {
     private static int DrawFlag = 0;
     private Button botonIni;
     public Canvas c1;
-    Thread shapes = new Thread(new Runnable(){
+
+
+  /*  Thread shapes = new Thread(new Runnable(){
 
         @Override
         public void run() {
             Log.w(TAG, "RUN");
 
-            int check = 0;
             Paint text;
             text = new Paint();
 
 
             while (true) {
                 if (DrawFlag == 1) {
-                    check = Comprobar();
+                   // check = Comprobar();
                     if (check == 3) {
                         //Animacion o texto indicando que el puzzle esta correcto.
                         text.setTextSize(14);
@@ -56,7 +57,7 @@ public class CirclesDrawingView extends View {
             }
         }
 
-    });
+    });*/
 
 
 
@@ -70,6 +71,8 @@ public class CirclesDrawingView extends View {
     private Rect Rect1, Rect2;
     private CircleArea x1, x2, x3;
     private float w, h;
+    int check;
+
 
     /** Stores data about single circle */
     public static class CircleArea {
@@ -134,7 +137,7 @@ public class CirclesDrawingView extends View {
     private void init(final Context ct) {
         // Generate bitmap used for background
 
-        mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.ic_launcher);
+        mBitmap = BitmapFactory.decodeResource(ct.getResources(), R.drawable.success_64);
         mCirclePaint = new Paint();
         mCirclePaint.setColor(Color.BLUE);
         mCirclePaint.setStrokeWidth(40);
@@ -150,29 +153,29 @@ public class CirclesDrawingView extends View {
 
         Circle_stroke = new Paint();
         Circle_stroke.setStyle(Paint.Style.STROKE);
-        Circle_stroke.setStrokeWidth(3);
+        Circle_stroke.setStrokeWidth(5);
         Circle_stroke.setColor(Color.BLUE);
         setBackgroundResource(R.drawable.madera_1);
 
 
         //Cirulos fijos
         canv.drawCircle(300, 200, 100,  Circle_stroke);
-        canv.drawCircle(600, 200, 100,  Circle_stroke);
         canv.drawCircle(900, 200, 100,  Circle_stroke);
-        canv.drawRect(1200,200, 1400, 320, Circle_stroke);
-        canv.drawRect(1600,200, 1800, 320, Circle_stroke);
+        canv.drawCircle(1500, 200, 100,  Circle_stroke);
+        //canv.drawRect(1200,200, 1400, 320, Circle_stroke);
+        //canv.drawRect(1600,200, 1800, 320, Circle_stroke);
 
 
 
-        w = 1000;
-        h = 700;
+        w = 1740;
+        h = 790;
         canv.drawBitmap(mBitmap, w, h, null);
 
 
-        // Creamos circulos dinámicos
-        x1 = obtainTouchedCircle(300, 500);
-        x2 = obtainTouchedCircle(600, 500);
-        x3 = obtainTouchedCircle(900, 500);
+        // Posición inicial de circulos dinámicos
+        x1 = obtainTouchedCircle(100, 600);
+        x2 = obtainTouchedCircle(250, 600);
+        x3 = obtainTouchedCircle(400, 600);
 
 
 
@@ -227,7 +230,24 @@ public class CirclesDrawingView extends View {
                     if (null != touchedCircle) {
                         touchedCircle.centerX = xTouch;
                         touchedCircle.centerY = yTouch;
+
                     }
+
+                    //comprobamos que el circulo pulsado se situa en la posicion correcta.
+                    if((touchedCircle.centerX > 290) && (touchedCircle.centerX < 310 ) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        Log.w(TAG, "circulo 1");
+                        check = 1;
+                    }
+                    if((touchedCircle.centerX > 890) && (touchedCircle.centerX < 910 ) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        check = 2;
+                        Log.w(TAG, "circulo 2");
+                    }
+                    if((touchedCircle.centerX > 1490) && (touchedCircle.centerX < 1510 ) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210))
+                    {
+                        check = 3;
+                        Log.w(TAG, "check 3");
+                    }
+
                 }
                 invalidate();
                 handled = true;
@@ -236,14 +256,20 @@ public class CirclesDrawingView extends View {
             case MotionEvent.ACTION_UP:
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
-                int check = 0;
 
-                if((xTouch > 800) && (xTouch < 1200) && (yTouch > 500) && (yTouch < 900)) {
+                if((xTouch > 800) && (xTouch < 1200) && (yTouch > 500) && (yTouch < 800)) {
                     Log.w(TAG, "PULSADO");
+                    String num= Integer.toString(check);
+                    Log.w(num, "valor check");
 
-                    check = Comprobar();
-                    if (check == 3)
+
+                    //check = Comprobar();
+                    if (check == 3) {
+                        check = 0;
                         Log.w(TAG, "funcionando");
+
+                        //Pasar a siguiente nivel.
+                    }
 
                     // playActivity.setContentView();
 
@@ -334,37 +360,63 @@ public class CirclesDrawingView extends View {
     }*/
 
     //Pulsar un boton cuando se quiera hacer la comprobación de las piezas.
-    private int Comprobar()
+ /*   private int Comprobar()
     {
         int numCheck = 0;
         Log.w(TAG, "Comprobando");
 
-        for(CircleArea circle: mCircles)
-        {
-            if(AreaCorrecta() == true);
-            {
-                Log.w(TAG, "Area correcta");
-                numCheck=+1;
-            }
 
+        if(AreaCorrecta());
+        {
+            Log.w(TAG, "Area correcta");
+            numCheck = +1;
         }
+
         return numCheck;
 
-    }
+    }*/
 
-    private boolean AreaCorrecta()
+   /* private boolean AreaCorrecta()
     {
-        Log.w(TAG, "Corrigiendo");
+        //Log.w(TAG, "Corrigiendo");
 
-        if((x1.centerX > 290) && (x1.centerX > 310 ) && (x1.centerY > 190) && (x1.centerY < 210))
+
+        if(( > 290) && (x1.centerX < 310 )) {
+            Log.w(TAG, "check 1");
             return true;
-        if((x2.centerX > 590) && (x2.centerX > 610 ) && (x2.centerY > 190) && (x2.centerY < 210))
+        }
+        /*if((x2.centerX > 590) && (x2.centerX > 610 ) && (x2.centerY > 190) && (x2.centerY < 210))
             return true;
         if((x3.centerX > 890) && (x3.centerX > 910 ) && (x3.centerY > 190) && (x3.centerY < 210))
             return true;
-        else
+        else {
+            Log.w(TAG, "check 0");
             return false;
-    }
+        }
+    }*/
+
+   /* private int Comprobar()
+    {
+        int numCheck = 0;
+        Log.w(TAG, "Comprobando");
+
+
+        if((x1.centerX > 290) && (x1.centerX > 310 ) && (x1.centerY > 190) && (x1.centerY < 210)) {
+            Log.w(TAG, "check 1");
+            numCheck =+1;
+        }
+
+        /*else if((x2.centerX > 590) && (x2.centerX > 610 ) && (x2.centerY > 190) && (x2.centerY < 210))
+            Log.w(TAG, "check 2");
+
+        else if((x3.centerX > 890) && (x3.centerX > 910 ) && (x3.centerY > 190) && (x3.centerY < 210))
+            Log.w(TAG, "check 3");
+
+        else
+            Log.w(TAG, "check 0");
+
+        return numCheck;
+    }*/
 
 
 
