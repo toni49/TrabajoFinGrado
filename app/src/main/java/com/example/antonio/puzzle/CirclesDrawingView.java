@@ -14,6 +14,8 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import java.util.HashSet;
@@ -28,6 +30,7 @@ public class CirclesDrawingView extends View {
     private static int DrawFlag = 0;
     private Button botonIni;
     public Canvas c1;
+   // Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.string);
 
 
   /*  Thread shapes = new Thread(new Runnable(){
@@ -165,6 +168,13 @@ public class CirclesDrawingView extends View {
         //canv.drawRect(1200,200, 1400, 320, Circle_stroke);
         //canv.drawRect(1600,200, 1800, 320, Circle_stroke);
 
+        //Texto indicativo.
+        Paint paintText = new Paint();
+        paintText.setTextSize(40);
+        paintText.setColor(Color.BLACK);
+        String texto = "COLOQUE LAS FICHAS";
+        canv.drawText(texto, 750, 800, paintText);
+
 
 
         w = 1740;
@@ -257,7 +267,7 @@ public class CirclesDrawingView extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if((xTouch > 800) && (xTouch < 1200) && (yTouch > 500) && (yTouch < 800)) {
+                if((xTouch > 1720) && (xTouch < 1880) && (yTouch > 800) && (yTouch < 940)) {
                     Log.w(TAG, "PULSADO");
                     String num= Integer.toString(check);
                     Log.w(num, "valor check");
@@ -267,8 +277,16 @@ public class CirclesDrawingView extends View {
                     if (check == 3) {
                         check = 0;
                         Log.w(TAG, "funcionando");
+                        //animation.start();
+
+                        //setContentView(new Screen_2(getApplicationContext(), CirclesDrawingView.this));// Dibujamos todas las imagenes del nivel con este ContentView.
+
 
                         //Pasar a siguiente nivel.
+                     //  Screen_2 screen_2 = new Screen_2(getContext());
+                       // playActivity.setContentView(screen_2);
+
+
                     }
 
                     // playActivity.setContentView();

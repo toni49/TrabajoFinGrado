@@ -43,7 +43,8 @@ public class Play extends AppCompatActivity  {
         // assets = getAssets();
 
 
-        setContentView(new CirclesDrawingView(getApplicationContext(), Play.this));// Dibujamos todas las imagenes del nivel con este ContentView.
+       // setContentView(new CirclesDrawingView(getApplicationContext(), Play.this));// Dibujamos todas las imagenes del nivel con este ContentView.
+        setContentView(new Screen_2(getApplicationContext(), Play.this));// Dibujamos todas las imagenes del nivel con este ContentView.
 
 
 
