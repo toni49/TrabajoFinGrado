@@ -22,7 +22,6 @@ public class Play extends AppCompatActivity  {
     public static final int GAME_HEIGHT =100;
     public static final int GAME_WIDTH = 100;
     //private ArrayList<Piezas> piezas;
-    public static GameView sGame;
     public CirclesDrawingView.CircleArea circle;
     ImageView ima;
     Canvas c1;
@@ -44,7 +43,7 @@ public class Play extends AppCompatActivity  {
 
 
        // setContentView(new CirclesDrawingView(getApplicationContext(), Play.this));// Dibujamos todas las imagenes del nivel con este ContentView.
-        setContentView(new Screen_2(getApplicationContext(), Play.this));// Dibujamos todas las imagenes del nivel con este ContentView.
+        setContentView(new Screen_3(getApplicationContext(), Play.this));// Dibujamos todas las imagenes del nivel con este ContentView.
 
 
 
