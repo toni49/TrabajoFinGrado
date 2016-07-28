@@ -4,7 +4,11 @@ package com.example.antonio.puzzle;
  * Created by antonio on 7/26/16.
  */
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -13,6 +17,7 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -32,15 +37,15 @@ public class Screen_3 extends View {
     private static final String TAG = "Screen_3";
     private Button botonIni;
     public Canvas canvas;
-
-
     // Activity de la clase Play
     private Activity newActivity = null;
-
+    public Ini_screen finish;
+    private Utils alerta;
     /**
      * Main bitmap
      */
-    private Bitmap sBitmap = null;
+    private Bitmap next_Bitmap = null;
+    private Bitmap pause_Bitmap = null;
     private Bitmap Bitma = null;
 
 
@@ -49,6 +54,7 @@ public class Screen_3 extends View {
     private float w, h;
     private int valor = 1;
     int check = 0;
+    MainActivity main = new MainActivity();
 
 
     public Screen_3(Context context, Activity activity) {
@@ -88,7 +94,6 @@ public class Screen_3 extends View {
     }
 
 
-
     private Paint mCirclePaint;
     private Paint Circle_stroke;
     private Paint mSquarePaint;
@@ -106,7 +111,9 @@ public class Screen_3 extends View {
 
     private void init(final Context context) {
 
-        sBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.success_64);
+        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
+        pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+
 
         mSquarePaint = new Paint();
         mSquarePaint.setColor(Color.GREEN);
@@ -155,21 +162,20 @@ public class Screen_3 extends View {
         paintText.setColor(Color.BLACK);
         paintText.setStrokeWidth(5);
         String texto = "COLOQUE LAS FICHAS";
-        canv.drawText(texto, 750, 800, paintText);
+        canv.drawText(texto, 750, 900, paintText);
 
         //imagen boton de checkeo
-        w = 1740;
-        h = 790;
-        canv.drawBitmap(sBitmap, w, h, null);
+       // w = 1740;
+      //  h = 790;
+        canv.drawBitmap(next_Bitmap, 1740, 790, null);
+
+        canv.drawBitmap(pause_Bitmap, 70, 790, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedCircle(1400, 700);
-        x2 = obtainTouchedCircle(1700, 700);
-
-
-
+        x1 = obtainTouchedCircle(1000, 600);
+        x2 = obtainTouchedCircle(1400, 600);
 
 
         for (CircleArea circle : mCircles) {
@@ -178,16 +184,9 @@ public class Screen_3 extends View {
             else
                 canv.drawCircle(circle.centerX, circle.centerY, 120, mRectPaint);
 
-
         }
 
-
-
-
-
     }
-
-
 
     @Override
     public boolean onTouchEvent(final MotionEvent event) {
@@ -201,14 +200,12 @@ public class Screen_3 extends View {
         int actionIndex = event.getActionIndex();
 
 
-
         // get touch event coordinates and make transparent circle from it
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
 
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
-
 
 
                 // check if we've touched inside some Circle
@@ -247,7 +244,7 @@ public class Screen_3 extends View {
                     }
 
                     //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                    if ((touchedCircle.centerX > 190) && (touchedCircle.centerX < 210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                    if ((touchedCircle.centerX> 190) && (touchedCircle.centerX < 210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210) && (touchedCircle.radius == 180)) {
                         Log.w(TAG, "circulo 1");
                         if (check == 1)
                             check = 2;
@@ -256,7 +253,7 @@ public class Screen_3 extends View {
                             check = 1;
 
                     }
-                    if ((touchedCircle.centerX > 1190) && (touchedCircle.centerX < 1210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                    if ((touchedCircle.centerX > 1190) && (touchedCircle.centerX < 1210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210) && (touchedCircle.radius == 120)) {
                         Log.w(TAG, "circulo 2");
                         if (check == 1)
                             check = 2;
@@ -277,24 +274,42 @@ public class Screen_3 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 800) && (yTouch < 940)) {
-                    Log.w(TAG, "PULSADO");
+                if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
+                    Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check);
                     Log.w(num, "valor check");
-
 
                     //check = Comprobar();
                     if (check >= 2) {
                         check = 0;
                         Log.w(TAG, "funcionando");
+                        mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
+                        x1 = obtainTouchedCircle(1200, 200);
+                        x2 = obtainTouchedCircle(200, 200);
+                       // x1 = obtainTouchedCircle(1200, 200);
+
+
                         //animation.start();
-
-                        //Pasar a siguiente nivel.
+                        // playActivity.setContentView();
                     }
-
-                    // playActivity.setContentView();
-
                 }
+
+                else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                    Log.w(TAG, "PULSADO PAUSE");
+
+                    /*Intent intent = new Intent();
+                    intent.setClass(MainActivity.getContext(), FullscreenView.Class);
+                    startActivity(intent);*/
+
+                    newActivity.setContentView(R.layout.activity_main);
+                    Intent intent = new Intent(getContext(), MainActivity.class);
+                    newActivity.startActivity(intent);
+
+
+                    //finish.onDestroy();
+                    //System.exit(0);
+                }
+
                 invalidate();
                 handled = true;
                 break;
@@ -379,6 +394,8 @@ public class Screen_3 extends View {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
+
+
  /*   private int Comprobar()
     {
         Log.w(TAG, "Comprobando");
@@ -405,6 +422,7 @@ public class Screen_3 extends View {
             return false;
 
     }*/
+
 
 
 }

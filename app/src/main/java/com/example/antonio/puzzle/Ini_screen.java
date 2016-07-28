@@ -3,36 +3,76 @@ package com.example.antonio.puzzle;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 /**
  * Created by antonio on 7/16/16.
  */
 public class Ini_screen extends AppCompatActivity {
 
+    private ProgressBar barra_progreso;
+    private boolean activo = false;
+    private String TAG = "Ini_Screen";
+
+    protected static final int tiempoMax = 2000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ini_screen);
 
-        Thread myThread = new Thread() {
-            @Override
+        barra_progreso = (ProgressBar) findViewById(R.id.progressBar);
+
+        final Thread thread = new Thread() {
+
             public void run() {
-
-                try {
-                    sleep(3000); // Slpash Screen durante 3 segundos
-                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-
-                    startActivity(intent);
-                    finish();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-
-
+                activo = true;
+                try{
+                    int waited = 0;
+                    while(activo && (waited < tiempoMax))
+                    {
+                        sleep(200);
+                        if(activo)
+                        {
+                            waited += 200;
+                            updateProgress(waited);
+                        }
+                    }
+                }catch(InterruptedException e){
+                    //tratar el error.
                 }
+                finally{
+                    onContinue();
+                }
+
             }
-        }; myThread.start();
+        };thread.start();
     }
+
+    public void updateProgress(final int tiempo)
+    {
+        if(null != barra_progreso){
+            final int progreso = barra_progreso.getMax() * tiempo / tiempoMax;
+            barra_progreso.setProgress(progreso);
+        }
+    }
+
+    public void onContinue()
+    {
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Log.d(TAG, "La barra de progreso ha finalizado");
+        startActivity(intent);
+    }
+
+    public void onDestroy()
+    {
+        super.onDestroy();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        finish();
+        System.exit(1);
+    }
+
 }
 

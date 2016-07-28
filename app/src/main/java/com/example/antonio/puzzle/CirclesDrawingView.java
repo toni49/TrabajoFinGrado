@@ -30,37 +30,7 @@ public class CirclesDrawingView extends View {
     private static int DrawFlag = 0;
     private Button botonIni;
     public Canvas c1;
-   // Animation animation = AnimationUtils.loadAnimation(getContext(), R.anim.string);
 
-
-  /*  Thread shapes = new Thread(new Runnable(){
-
-        @Override
-        public void run() {
-            Log.w(TAG, "RUN");
-
-            Paint text;
-            text = new Paint();
-
-
-            while (true) {
-                if (DrawFlag == 1) {
-                   // check = Comprobar();
-                    if (check == 3) {
-                        //Animacion o texto indicando que el puzzle esta correcto.
-                        text.setTextSize(14);
-                        c1.drawText("Correcto", 700, 500, text);
-                        playActivity.setContentView(R.layout.play);
-
-                    }
-
-                }
-
-
-            }
-        }
-
-    });*/
 
 
 
@@ -283,8 +253,8 @@ public class CirclesDrawingView extends View {
 
 
                         //Pasar a siguiente nivel.
-                     //  Screen_2 screen_2 = new Screen_2(getContext());
-                       // playActivity.setContentView(screen_2);
+                       Screen_2 screen_2 = new Screen_2(getContext(), playActivity);
+                       playActivity.setContentView(screen_2);
 
 
                     }

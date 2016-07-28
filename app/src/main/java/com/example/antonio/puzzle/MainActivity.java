@@ -20,16 +20,21 @@ public class MainActivity extends AppCompatActivity {
 
     public static AssetManager assets;
     private Button jugar;
+    Ini_screen fin;
+
 
     public void ExitButton (View V){
+
+        android.os.Process.killProcess(android.os.Process.myPid());
         finish();
+        System.exit(1);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        assets = getAssets();
+        //assets = getAssets();
         setContentView(R.layout.activity_main);
         Log.w(TAG, "activity_main");
 
@@ -39,8 +44,10 @@ public class MainActivity extends AppCompatActivity {
         jugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            Intent play = new Intent(MainActivity.this, Play.class);
-            startActivity(play);
+                setContentView(new Screen_3(getApplicationContext(), MainActivity.this));
+                // Dibujamos todas las imagenes del nivel con este ContentView.
+               // Intent play = new Intent(MainActivity.this, Play.class);
+                //startActivity(play);
         };
     });
 
