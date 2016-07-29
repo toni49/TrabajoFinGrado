@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         jugar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setContentView(new Screen_3(getApplicationContext(), MainActivity.this));
+                setContentView(new Screen_4(getApplicationContext(), MainActivity.this));
                 // Dibujamos todas las imagenes del nivel con este ContentView.
                // Intent play = new Intent(MainActivity.this, Play.class);
                 //startActivity(play);

@@ -1,40 +1,33 @@
 package com.example.antonio.puzzle;
 
 /**
- * Created by antonio on 7/26/16.
+ * Created by antonio on 7/29/16.
  */
+
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import java.util.HashSet;
-import java.util.Random;
 
 
-public class Screen_3 extends View {
 
-    private static final String TAG = "Screen_3";
+
+public class Screen_4 extends View {
+
+    private static final String TAG = "Screen_4";
     private Button botonIni;
     public Canvas canvas;
     // Activity de la clase Play
@@ -50,15 +43,14 @@ public class Screen_3 extends View {
 
 
     private Rect Rect1, Rect2;
-    private CircleArea x1, x2, x3;
+    private SquareArea x1, x2, x3, x4;
     private float w, h;
     private int valor = 1;
-    int check1 = 0;
-    int check2 = 0;
+    int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
     MainActivity main = new MainActivity();
 
 
-    public Screen_3(Context context, Activity activity) {
+    public Screen_4(Context context, Activity activity) {
         super(context);
         newActivity = activity;
 
@@ -66,14 +58,14 @@ public class Screen_3 extends View {
 
     }
 
-    public Screen_3(Context context, AttributeSet attrs) {
+    public Screen_4(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context);
 
     }
 
-    public Screen_3(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Screen_4(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context);
@@ -92,7 +84,22 @@ public class Screen_3 extends View {
             this.radius = radius;
             this.centerX = centerX;
             this.centerY = centerY;
-            this.check = check;
+        }
+    }
+
+    // Guardamos atributos de la clase cuadrado.
+    public static class SquareArea {
+        int Swidth;
+        int Sheight;
+        int leftY;
+        int leftX;
+
+        SquareArea(int Swidth, int Sheight, int leftX, int leftY) {
+            this.Swidth = Swidth;
+            this.Sheight = Sheight;
+            this.leftX = leftX;
+            this.leftY = leftY;
+
         }
     }
 
@@ -105,10 +112,13 @@ public class Screen_3 extends View {
     private Paint Rect_stroke;
     private Paint mFondoPaint;
 
-    private static final int CIRCLES_LIMIT = 2;
+    private static final int CIRCLES_LIMIT = 4;
 
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
+
+    private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(CIRCLES_LIMIT);
+    private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(CIRCLES_LIMIT);
 
 
 
@@ -147,16 +157,21 @@ public class Screen_3 extends View {
         setBackgroundResource(R.drawable.madera_1);
 
         //Cirulos fijos
-        canv.drawCircle(200, 200, 180, mFondoPaint);
-        canv.drawCircle(200, 200, 180, Circle_stroke);
+       // canv.drawCircle(200, 200, 180, mFondoPaint);
+       // canv.drawCircle(200, 200, 180, Circle_stroke);
+
+        canv.drawRect(100, 100, 250, 250, mFondoPaint);
+        canv.drawRect(400, 100, 600, 300, mFondoPaint);
+        canv.drawRect(800, 100, 1050, 350, mFondoPaint);
+        canv.drawRect(1300, 100, 1600, 400, mFondoPaint);
 
         Rect_stroke = new Paint();
         Rect_stroke.setStyle(Paint.Style.STROKE);
         Rect_stroke.setStrokeWidth(5);
         Rect_stroke.setColor(Color.RED);
 
-        canv.drawCircle(1200, 200, 120, mFondoPaint);
-        canv.drawCircle(1200, 200, 120, Rect_stroke);
+       // canv.drawCircle(1200, 200, 120, mFondoPaint);
+       // canv.drawCircle(1200, 200, 120, Rect_stroke);
 
 
         //Texto indicativo.
@@ -168,25 +183,27 @@ public class Screen_3 extends View {
         canv.drawText(texto, 750, 900, paintText);
 
         //imagen boton de checkeo
-       // w = 1740;
-      //  h = 790;
         canv.drawBitmap(next_Bitmap, 1740, 790, null);
-
         canv.drawBitmap(pause_Bitmap, 70, 790, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedCircle(1000, 600);
-        x2 = obtainTouchedCircle(1400, 600);
+        x1 = obtainTouchedSquare(1000, 300);
+        x2 = obtainTouchedSquare(1400, 300);
+        x3 = obtainTouchedSquare(500, 300);
+        x4 = obtainTouchedSquare(100, 300);
 
 
-        for (CircleArea circle : mCircles) {
-            if(circle.radius==180)
-                canv.drawCircle(circle.centerX, circle.centerY, 180, mCirclePaint);
+        for (SquareArea square : mSquare) {
+            if(square.Swidth == 150)
+                canv.drawRect(square.leftX, square.leftY, square.leftX + square.Swidth, square.leftY + square.Sheight, mRectPaint);
+            else if(square.Swidth == 200)
+                canv.drawRect(square.leftX, square.leftY, square.leftX + square.Swidth, square.leftY + square.Sheight, mRectPaint);
+            else if(square.Swidth == 250)
+                canv.drawRect(square.leftX, square.leftY, square.leftX + square.Swidth, square.leftY + square.Sheight, mRectPaint);
             else
-                canv.drawCircle(circle.centerX, circle.centerY, 120, mRectPaint);
-
+                canv.drawRect(square.leftX, square.leftY, square.leftX + square.Swidth, square.leftY + square.Sheight, mRectPaint);
         }
 
     }
@@ -195,7 +212,8 @@ public class Screen_3 extends View {
     public boolean onTouchEvent(final MotionEvent event) {
         boolean handled = false;
 
-        CircleArea touchedCircle;
+        //CircleArea touchedCircle;
+        SquareArea touchedSquare;
 
         int xTouch;
         int yTouch;
@@ -212,11 +230,11 @@ public class Screen_3 extends View {
 
 
                 // check if we've touched inside some Circle
-                touchedCircle = obtainTouchedCircle(xTouch, yTouch);
-                touchedCircle.centerX = xTouch;
-                touchedCircle.centerY = yTouch;
+                touchedSquare = obtainTouchedSquare(xTouch, yTouch);
+                touchedSquare.leftX = xTouch;
+                touchedSquare.leftY = yTouch;
 
-                mCirclePointer.put(event.getPointerId(0), touchedCircle);
+                mSquarePointer.put(event.getPointerId(0), touchedSquare);
 
 
                 invalidate();
@@ -236,18 +254,49 @@ public class Screen_3 extends View {
                     xTouch = (int) event.getX(actionIndex);
                     yTouch = (int) event.getY(actionIndex);
 
-                    touchedCircle = mCirclePointer.get(pointerId);
+                    touchedSquare = mSquarePointer.get(pointerId);
 
 
 
-                    if (null != touchedCircle) {
-                        touchedCircle.centerX = xTouch;
-                        touchedCircle.centerY = yTouch;
+                    if (null != touchedSquare) {
+                        touchedSquare.leftX = xTouch;
+                        touchedSquare.leftY = yTouch;
 
                     }
 
+                    if(touchedSquare.Swidth == 150)
+                    {
+                        if((touchedSquare.leftX > 90) && (touchedSquare.leftX < 110) && (touchedSquare.leftY > 90) && (touchedSquare.leftY < 110))
+                            check1 = 1;
+                        else
+                            check1 = 0;
+                    }
 
-                    if(touchedCircle.radius == 180) {
+                    if(touchedSquare.Swidth == 200)
+                    {
+                        if((touchedSquare.leftX > 390) && (touchedSquare.leftX < 410) && (touchedSquare.leftY > 90) && (touchedSquare.leftY < 110))
+                            check2 = 1;
+                        else
+                            check2 = 0;
+                    }
+
+                    if(touchedSquare.Swidth == 250)
+                    {
+                        if((touchedSquare.leftX > 790) && (touchedSquare.leftX < 810) && (touchedSquare.leftY > 90) && (touchedSquare.leftY < 110))
+                            check3 = 1;
+                        else
+                            check3 = 0;
+                    }
+
+                    if(touchedSquare.Swidth == 300)
+                    {
+                        if((touchedSquare.leftX > 1290) && (touchedSquare.leftX < 1310) && (touchedSquare.leftY > 90) && (touchedSquare.leftY < 110))
+                            check4 = 1;
+                        else
+                            check4 = 0;
+                    }
+
+                   /* if(touchedCircle.radius == 180) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
                         if ((touchedCircle.centerX > 190) && (touchedCircle.centerX < 210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
                             Log.w(TAG, "circulo 1");
@@ -268,7 +317,7 @@ public class Screen_3 extends View {
 
                         } else
                             check2 = 0;
-                    }
+                    }*/
 
 
 
@@ -285,18 +334,23 @@ public class Screen_3 extends View {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
+                    String num2 = Integer.toString(check3);
+                    String num3 = Integer.toString(check4);
                     Log.w(num, "valor check1");
                     Log.w(num1, "valor check2");
+                    Log.w(num2, "valor check3");
+                    Log.w(num3, "valor check4");
 
                     //check = Comprobar();
-                    if ((check1 == 1) && (check2 == 1)) {
+                    if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1)) {
                         check1 = 0;
                         check2 = 0;
+                        check3 = 0;
+                        check4 = 0;
                         Log.w(TAG, "funcionando");
-                        mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
-                        x1 = obtainTouchedCircle(1200, 200);
-                        x2 = obtainTouchedCircle(200, 200);
-                       // x1 = obtainTouchedCircle(1200, 200);
+                        /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
+                        x1 = obtainTouchedSquare(1200, 200);
+                        x2 = obtainTouchedSquare(200, 200);*/
 
 
                         //animation.start();
@@ -404,6 +458,65 @@ public class Screen_3 extends View {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
+    private SquareArea obtainTouchedSquare(final int xTouch, final int yTouch) {
+        SquareArea touchedSquare = getTouchedSquare(xTouch, yTouch);
+
+        if (null == touchedSquare) {
+            //touchedSquare = new SquareArea(100, 100, xTouch, yTouch);
+            // touchedSquare = new SquareArea(200, 200, xTouch, yTouch);
+            //touchedSquare = new SquareArea(200, 200, xTouch, yTouch);
+
+            switch(valor) {
+
+                case 1:
+                    touchedSquare = new SquareArea(150, 150, xTouch, yTouch);
+                    valor = 2;
+                    break;
+
+                case 2:
+                    touchedSquare= new SquareArea(200, 200, xTouch, yTouch);
+                    valor = 3;
+                    break;
+
+                case 3:
+                    touchedSquare= new SquareArea(250, 250, xTouch, yTouch);
+                    valor = 4;
+                    break;
+
+                case 4:
+                    touchedSquare= new SquareArea(300, 300, xTouch, yTouch);
+                    valor = 1;
+                    break;
+
+
+            }
+
+
+            if (mSquare.size() < 4) {
+                Log.w(TAG, "Added square " + touchedSquare);
+                mSquare.add(touchedSquare);
+            }
+        }
+
+        return touchedSquare;
+    }
+
+    private SquareArea getTouchedSquare(final int xTouch, final int yTouch) {
+        SquareArea touched = null;
+
+        for (SquareArea square : mSquare) {
+            if ((((square.leftX + square.Swidth) > xTouch) && ((square.leftX) < xTouch)) && (((square.leftY + square.Sheight) > yTouch) && ((square.leftY) < yTouch)))
+            {
+                Log.w(TAG, "cuadrado tocado" );
+
+                touched = square;
+                break;
+            }
+        }
+
+        return touched;
+    }
+
 
 
  /*   private int Comprobar()
@@ -436,5 +549,3 @@ public class Screen_3 extends View {
 
 
 }
-
-
