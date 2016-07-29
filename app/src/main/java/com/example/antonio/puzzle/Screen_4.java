@@ -150,20 +150,26 @@ public class Screen_4 extends View {
     @Override
     public void onDraw(final Canvas canv) {
 
-        Circle_stroke = new Paint();
-        Circle_stroke.setStyle(Paint.Style.STROKE);
-        Circle_stroke.setStrokeWidth(5);
-        Circle_stroke.setColor(Color.BLUE);
-        setBackgroundResource(R.drawable.madera_1);
+        Square_stroke = new Paint();
+        Square_stroke.setStyle(Paint.Style.STROKE);
+        Square_stroke.setStrokeWidth(5);
+        Square_stroke.setColor(Color.RED);
+        setBackgroundResource(R.drawable.fondo_azul);
 
         //Cirulos fijos
        // canv.drawCircle(200, 200, 180, mFondoPaint);
        // canv.drawCircle(200, 200, 180, Circle_stroke);
 
+        //cuadrados fijos.
         canv.drawRect(100, 100, 250, 250, mFondoPaint);
+        canv.drawRect(100, 100, 250, 250, Square_stroke);
         canv.drawRect(400, 100, 600, 300, mFondoPaint);
+        canv.drawRect(400, 100, 600, 300, Square_stroke);
         canv.drawRect(800, 100, 1050, 350, mFondoPaint);
+        canv.drawRect(800, 100, 1050, 350, Square_stroke);
         canv.drawRect(1300, 100, 1600, 400, mFondoPaint);
+        canv.drawRect(1300, 100, 1600, 400, Square_stroke);
+
 
         Rect_stroke = new Paint();
         Rect_stroke.setStyle(Paint.Style.STROKE);
@@ -176,7 +182,7 @@ public class Screen_4 extends View {
 
         //Texto indicativo.
         Paint paintText = new Paint();
-        paintText.setTextSize(50);
+        paintText.setTextSize(30);
         paintText.setColor(Color.BLACK);
         paintText.setStrokeWidth(5);
         String texto = "COLOQUE LAS FICHAS";
