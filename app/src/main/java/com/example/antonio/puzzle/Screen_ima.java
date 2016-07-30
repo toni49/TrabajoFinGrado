@@ -37,8 +37,8 @@ public class Screen_ima extends View {
     /**
      * Main bitmap
      */
-    private Bitmap next_Bitmap = null, ping_1 = null, ping_sp = null, ping_2 = null;
-    private Bitmap pause_Bitmap = null;
+    private Bitmap ping_1 = null, ping_sp = null, ping_2 = null, ping2_sp = null, ping_3 = null, ping3_sp = null;
+    private Bitmap pause_Bitmap = null, next_Bitmap = null;
     private Bitmap Bitma = null;
 
 
@@ -127,6 +127,11 @@ public class Screen_ima extends View {
         ping_1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_1);
         ping_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_sp);
         ping_2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_2);
+        ping2_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping2_sp);
+        ping_3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_3);
+        ping3_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping3_sp);
+
+
 
 
 
@@ -158,7 +163,7 @@ public class Screen_ima extends View {
         Square_stroke.setStyle(Paint.Style.STROKE);
         Square_stroke.setStrokeWidth(5);
         Square_stroke.setColor(Color.RED);
-        setBackgroundResource(R.drawable.fondo_azul);
+        setBackgroundResource(R.drawable.fondo_hielo);
 
         //Cirulos fijos
         // canv.drawCircle(200, 200, 180, mFondoPaint);
@@ -198,19 +203,28 @@ public class Screen_ima extends View {
 
         //silueta de las imagenes
         canv.drawBitmap(ping_sp, 200, 200, null);
+        canv.drawBitmap(ping2_sp, 500, 650, null);
+        canv.drawBitmap(ping3_sp, 950, 200, null);
+
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedBit(500, 300);
+        x1 = obtainTouchedBit(1500, 100);
+        x2 = obtainTouchedBit(1500, 400);
+        x3 = obtainTouchedBit(1400, 650);
+
 
 
 
         for (BitArea imagen : mBit) {
             if (imagen.num == 1)
                 canv.drawBitmap(ping_1, imagen.leftX, imagen.leftY, mRectPaint);
-            else
+            else if (imagen.num == 2)
                 canv.drawBitmap(ping_2, imagen.leftX, imagen.leftY, mRectPaint);
+            else
+                canv.drawBitmap(ping_3, imagen.leftX, imagen.leftY, mRectPaint);
+
 
         }
 
@@ -389,13 +403,18 @@ public class Screen_ima extends View {
 
                 case 2:
                     touchedBit = new BitArea(xTouch, yTouch, 2);
+                    valor = 3;
+                    break;
+
+                case 3:
+                    touchedBit = new BitArea(xTouch, yTouch, 3);
                     valor = 1;
                     break;
 
 
             }
 
-            if (mBit.size() < 2) {
+            if (mBit.size() < 3) {
                 Log.w(TAG, "Added imagen " + touchedBit);
                 mBit.add(touchedBit);
             }
