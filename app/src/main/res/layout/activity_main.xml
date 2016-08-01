@@ -8,8 +8,20 @@
     android:background="@drawable/fondo_morado">
 
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:inputType="textPersonName"
+        android:text="Nombre Usuario"
+        android:textColor="#4a5ce4"
+        android:textSize="22dp"
+        android:id="@+id/nombre"
+        android:layout_gravity="right" />
 
-         <TextView
+    <TextView
             android:layout_width="400dp"
             android:layout_height="70dp"
              android:layout_gravity="center"
@@ -31,7 +43,7 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="@string/text_menu2"
-            android:id="@+id/btnjugar"
+            android:id="@+id/button_start"
             android:background="#73a5f0"
             android:textColor="@color/primary_dark_material_dark" />
 
@@ -42,8 +54,8 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="@string/text_menu3"
-            android:onClick="ExitButton"
-            android:id="@+id/button3"
+            android:onClick="Logout"
+            android:id="@+id/button_logout"
             android:background="#73a5f0"
             android:textColor="@color/primary_dark_material_dark" />
 
