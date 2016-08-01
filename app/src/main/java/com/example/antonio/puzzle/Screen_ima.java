@@ -285,28 +285,37 @@ public class Screen_ima extends View {
 
                     }
 
-                   // if(touchedBit.num == 1) {
+                    if(touchedBit.num == 1) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
                         if ((touchedBit.leftX > 190) && (touchedBit.leftX < 210) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
                             Log.w(TAG, "circulo 1");
-
-                            //if(check1 == 0)
                             check1 = 1;
 
                         } else
                             check1 = 0;
-                   // }
+                    }
 
-                    /*if(touchedCircle.radius == 120) {
+                    if(touchedBit.num == 2) {
 
-                        if ((touchedCircle.centerX > 1190) && (touchedCircle.centerX < 1210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedBit.leftX > 490) && (touchedBit.leftX < 510) && (touchedBit.leftY > 640) && (touchedBit.leftY < 660)) {
                             Log.w(TAG, "circulo 2");
 
                             check2 = 1;
 
                         } else
                             check2 = 0;
-                    }*/
+                    }
+
+                    if(touchedBit.num == 3) {
+
+                        if ((touchedBit.leftX > 940) && (touchedBit.leftX < 960) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
+                            Log.w(TAG, "circulo 2");
+
+                            check3 = 1;
+
+                        } else
+                            check3 = 0;
+                    }
 
 
                 }
@@ -320,16 +329,22 @@ public class Screen_ima extends View {
 
                 if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
                     Log.w(TAG, "PULSADO NEXT");
-                    String num = Integer.toString(check1);
-                    String num1 = Integer.toString(check2);
+                    String num1 = Integer.toString(check1);
+                    String num2 = Integer.toString(check2);
+                    String num3 = Integer.toString(check3);
 
-                    Log.w(num, "valor check1");
-                    Log.w(num1, "valor check2");
+
+                    Log.w(num1, "valor check1");
+                    Log.w(num2, "valor check2");
+                    Log.w(num3, "valor check3");
+
 
 
                     //check = Comprobar();
-                    if (check1 == 1){
+                    if ((check1 == 1) && (check2 == 1) && (check3 == 1)){
                         check1 = 0;
+                        check2 = 0;
+                        check3 = 0;
                         Log.w(TAG, "funcionando");
                         /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
                         x1 = obtainTouchedSquare(1200, 200);

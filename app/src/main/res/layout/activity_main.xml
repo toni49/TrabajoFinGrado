@@ -20,7 +20,7 @@
             android:textSize="48dp"
             android:textAlignment="center"
             android:id="@+id/text_menu"
-            android:textColor="@android:color/holo_blue_dark"
+            android:textColor="@color/blue_1"
             android:layout_marginTop="40dp"
             android:height="48dp"
              />
@@ -32,7 +32,8 @@
             android:layout_height="wrap_content"
             android:text="@string/text_menu2"
             android:id="@+id/btnjugar"
-            android:background="@color/accent_material_dark" />
+            android:background="#73a5f0"
+            android:textColor="@color/primary_dark_material_dark" />
 
 
         <Button
@@ -43,7 +44,8 @@
             android:text="@string/text_menu3"
             android:onClick="ExitButton"
             android:id="@+id/button3"
-            android:background="@color/accent_material_dark" />
+            android:background="#73a5f0"
+            android:textColor="@color/primary_dark_material_dark" />
 
 
 </LinearLayout>
