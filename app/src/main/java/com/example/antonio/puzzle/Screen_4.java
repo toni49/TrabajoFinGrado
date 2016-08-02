@@ -33,7 +33,6 @@ public class Screen_4 extends View {
     // Activity de la clase Play
     private Activity newActivity = null;
     public Ini_screen finish;
-    private Utils alerta;
     /**
      * Main bitmap
      */

@@ -16,12 +16,12 @@ public class Ini_screen extends AppCompatActivity {
     private boolean activo = false;
     private String TAG = "Ini_Screen";
 
-    protected static final int tiempoMax = 2000;
+    protected static final int tiempoMax = 2000;    //tiempo que duracion de carga.
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ini_screen);
+        setContentView(R.layout.ini_screen);        //Iniciamos layout ini_screen
 
         barra_progreso = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -61,7 +61,7 @@ public class Ini_screen extends AppCompatActivity {
 
     public void onContinue()
     {
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);    //Al finalizar la barra de progreso pasamos a la clase MainActivity donde esta el menu.
         Log.d(TAG, "La barra de progreso ha finalizado");
         startActivity(intent);
     }

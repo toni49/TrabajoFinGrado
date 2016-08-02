@@ -107,13 +107,6 @@ public class Screen_2 extends View {
 
 
 
-       /* @Override
-              public String toString() {
-            return "Circle[" + centerX + ", " + centerY + ", " + radius + "]";
-        }
-    }*/
-
-
             /**
              * Paint to draw circles
              */
@@ -129,16 +122,16 @@ public class Screen_2 extends View {
             // Radius limit in pixels
             //private final static int RADIUS_LIMIT = 100;
 
-            private static final int CIRCLES_LIMIT = 2;
+            private static final int SHAPES_LIMIT = 2;
 
             /**
              * All available circles
              */
-            private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
-            private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
+            private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(SHAPES_LIMIT);
+            private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(SHAPES_LIMIT);
 
-            private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(CIRCLES_LIMIT);
-            private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(CIRCLES_LIMIT);
+            private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(SHAPES_LIMIT);
+            private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(SHAPES_LIMIT);
 
 
             /**

@@ -33,7 +33,6 @@ public class Screen_ima extends View {
     // Activity de la clase Play
     private Activity newActivity = null;
     public Ini_screen finish;
-    private Utils alerta;
     /**
      * Main bitmap
      */
@@ -111,13 +110,13 @@ public class Screen_ima extends View {
     private Paint Rect_stroke;
     private Paint mFondoPaint;
 
-    private static final int CIRCLES_LIMIT = 4;
+    private static final int SHAPES_LIMIT = 4;
 
-    private HashSet<BitArea> mBit = new HashSet<BitArea>(CIRCLES_LIMIT);
-    private SparseArray<BitArea> mBitPointer = new SparseArray<BitArea>(CIRCLES_LIMIT);
+    private HashSet<BitArea> mBit = new HashSet<BitArea>(SHAPES_LIMIT);
+    private SparseArray<BitArea> mBitPointer = new SparseArray<BitArea>(SHAPES_LIMIT);
 
-    private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(CIRCLES_LIMIT);
-    private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(CIRCLES_LIMIT);
+    private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(SHAPES_LIMIT);
+    private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(SHAPES_LIMIT);
 
 
     private void init(final Context context) {
@@ -338,9 +337,6 @@ public class Screen_ima extends View {
                     Log.w(num2, "valor check2");
                     Log.w(num3, "valor check3");
 
-
-
-                    //check = Comprobar();
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1)){
                         check1 = 0;
                         check2 = 0;
