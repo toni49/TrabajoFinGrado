@@ -6,5 +6,7 @@
     <color name="blue_1">#768fc2</color>
     <color name="red_1">#ca195a</color>
     <color name="rojo_1">#851b1b</color>
-    <color name="rojo_2">#cc5454</color>
+    <color name="rojo_2">#8d8989</color>
+    <color name="gris_1">#8d8989</color>
+    <color name="red_2">#e93f1d</color>
 </resources>

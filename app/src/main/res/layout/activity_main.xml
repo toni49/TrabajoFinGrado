@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/fondo_morado">
+    android:background="@drawable/fondo_espacial">
 
 
     <TextView
@@ -21,30 +21,23 @@
         android:id="@+id/nombre"
         android:layout_gravity="right" />
 
-    <TextView
-            android:layout_width="400dp"
-            android:layout_height="70dp"
-             android:layout_gravity="center"
-            android:textStyle="bold"
-            android:typeface="serif"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="@string/text_menu1"
-            android:textSize="48dp"
-            android:textAlignment="center"
-            android:id="@+id/text_menu"
-            android:textColor="@color/blue_1"
-            android:layout_marginTop="40dp"
-            android:height="48dp"
-             />
 
-        <Button
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginTop="40dp"
+        android:id="@+id/imageView2"
+        android:src="@drawable/testea"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
             android:layout_width="300dp"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="70dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="@string/text_menu2"
             android:id="@+id/button_start"
-            android:background="#73a5f0"
+            android:background="@color/blue_1"
             android:textColor="@color/primary_dark_material_dark" />
 
 
@@ -54,9 +47,8 @@
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="@string/text_menu3"
-            android:onClick="Logout"
             android:id="@+id/button_logout"
-            android:background="#73a5f0"
+            android:background="@color/ripple_material_dark"
             android:textColor="@color/primary_dark_material_dark" />
 
 

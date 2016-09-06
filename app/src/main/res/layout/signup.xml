@@ -4,7 +4,7 @@
     android:paddingTop="30dp"
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
-    android:background="@drawable/fondo_morado"
+    android:background="@drawable/fondo_espacial"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true">
@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:src="@drawable/ping_1"
+        android:src="@drawable/testea"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal" />
 
@@ -25,8 +25,9 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Usuario:"
-        android:textSize="30dp"
-        android:id="@+id/textView7" />
+        android:textSize="20dp"
+        android:id="@+id/textView7"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:layout_width="500dp"
@@ -36,7 +37,8 @@
         android:textSize="20dp"
         android:textColorHint="#000000"
         android:id="@+id/user_sign"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:textColor="@color/accent_material_light" />
 
     <TextView
         android:layout_width="match_parent"
@@ -47,8 +49,9 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Edad:"
-        android:textSize="30dp"
-        android:id="@+id/textView8" />
+        android:textSize="20dp"
+        android:id="@+id/textView8"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:layout_width="500dp"
@@ -58,7 +61,8 @@
         android:inputType="number"
         android:ems="10"
         android:id="@+id/date_sign"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:textColor="@color/accent_material_light" />
 
     <TextView
         android:layout_width="match_parent"
@@ -69,8 +73,9 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Contraseña:"
-        android:textSize="30dp"
-        android:id="@+id/textView9" />
+        android:textSize="20dp"
+        android:id="@+id/textView9"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:layout_width="500dp"
@@ -80,14 +85,16 @@
         android:inputType="textPassword"
         android:ems="10"
         android:id="@+id/password_sign"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:textColor="@color/accent_material_light" />
 
     <Button
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:text="Crear Cuenta"
-        android:background="@color/rojo_2"
+        android:textSize="24dp"
+        android:background="@color/blue_1"
         android:id="@+id/button_sign"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

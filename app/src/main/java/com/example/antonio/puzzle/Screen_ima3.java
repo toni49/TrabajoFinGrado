@@ -1,42 +1,33 @@
 package com.example.antonio.puzzle;
 
 /**
- * Created by antonio on 7/26/16.
+ * Created by antonio on 8/11/16.
  */
+
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import java.util.HashSet;
-import java.util.Random;
 
 
-public class Screen_3 extends View {
 
-    private static final String TAG = "Screen_3";
+
+public class Screen_ima3 extends View {
+
+    private static final String TAG = "Screen_ima3";
     private Button botonIni;
     public Canvas canvas;
     // Activity de la clase Play
@@ -45,24 +36,19 @@ public class Screen_3 extends View {
     /**
      * Main bitmap
      */
-    private Bitmap next_Bitmap = null;
-    private Bitmap pause_Bitmap = null;
+    private Bitmap coche_rojo_sp = null, coche_rojo = null, coche_azul_sp = null, coche_azul = null, coche_amarillo = null, coche_amarillo_sp = null;
+    private Bitmap pause_Bitmap = null, next_Bitmap = null;
     private Bitmap Bitma = null;
 
 
-
-
-    private Rect Rect1, Rect2;
-    private CircleArea x1, x2, x3;
-    private float w, h;
+    private BitArea x1, x2, x3, x4;
     private int valor = 1;
     int check1 = 0, check2 = 0, check3 = 0;
     int fail = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
-    MainActivity main = new MainActivity();
 
 
-    public Screen_3(Context context, Activity activity) {
+    public Screen_ima3(Context context, Activity activity) {
         super(context);
         newActivity = activity;
 
@@ -70,14 +56,14 @@ public class Screen_3 extends View {
 
     }
 
-    public Screen_3(Context context, AttributeSet attrs) {
+    public Screen_ima3(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context);
 
     }
 
-    public Screen_3(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Screen_ima3(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context);
@@ -86,41 +72,62 @@ public class Screen_3 extends View {
 
 
     // Guardamos atributos de la clase circulo.
-    public static class CircleArea {
-        int radius;
-        int centerX;
-        int centerY;
-        int check;
+    public static class BitArea {
+        int leftX;
+        int leftY;
+        int num;
 
-        CircleArea(int centerX, int centerY, int radius, int check) {
-            this.radius = radius;
-            this.centerX = centerX;
-            this.centerY = centerY;
-            this.check = check;
+        BitArea(int centerX, int centerY, int num) {
+            this.leftX = centerX;
+            this.leftY = centerY;
+            this.num = num;
+        }
+    }
+
+    // Guardamos atributos de la clase cuadrado.
+    public static class SquareArea {
+        int Swidth;
+        int Sheight;
+        int leftY;
+        int leftX;
+
+        SquareArea(int Swidth, int Sheight, int leftX, int leftY) {
+            this.Swidth = Swidth;
+            this.Sheight = Sheight;
+            this.leftX = leftX;
+            this.leftY = leftY;
+
         }
     }
 
 
     private Paint mCirclePaint;
-    private Paint stroke_blue;
+    private Paint Circle_stroke;
     private Paint mSquarePaint;
-    private Paint stroke_yellow;
+    private Paint Square_stroke;
     private Paint mRectPaint;
-    private Paint stroke_red;
+    private Paint Rect_stroke;
     private Paint mFondoPaint;
-    private Paint yellowPaint;
 
-    private static final int CIRCLES_LIMIT = 2;
+    private static final int SHAPES_LIMIT = 4;
 
-    private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
-    private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
+    private HashSet<BitArea> mBit = new HashSet<BitArea>(SHAPES_LIMIT);
+    private SparseArray<BitArea> mBitPointer = new SparseArray<BitArea>(SHAPES_LIMIT);
 
+    private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(SHAPES_LIMIT);
+    private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(SHAPES_LIMIT);
 
 
     private void init(final Context context) {
 
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
         pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+        coche_azul_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_azul_sp);
+        coche_azul = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_azul);
+        coche_rojo = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_rojo);
+        coche_rojo_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_rojo_sp);
+        coche_amarillo = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_amarillo);
+        coche_amarillo_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_amarillo_sp);
 
 
         mSquarePaint = new Paint();
@@ -135,10 +142,6 @@ public class Screen_3 extends View {
         mRectPaint.setColor(Color.RED);
         mRectPaint.setStyle(Paint.Style.FILL);
 
-        yellowPaint = new Paint();
-        yellowPaint.setColor(Color.YELLOW);
-        yellowPaint.setStyle(Paint.Style.FILL);
-
 
         mFondoPaint = new Paint();
         mFondoPaint.setColor(Color.WHITE);
@@ -149,64 +152,45 @@ public class Screen_3 extends View {
     @Override
     public void onDraw(final Canvas canv) {
 
-        stroke_blue = new Paint();
-        stroke_blue.setStyle(Paint.Style.STROKE);
-        stroke_blue.setStrokeWidth(7);
-        stroke_blue.setColor(Color.BLUE);
+        Square_stroke = new Paint();
+        Square_stroke.setStyle(Paint.Style.STROKE);
+        Square_stroke.setStrokeWidth(5);
+        Square_stroke.setColor(Color.RED);
         setBackgroundResource(R.drawable.madera_1);
-
-        //Cirulos fijos
-        canv.drawCircle(400, 200, 180, mFondoPaint);
-        canv.drawCircle(400, 200, 180, stroke_blue);
-
-        stroke_red = new Paint();
-        stroke_red.setStyle(Paint.Style.STROKE);
-        stroke_red.setStrokeWidth(7);
-        stroke_red.setColor(Color.RED);
-
-        canv.drawCircle(1000, 200, 120, mFondoPaint);
-        canv.drawCircle(1000, 200, 120, stroke_red);
-
-        stroke_yellow = new Paint();
-        stroke_yellow.setStyle(Paint.Style.STROKE);
-        stroke_yellow.setStrokeWidth(7);
-        stroke_yellow.setColor(Color.YELLOW);
-
-        canv.drawCircle(1600, 200, 80, mFondoPaint);
-        canv.drawCircle(1600, 200, 80, stroke_yellow);
 
 
         //Texto indicativo.
         Paint paintText = new Paint();
-        paintText.setTextSize(50);
+        paintText.setTextSize(40);
         paintText.setColor(Color.BLACK);
-        paintText.setStrokeWidth(5);
+        paintText.setStrokeWidth(7);
         String texto = "COLOQUE LAS FICHAS";
         canv.drawText(texto, 750, 900, paintText);
 
         //imagen boton de checkeo
-       // w = 1740;
-      //  h = 790;
         canv.drawBitmap(next_Bitmap, 1740, 790, null);
-
         canv.drawBitmap(pause_Bitmap, 70, 790, null);
+
+        //silueta de las imagenes
+        canv.drawBitmap(coche_amarillo_sp, 50, 80, null);
+        canv.drawBitmap(coche_azul_sp, 50, 350, null);
+        canv.drawBitmap(coche_rojo_sp, 850, 80, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedCircle(1000, 600);
-        x2 = obtainTouchedCircle(1400, 600);
-        x3 = obtainTouchedCircle(600, 600);
+        x1 = obtainTouchedBit(1200, 350);
+        x2 = obtainTouchedBit(1200, 400);
+        x3 = obtainTouchedBit(1200, 500);
 
 
-
-        for (CircleArea circle : mCircles) {
-            if(circle.radius==180)
-                canv.drawCircle(circle.centerX, circle.centerY, 180, mCirclePaint);
-            else if(circle.radius == 120)
-                canv.drawCircle(circle.centerX, circle.centerY, 120, mRectPaint);
+        for (BitArea imagen : mBit) {
+            if (imagen.num == 1)
+                canv.drawBitmap(coche_rojo, imagen.leftX, imagen.leftY, null);
+            else if (imagen.num == 2)
+                canv.drawBitmap(coche_amarillo, imagen.leftX, imagen.leftY, null);
             else
-                canv.drawCircle(circle.centerX, circle.centerY, 80, yellowPaint);
+                canv.drawBitmap(coche_azul, imagen.leftX, imagen.leftY, null);
 
 
         }
@@ -217,7 +201,8 @@ public class Screen_3 extends View {
     public boolean onTouchEvent(final MotionEvent event) {
         boolean handled = false;
 
-        CircleArea touchedCircle;
+        //CircleArea touchedCircle;
+        BitArea touchedBit;
 
         int xTouch;
         int yTouch;
@@ -234,11 +219,11 @@ public class Screen_3 extends View {
 
 
                 // check if we've touched inside some Circle
-                touchedCircle = obtainTouchedCircle(xTouch, yTouch);
-                touchedCircle.centerX = xTouch;
-                touchedCircle.centerY = yTouch;
+                touchedBit = obtainTouchedBit(xTouch, yTouch);
+                touchedBit.leftX = xTouch;
+                touchedBit.leftY = yTouch;
 
-                mCirclePointer.put(event.getPointerId(0), touchedCircle);
+                mBitPointer.put(event.getPointerId(0), touchedBit);
 
 
                 invalidate();
@@ -258,32 +243,28 @@ public class Screen_3 extends View {
                     xTouch = (int) event.getX(actionIndex);
                     yTouch = (int) event.getY(actionIndex);
 
-                    touchedCircle = mCirclePointer.get(pointerId);
+                    touchedBit = mBitPointer.get(pointerId);
 
 
-
-                    if (null != touchedCircle) {
-                        touchedCircle.centerX = xTouch;
-                        touchedCircle.centerY = yTouch;
+                    if (null != touchedBit) {
+                        touchedBit.leftX = xTouch;
+                        touchedBit.leftY = yTouch;
 
                     }
 
-
-                    if(touchedCircle.radius == 180) {
+                    if (touchedBit.num == 1) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedCircle.centerX > 390) && (touchedCircle.centerX < 410) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedBit.leftX > 840) && (touchedBit.leftX < 860) && (touchedBit.leftY > 70) && (touchedBit.leftY < 90)) {
                             Log.w(TAG, "circulo 1");
-
-                            //if(check1 == 0)
                             check1 = 1;
 
                         } else
                             check1 = 0;
                     }
 
-                    if(touchedCircle.radius == 120) {
+                    if (touchedBit.num == 2) {
 
-                        if ((touchedCircle.centerX > 990) && (touchedCircle.centerX < 1010) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedBit.leftX > 40) && (touchedBit.leftX < 60) && (touchedBit.leftY > 70) && (touchedBit.leftY < 90)) {
                             Log.w(TAG, "circulo 2");
 
                             check2 = 1;
@@ -292,9 +273,9 @@ public class Screen_3 extends View {
                             check2 = 0;
                     }
 
-                    if(touchedCircle.radius == 80) {
+                    if (touchedBit.num == 3) {
 
-                        if ((touchedCircle.centerX > 1590) && (touchedCircle.centerX < 1610) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedBit.leftX > 40) && (touchedBit.leftX < 60) && (touchedBit.leftY > 340) && (touchedBit.leftY < 360)) {
                             Log.w(TAG, "circulo 2");
 
                             check3 = 1;
@@ -302,7 +283,6 @@ public class Screen_3 extends View {
                         } else
                             check3 = 0;
                     }
-
 
 
                 }
@@ -316,43 +296,42 @@ public class Screen_3 extends View {
 
                 if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
                     Log.w(TAG, "PULSADO NEXT");
-                    String num = Integer.toString(check1);
-                    String num1 = Integer.toString(check2);
-                    String num2 = Integer.toString(check3);
-
-                    Log.w(num, "valor check1");
-                    Log.w(num1, "valor check2");
-                    Log.w(num2, "valor check3");
+                    String num1 = Integer.toString(check1);
+                    String num2 = Integer.toString(check2);
+                    String num3 = Integer.toString(check3);
 
 
-                    //check = Comprobar();
+                    Log.w(num1, "valor check1");
+                    Log.w(num2, "valor check2");
+                    Log.w(num3, "valor check3");
+
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1)) {
                         check1 = 0;
                         check2 = 0;
                         check3 = 0;
-                        mostrar.set_fallos(fail);
-                        mostrar.set_nivel(2);
                         Log.w(TAG, "funcionando");
+                        mostrar.set_fallos(fail);
+                        mostrar.set_nivel(6);
+                        Screen_ima screen_ima = new Screen_ima(getContext(), newActivity);
+                        screen_ima.destroyDrawingCache();
 
-
-                       // mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
-                       // x1 = obtainTouchedCircle(1200, 200);
-                       // x2 = obtainTouchedCircle(200, 200);
-                       // x1 = obtainTouchedCircle(1200, 200);
                         Intent intent = new Intent(getContext(), Level.class);
                         newActivity.startActivity(intent);
-                        
-                    }
-                    else
-                    {
+                        /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
+                        x1 = obtainTouchedSquare(1200, 200);
+                        x2 = obtainTouchedSquare(200, 200);*/
+
+
+                        //animation.start();
+                        // playActivity.setContentView();
+                    } else {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
                         invalidate();
                     }
-                }
 
-                else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                } else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -399,41 +378,41 @@ public class Screen_3 extends View {
      *
      * @param xTouch int x of touch
      * @param yTouch int y of touch
-     * @return obtained {@link CircleArea}
+     * @return obtained {@link BitArea}
      */
-    private CircleArea obtainTouchedCircle(final int xTouch, final int yTouch) {
-        CircleArea touchedCircle = getTouchedCircle(xTouch, yTouch);
+    private BitArea obtainTouchedBit(final int xTouch, final int yTouch) {
+        BitArea touchedBit = getTouchedBit(xTouch, yTouch);
 
 
-        if (null == touchedCircle) {
+        if (null == touchedBit) {
 
-            switch(valor) {
+            switch (valor) {
 
                 case 1:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 120, 0);
+                    touchedBit = new BitArea(xTouch, yTouch, 1);
                     valor = 2;
                     break;
 
                 case 2:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 180, 0);
+                    touchedBit = new BitArea(xTouch, yTouch, 2);
                     valor = 3;
                     break;
 
                 case 3:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 80, 0);
+                    touchedBit = new BitArea(xTouch, yTouch, 3);
                     valor = 1;
                     break;
 
 
             }
 
-            if (mCircles.size() < 3) {
-                Log.w(TAG, "Added circle " + touchedCircle);
-                mCircles.add(touchedCircle);
+            if (mBit.size() < 3) {
+                Log.w(TAG, "Added imagen " + touchedBit);
+                mBit.add(touchedBit);
             }
         }
 
-        return touchedCircle;
+        return touchedBit;
     }
 
     /**
@@ -441,14 +420,14 @@ public class Screen_3 extends View {
      *
      * @param xTouch int x touch coordinate
      * @param yTouch int y touch coordinate
-     * @return {@link CircleArea} touched circle or null if no circle has been touched
+     * @return {@link BitArea} touched circle or null if no circle has been touched
      */
-    private CircleArea getTouchedCircle(final int xTouch, final int yTouch) {
-        CircleArea touched = null;
+    private BitArea getTouchedBit(final int xTouch, final int yTouch) {
+        BitArea touched = null;
 
-        for (CircleArea circle : mCircles) {
-            if ((circle.centerX - xTouch) * (circle.centerX - xTouch) + (circle.centerY - yTouch) * (circle.centerY - yTouch) <= circle.radius * circle.radius) {
-                touched = circle;
+        for (BitArea imagen : mBit) {
+            if ((imagen.leftX < xTouch) && ((imagen.leftX + 660) > xTouch) && (imagen.leftY < yTouch) && ((imagen.leftY + 200) > yTouch)) {
+                touched = imagen;
                 break;
             }
         }
@@ -457,6 +436,5 @@ public class Screen_3 extends View {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
+
 }
-
-

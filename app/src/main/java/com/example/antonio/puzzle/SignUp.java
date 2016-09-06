@@ -1,5 +1,6 @@
 package com.example.antonio.puzzle;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -36,10 +37,21 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 String contrasena = password.getText().toString();
                 int edad = Integer.parseInt(age.getText().toString());
 
-                User registeredData = new User(nombreusuario, contrasena, edad);
+                User user = new User(nombreusuario, contrasena, edad);
 
+                SignUpUser(user);
                 break;
         }
 
+    }
+
+    private void SignUpUser(User user){
+        ServerRequests serverRequests = new ServerRequests(this);
+        serverRequests.storeUserDataInBackground(user, new GetUserCallback() {
+            @Override
+            public void done(User returnedUser){
+                startActivity(new Intent(SignUp.this, Login.class));
+            }
+        });
     }
 }

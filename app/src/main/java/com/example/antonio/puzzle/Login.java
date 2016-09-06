@@ -1,5 +1,6 @@
 package com.example.antonio.puzzle;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import android.widget.TextView;
 public class Login extends AppCompatActivity implements View.OnClickListener {
 
     Button login, newsignup;
-    EditText username, password;
+    EditText Username, Password;
     UserLocalStore userLocalStore;
 
 
@@ -22,8 +23,8 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
 
-        username = (EditText) findViewById(R.id.user_input);
-        password = (EditText) findViewById(R.id.password_input);
+        Username = (EditText) findViewById(R.id.user_input);
+        Password = (EditText) findViewById(R.id.password_input);
         login = (Button) findViewById(R.id.buttonLogin);
         newsignup = (Button) findViewById(R.id.newuser);
 
@@ -39,12 +40,14 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
         switch(v.getId()){
             case R.id.buttonLogin:
 
-                User user = new User(null, null);
+                String username = Username.getText().toString();
+                String password = Password.getText().toString();
+
+                User user = new User(username, password);
+                authenticate(user);
 
                 userLocalStore.storeUserData(user);
                 userLocalStore.setUserLoggedIn(true);
-
-
                 break;
 
             case R.id.newuser:
@@ -53,5 +56,35 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
         }
 
+    }
+
+    private void authenticate(User user){
+        ServerRequests serveRequests = new ServerRequests(this);
+        serveRequests.fetchUserDataInBackground(user, new GetUserCallback() {
+
+            @Override
+            public void done(User returnedUser) {
+                if(returnedUser == null) {
+                    showErrorMessage();
+                }
+                else{
+                    logUserIn(returnedUser);
+                }
+            }
+        });
+    }
+
+    private void showErrorMessage() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(Login.this);
+        dialogBuilder.setMessage("Usuario o contraseña incorrecto");
+        dialogBuilder.setPositiveButton("OK", null);
+        dialogBuilder.show();
+    }
+
+    private void logUserIn(User returnedUser) {
+        userLocalStore.storeUserData(returnedUser);
+        userLocalStore.setUserLoggedIn(true);
+
+        startActivity(new Intent(this, MainActivity.class));
     }
 }

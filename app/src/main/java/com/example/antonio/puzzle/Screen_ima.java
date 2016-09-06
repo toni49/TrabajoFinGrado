@@ -41,12 +41,11 @@ public class Screen_ima extends View {
     private Bitmap Bitma = null;
 
 
-    private Rect Rect1, Rect2;
     private BitArea x1, x2, x3, x4;
-    private float w, h;
     private int valor = 1;
-    int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
-    MainActivity main = new MainActivity();
+    int check1 = 0, check2 = 0, check3 = 0;
+    int fail = 0;
+    Mostrar_nivel mostrar = new Mostrar_nivel();
 
 
     public Screen_ima(Context context, Activity activity) {
@@ -131,11 +130,6 @@ public class Screen_ima extends View {
         ping3_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping3_sp);
 
 
-
-
-
-
-
         mSquarePaint = new Paint();
         mSquarePaint.setColor(Color.GREEN);
         mSquarePaint.setStyle(Paint.Style.FILL);
@@ -162,37 +156,15 @@ public class Screen_ima extends View {
         Square_stroke.setStyle(Paint.Style.STROKE);
         Square_stroke.setStrokeWidth(5);
         Square_stroke.setColor(Color.RED);
-        setBackgroundResource(R.drawable.fondo_hielo);
+        setBackgroundResource(R.drawable.madera_1);
 
-        //Cirulos fijos
-        // canv.drawCircle(200, 200, 180, mFondoPaint);
-        // canv.drawCircle(200, 200, 180, Circle_stroke);
-
-        //cuadrados fijos.
-        /*canv.drawRect(100, 100, 250, 250, mFondoPaint);
-        canv.drawRect(100, 100, 250, 250, Square_stroke);
-        canv.drawRect(400, 100, 600, 300, mFondoPaint);
-        canv.drawRect(400, 100, 600, 300, Square_stroke);
-        canv.drawRect(800, 100, 1050, 350, mFondoPaint);
-        canv.drawRect(800, 100, 1050, 350, Square_stroke);
-        canv.drawRect(1300, 100, 1600, 400, mFondoPaint);
-        canv.drawRect(1300, 100, 1600, 400, Square_stroke);*/
-
-
-      /*  Rect_stroke = new Paint();
-        Rect_stroke.setStyle(Paint.Style.STROKE);
-        Rect_stroke.setStrokeWidth(5);
-        Rect_stroke.setColor(Color.RED);*/
-
-        // canv.drawCircle(1200, 200, 120, mFondoPaint);
-        // canv.drawCircle(1200, 200, 120, Rect_stroke);
 
 
         //Texto indicativo.
         Paint paintText = new Paint();
-        paintText.setTextSize(30);
+        paintText.setTextSize(40);
         paintText.setColor(Color.BLACK);
-        paintText.setStrokeWidth(5);
+        paintText.setStrokeWidth(7);
         String texto = "COLOQUE LAS FICHAS";
         canv.drawText(texto, 750, 900, paintText);
 
@@ -218,11 +190,11 @@ public class Screen_ima extends View {
 
         for (BitArea imagen : mBit) {
             if (imagen.num == 1)
-                canv.drawBitmap(ping_1, imagen.leftX, imagen.leftY, mRectPaint);
+                canv.drawBitmap(ping_1, imagen.leftX, imagen.leftY, null);
             else if (imagen.num == 2)
-                canv.drawBitmap(ping_2, imagen.leftX, imagen.leftY, mRectPaint);
+                canv.drawBitmap(ping_2, imagen.leftX, imagen.leftY, null);
             else
-                canv.drawBitmap(ping_3, imagen.leftX, imagen.leftY, mRectPaint);
+                canv.drawBitmap(ping_3, imagen.leftX, imagen.leftY, null);
 
 
         }
@@ -342,6 +314,13 @@ public class Screen_ima extends View {
                         check2 = 0;
                         check3 = 0;
                         Log.w(TAG, "funcionando");
+                        mostrar.set_fallos(fail);
+                        mostrar.set_nivel(4);
+                        Screen_5 screen_5 = new Screen_5(getContext(), newActivity);
+                        screen_5.destroyDrawingCache();
+
+                        Intent intent = new Intent(getContext(), Level.class);
+                        newActivity.startActivity(intent);
                         /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
                         x1 = obtainTouchedSquare(1200, 200);
                         x2 = obtainTouchedSquare(200, 200);*/
@@ -350,6 +329,14 @@ public class Screen_ima extends View {
                         //animation.start();
                         // playActivity.setContentView();
                     }
+                    else
+                    {
+                        fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
+                        String fallo = Integer.toString(fail);
+                        Log.w(fallo, "numero de fallos");
+                        invalidate();
+                    }
+
                 } else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
                     Log.w(TAG, "PULSADO PAUSE");
 

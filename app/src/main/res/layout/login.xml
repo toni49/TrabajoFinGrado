@@ -4,7 +4,7 @@
     android:paddingTop="50dp"
     android:paddingLeft="50dp"
     android:paddingRight="50dp"
-    android:background="@drawable/fondo_morado"
+    android:background="@drawable/fondo_espacial"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:clickable="true">
@@ -12,7 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:src="@drawable/ping_1"
+        android:src="@drawable/testea"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal" />
 
@@ -25,8 +25,9 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Usuario:"
-        android:textSize="30dp"
-        android:id="@+id/textView" />
+        android:textSize="25dp"
+        android:id="@+id/textView"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:layout_width="500dp"
@@ -36,7 +37,8 @@
         android:textSize="20dp"
         android:textColorHint="#000000"
         android:id="@+id/user_input"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:textColor="@color/material_deep_teal_500" />
 
     <TextView
         android:layout_width="match_parent"
@@ -44,9 +46,10 @@
         android:layout_gravity="center"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Contraseña:"
-        android:textSize="30dp"
+        android:textSize="25dp"
         android:paddingLeft="200dp"
-        android:id="@+id/textView2" />
+        android:id="@+id/textView2"
+        android:textColor="@android:color/white" />
 
     <EditText
         android:layout_width="500dp"
@@ -57,25 +60,28 @@
         android:textColorHint="#000000"
         android:inputType="textPassword"
         android:id="@+id/password_input"
-        android:layout_gravity="center" />
+        android:layout_gravity="center"
+        android:textColor="@color/material_deep_teal_500" />
 
     <Button
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:text="LOGIN"
+        android:text="Iniciar sesión"
         android:id="@+id/buttonLogin"
+        android:textSize="20dp"
         android:layout_gravity="center"
-        android:background="@color/rojo_2" />
+        android:background="@color/blue_1"
+        android:textColor="@android:color/black" />
 
     <Button
-        android:layout_width="200dp"
-        android:layout_height="30dp"
+        android:layout_width="250dp"
+        android:layout_height="35dp"
         android:layout_marginTop="20dp"
-        android:textSize="14dp"
+        android:textSize="16dp"
         android:text="Crear nuevo usuario"
         android:id="@+id/newuser"
         android:layout_gravity="center"
-        android:background="@color/bright_foreground_inverse_material_dark"
-        android:textColor="#f46666" />
+        android:background="@color/blue_1"
+        android:textColor="@android:color/black" />
 </LinearLayout>

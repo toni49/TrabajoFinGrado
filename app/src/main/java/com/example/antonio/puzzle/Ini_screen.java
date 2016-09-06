@@ -44,11 +44,46 @@ public class Ini_screen extends AppCompatActivity {
                     //tratar el error.
                 }
                 finally{
-                    onContinue();
+                    onPause();
                 }
 
             }
         };thread.start();
+    }
+
+    @Override
+    public void onResume()
+    {
+        super.onResume();
+        setContentView(R.layout.ini_screen);        //Iniciamos layout ini_screen
+
+        barra_progreso = (ProgressBar) findViewById(R.id.progressBar);
+
+        final Thread thread = new Thread() {
+
+            public void run() {
+                activo = true;
+                try{
+                    int waited = 0;
+                    while(activo && (waited < tiempoMax))
+                    {
+                        sleep(200);
+                        if(activo)
+                        {
+                            waited += 200;
+                            updateProgress(waited);
+                        }
+                    }
+                }catch(InterruptedException e){
+                    //tratar el error.
+                }
+                finally{
+                    onPause();
+                }
+
+            }
+        };thread.start();
+
     }
 
     public void updateProgress(final int tiempo)
@@ -59,8 +94,9 @@ public class Ini_screen extends AppCompatActivity {
         }
     }
 
-    public void onContinue()
+    public void onPause()
     {
+        super.onPause();
         Intent intent = new Intent(getApplicationContext(), MainActivity.class);    //Al finalizar la barra de progreso pasamos a la clase MainActivity donde esta el menu.
         Log.d(TAG, "La barra de progreso ha finalizado");
         startActivity(intent);

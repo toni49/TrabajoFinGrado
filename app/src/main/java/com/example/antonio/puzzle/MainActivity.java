@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -48,14 +49,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    @Override
+   /* @Override
     protected void onStart(){
         super.onStart();
 
         if(authenticate() == true){
             MostrarUsuario();
         }
-    }
+        else {
+            startActivity(new Intent(MainActivity.this, Login.class));
+        }
+
+    }*/
 
     private void MostrarUsuario(){
         User user = userLocalStore.getLoggedInUser();
@@ -71,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.button_start:
-                setContentView(new Screen_ima(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                setContentView(new Screen_6(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
                 break;
 
             case R.id.button_logout:
