@@ -3,10 +3,13 @@ package com.example.antonio.puzzle;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +34,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nivel);
 
+        final MediaPlayer correct = MediaPlayer.create(this, R.raw.correct);
 
         next_level = (Button) findViewById(R.id.button_next);
         salir = (Button) findViewById(R.id.button_exit);
@@ -46,6 +50,8 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
         String err = Integer.toString(fail);
 
+
+
         switch(y){
             case 1:
                 txt.setText("Nivel 1");
@@ -54,9 +60,11 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 valor = 1;
                 break;
             case 2:
+                correct.start();
                 txt.setText("Nivel 2");
                 txtfallos.setText("Número de fallos: " + err);
-                //imagen.setImageResource(R.drawable.);
+                imagen.setImageResource(R.drawable.ping_2);
+                slide(imagen);
                 valor = 2;
                 break;
             case 3:
@@ -80,6 +88,13 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
         }
 
+
+    }
+
+    public void slide(View view){
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
+        imagen.startAnimation(animation);
+        //imagen.setImageResource(R.drawable.ping_1);
 
     }
 

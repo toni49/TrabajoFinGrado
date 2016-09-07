@@ -17,6 +17,8 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -48,7 +50,7 @@ public class Screen_6 extends View {
     private Bitmap next_Bitmap = null;
     private Bitmap pause_Bitmap = null;
 
-    private CircleArea x1, x2, x3;
+    private CircleArea x1, x2, x3, x4;
     private float w, h;
     private int valor = 1;
     int check1 = 0, check2 = 0, check3 = 0;
@@ -59,6 +61,7 @@ public class Screen_6 extends View {
 
     public Screen_6(Context context, Activity activity) {
         super(context);
+
         newActivity = activity;
 
         init(context);
@@ -149,38 +152,38 @@ public class Screen_6 extends View {
         setBackgroundResource(R.drawable.madera_1);
 
         //Cirulos fijos
-        canv.drawCircle(400, 200, 140, mFondoPaint);
-        canv.drawCircle(400, 200, 140, stroke_blue);
+        canv.drawCircle(150, 200, 140, mFondoPaint);
+        canv.drawCircle(150, 200, 140, stroke_blue);
 
-        canv.drawCircle(1000, 200, 120, mFondoPaint);
-        canv.drawCircle(1000, 200, 120, stroke_blue);
+        canv.drawCircle(600, 200, 120, mFondoPaint);
+        canv.drawCircle(600, 200, 120, stroke_blue);
 
-        canv.drawCircle(1600, 200, 100, mFondoPaint);
-        canv.drawCircle(1600, 200, 100, stroke_blue);
+        canv.drawCircle(1100, 200, 100, mFondoPaint);
+        canv.drawCircle(1100, 200, 100, stroke_blue);
 
 
         //Texto indicativo.
         Paint paintText = new Paint();
-        paintText.setTextSize(50);
+        paintText.setTextSize(30);
         paintText.setColor(Color.BLACK);
-        paintText.setStrokeWidth(5);
+        paintText.setStrokeWidth(4);
         String texto = "COLOQUE LAS FICHAS";
-        canv.drawText(texto, 750, 900, paintText);
+        canv.drawText(texto, 450, 400, paintText);
 
         //imagen boton de checkeo
         // w = 1740;
         //  h = 790;
-        canv.drawBitmap(next_Bitmap, 1740, 790, null);
+        canv.drawBitmap(next_Bitmap, 1170, 600, null);
 
-        canv.drawBitmap(pause_Bitmap, 70, 790, null);
+        canv.drawBitmap(pause_Bitmap, 70, 600, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedCircle(1000, 600);
-        x2 = obtainTouchedCircle(1400, 600);
-        x3 = obtainTouchedCircle(600, 600);
-        x3 = obtainTouchedCircle(200, 600);
+        x1 = obtainTouchedCircle(1050, 580);
+        x2 = obtainTouchedCircle(800, 580);
+        x3 = obtainTouchedCircle(500, 580);
+        x4 = obtainTouchedCircle(250, 580);
 
 
 
@@ -257,36 +260,36 @@ public class Screen_6 extends View {
 
                     if(touchedCircle.radius == 140) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedCircle.centerX > 390) && (touchedCircle.centerX < 410) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 140) && (touchedCircle.centerX < 160) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
                             Log.w(TAG, "circulo 1");
 
-                            //if(check1 == 0)
                             check1 = 1;
 
-                        } else
-                            check1 = 0;
+                        }
+
                     }
 
                     if(touchedCircle.radius == 120) {
 
-                        if ((touchedCircle.centerX > 990) && (touchedCircle.centerX < 1010) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 590) && (touchedCircle.centerX < 610) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
                             Log.w(TAG, "circulo 2");
 
                             check2 = 1;
 
-                        } else
-                            check2 = 0;
+                        }
+
                     }
 
                     if(touchedCircle.radius == 100) {
 
-                        if ((touchedCircle.centerX > 1590) && (touchedCircle.centerX < 1610) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
-                            Log.w(TAG, "circulo 2");
+
+                        if ((touchedCircle.centerX > 1090) && (touchedCircle.centerX < 1110) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                            Log.w(TAG, "circulo 3");
 
                             check3 = 1;
 
-                        } else
-                            check3 = 0;
+                        }
+
                     }
 
 
@@ -300,7 +303,7 @@ public class Screen_6 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
+                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -331,14 +334,20 @@ public class Screen_6 extends View {
                     }
                     else
                     {
+
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        mCircles.clear();
+                        x1 = obtainTouchedCircle(1050, 580);
+                        x2 = obtainTouchedCircle(800, 580);
+                        x3 = obtainTouchedCircle(500, 580);
+                        x4 = obtainTouchedCircle(250, 580);
                         invalidate();
                     }
                 }
 
-                else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -374,11 +383,11 @@ public class Screen_6 extends View {
     /**
      * Clears all CircleArea - pointer id relations
      */
-  /*  private void clearCirclePointer() {
+   private void clearCirclePointer() {
         Log.w(TAG, "clearCirclePointer");
 
         mCirclePointer.clear();
-    }*/
+    }
 
     /**
      * Search and creates new (if needed) circle based on touch area
