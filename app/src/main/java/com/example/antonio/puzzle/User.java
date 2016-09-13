@@ -6,17 +6,11 @@ package com.example.antonio.puzzle;
 public class User {
 
     String username, password;
-    int age;
 
-    public User(String username, String password, int age) {
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-        this.age = age;
 
     }
 
-    public User(String username, String password){
-        this.username = username;
-        this.password = password;
-    }
 }

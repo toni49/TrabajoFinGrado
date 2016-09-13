@@ -198,41 +198,41 @@ public class Screen_2 extends View {
 
                 setBackgroundResource(R.drawable.madera_1);
 
-                canv.drawCircle(200, 200, 100, whitePaint);
-                canv.drawCircle(200, 200, 100, blue_Stroke);
+                canv.drawCircle(150, 150, 100, whitePaint);
+                canv.drawCircle(150, 150, 100, blue_Stroke);
 
-                canv.drawCircle(1200, 200, 120, whitePaint);
-                canv.drawCircle(1200, 200, 120, yellow_Stroke);
+                canv.drawCircle(750, 150, 100, whitePaint);
+                canv.drawCircle(750, 150, 100, yellow_Stroke);
 
-                canv.drawRect(550,110, 750, 310, whitePaint);
-                canv.drawRect(550,110, 750, 310, red_stroke);
+                canv.drawRect(350, 60, 550, 260, whitePaint);
+                canv.drawRect(350, 60, 550, 260, red_stroke);
 
-                canv.drawRect(1600,110, 1800, 310, whitePaint);
-                canv.drawRect(1600,110, 1800, 310, green_Stroke);
+                canv.drawRect(950, 60, 1150, 260, whitePaint);
+                canv.drawRect(950, 60, 1150, 260, green_Stroke);
 
 
 
                 //Texto indicativo.
-                Paint paintText = new Paint();
+               /* Paint paintText = new Paint();
                 paintText.setTextSize(50);
                 paintText.setColor(Color.BLACK);
                 paintText.setStrokeWidth(7);
                 String texto = "COLOQUE LAS FICHAS";
-                canv.drawText(texto, 750, 800, paintText);
+                canv.drawText(texto, 750, 800, paintText);*/
 
                 //imagen boton de checkeo
 
-                canv.drawBitmap(next_Bitmap, 1740, 790, null);
-                canv.drawBitmap(pause_Bitmap, 70, 790, null);
+                canv.drawBitmap(next_Bitmap, 1170, 600, null);
+                canv.drawBitmap(pause_Bitmap, 70, 600, null);
 
 
 
                 // Posición inicial de figuras dinámicas
 
-                s1 = obtainTouchedSquare(200, 600);
-                s2 = obtainTouchedSquare(500, 600);
-                x1 = obtainTouchedCircle(1400, 700);
-                x2 = obtainTouchedCircle(1700, 700);
+                s1 = obtainTouchedSquare(950, 400);
+                s2 = obtainTouchedSquare(900, 400);
+                x1 = obtainTouchedCircle(600, 400);
+                x2 = obtainTouchedCircle(700, 500);
 
 
                 for (SquareArea square: mSquare) {
@@ -327,38 +327,34 @@ public class Screen_2 extends View {
                             }
 
                             //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                            if (touchedCircle.radius == 120) {
+                            if (touchedCircle.num == 1) {
 
-                                if ((touchedCircle.centerX > 1190) && (touchedCircle.centerX < 1210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210))
+                                if ((touchedCircle.centerX > 730) && (touchedCircle.centerX < 770) && (touchedCircle.centerY > 130) && (touchedCircle.centerY < 170))
                                     check3 = 1;
-                                else
-                                    check3 = 0;
+
                             }
 
-                            if (touchedCircle.radius == 100) {
+                            if (touchedCircle.num == 2) {
 
-                                if ((touchedCircle.centerX > 190) && (touchedCircle.centerX < 210) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210))
+                                if ((touchedCircle.centerX > 130) && (touchedCircle.centerX < 170) && (touchedCircle.centerY > 130) && (touchedCircle.centerY < 170))
                                     check1 = 1;
-                                else
-                                    check1 = 0;
+
                             }
 
 
                             if (touchedSquare.num == 3) {
 
-                                if ((touchedSquare.leftX > 540) && (touchedSquare.leftX < 560) && (touchedSquare.leftY > 100) && (touchedSquare.leftY < 120))
+                                if ((touchedSquare.leftX > 330) && (touchedSquare.leftX < 370) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 90))
                                     check2 = 1;
-                                else
-                                    check2 = 0;
+
 
                             }
 
                             if (touchedSquare.num == 4) {
 
-                                if ((touchedSquare.leftX > 1590) && (touchedSquare.leftX < 1610) && (touchedSquare.leftY > 100) && (touchedSquare.leftY < 120))
+                                if ((touchedSquare.leftX > 930) && (touchedSquare.leftX < 980) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 90))
                                     check4 = 1;
-                                else
-                                    check4 = 0;
+
                             }
 
 
@@ -372,7 +368,7 @@ public class Screen_2 extends View {
                         xTouch = (int) event.getX(0);
                         yTouch = (int) event.getY(0);
 
-                        if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
+                        if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
                             Log.w(TAG, "PULSADO");
                             String num = Integer.toString(check1);
                             String num1 = Integer.toString(check2);
@@ -393,19 +389,26 @@ public class Screen_2 extends View {
 
                                 Log.w(TAG, "funcionando");
                                 mostrar.set_fallos(fail);
-                                mostrar.set_nivel(2);
+                                //mostrar.set_nivel(2);
 
-                                Screen_5 screen_5 = new Screen_5(getContext(), newActivity);
-                                screen_5.destroyDrawingCache();
+                                Screen_3 screen_3 = new Screen_3(getContext(), newActivity);
+                                newActivity.setContentView(screen_3);
 
-                                Intent intent = new Intent(getContext(), Level.class);
-                                newActivity.startActivity(intent);
+
+                                //Intent intent = new Intent(getContext(), Level.class);
+                                //newActivity.startActivity(intent);
 
                             }
                             else {
                                 fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                                 String fallo = Integer.toString(fail);
                                 Log.w(fallo, "numero de fallos");
+                                mCircles.clear();
+                                mSquare.clear();
+                                s1 = obtainTouchedSquare(950, 400);
+                                s2 = obtainTouchedSquare(900, 400);
+                                x1 = obtainTouchedCircle(600, 400);
+                                x2 = obtainTouchedCircle(700, 500);
                                 invalidate();
                             }
 
@@ -413,7 +416,7 @@ public class Screen_2 extends View {
 
                         }
 
-                        else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                        else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
                             Log.w(TAG, "PULSADO PAUSE");
 
                             newActivity.setContentView(R.layout.activity_main);
@@ -464,7 +467,7 @@ public class Screen_2 extends View {
             switch(valor) {
 
                 case 1:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 120, 1);
+                    touchedCircle = new CircleArea(xTouch, yTouch, 100, 1);
                     valor = 2;
                     break;
                 case 2:

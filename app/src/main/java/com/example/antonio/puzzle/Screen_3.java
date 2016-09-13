@@ -53,10 +53,10 @@ public class Screen_3 extends View {
 
 
     private Rect Rect1, Rect2;
-    private CircleArea x1, x2, x3;
+    private CircleArea x1, x2, x3, x4, x5;
     private float w, h;
     private int valor = 1;
-    int check1 = 0, check2 = 0, check3 = 0;
+    int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0;
     int fail = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
     MainActivity main = new MainActivity();
@@ -101,16 +101,12 @@ public class Screen_3 extends View {
     }
 
 
-    private Paint mCirclePaint;
-    private Paint stroke_blue;
-    private Paint mSquarePaint;
-    private Paint stroke_yellow;
-    private Paint mRectPaint;
-    private Paint stroke_red;
+    private Paint redPaint, bluePaint, yellowPaint, greenPaint, grayPaint;
+    private Paint yellow_Stroke, blue_Stroke, red_stroke, green_Stroke, white_Stroke, gray_Stroke;
     private Paint mFondoPaint;
-    private Paint yellowPaint;
 
-    private static final int CIRCLES_LIMIT = 2;
+
+    private static final int CIRCLES_LIMIT = 5;
 
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
@@ -123,90 +119,122 @@ public class Screen_3 extends View {
         pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
 
 
-        mSquarePaint = new Paint();
-        mSquarePaint.setColor(Color.GREEN);
-        mSquarePaint.setStyle(Paint.Style.FILL);
+        greenPaint = new Paint();
+        greenPaint.setColor(Color.GREEN);
+        greenPaint.setStyle(Paint.Style.FILL);
 
-        mCirclePaint = new Paint();
-        mCirclePaint.setColor(Color.BLUE);
-        mCirclePaint.setStyle(Paint.Style.FILL);
+        bluePaint = new Paint();
+        bluePaint.setColor(Color.BLUE);
+        bluePaint.setStyle(Paint.Style.FILL);
 
-        mRectPaint = new Paint();
-        mRectPaint.setColor(Color.RED);
-        mRectPaint.setStyle(Paint.Style.FILL);
+        redPaint = new Paint();
+        redPaint.setColor(Color.RED);
+        redPaint.setStyle(Paint.Style.FILL);
 
         yellowPaint = new Paint();
         yellowPaint.setColor(Color.YELLOW);
         yellowPaint.setStyle(Paint.Style.FILL);
 
+        grayPaint = new Paint();
+        grayPaint.setColor(Color.GRAY);
+        grayPaint.setStyle(Paint.Style.FILL);
 
         mFondoPaint = new Paint();
         mFondoPaint.setColor(Color.WHITE);
         mFondoPaint.setStyle(Paint.Style.FILL);
+
+        red_stroke = new Paint();
+        red_stroke.setStyle(Paint.Style.STROKE);
+        red_stroke.setStrokeWidth(7);
+        red_stroke.setColor(Color.RED);
+
+        green_Stroke = new Paint();
+        green_Stroke.setStyle(Paint.Style.STROKE);
+        green_Stroke.setStrokeWidth(7);
+        green_Stroke.setColor(Color.GREEN);
+
+        yellow_Stroke = new Paint();
+        yellow_Stroke.setStyle(Paint.Style.STROKE);
+        yellow_Stroke.setStrokeWidth(7);
+        yellow_Stroke.setColor(Color.YELLOW);
+
+        blue_Stroke = new Paint();
+        blue_Stroke.setStyle(Paint.Style.STROKE);
+        blue_Stroke.setStrokeWidth(7);
+        blue_Stroke.setColor(Color.BLUE);
+
+        gray_Stroke = new Paint();
+        gray_Stroke.setStyle(Paint.Style.STROKE);
+        gray_Stroke.setStrokeWidth(7);
+        gray_Stroke.setColor(Color.GRAY);
+
+        white_Stroke = new Paint();
+        white_Stroke.setStyle(Paint.Style.STROKE);
+        white_Stroke.setStrokeWidth(7);
+        white_Stroke.setColor(Color.WHITE);
 
     }
 
     @Override
     public void onDraw(final Canvas canv) {
 
-        stroke_blue = new Paint();
-        stroke_blue.setStyle(Paint.Style.STROKE);
-        stroke_blue.setStrokeWidth(7);
-        stroke_blue.setColor(Color.BLUE);
+
         setBackgroundResource(R.drawable.madera_1);
 
         //Cirulos fijos
-        canv.drawCircle(400, 200, 180, mFondoPaint);
-        canv.drawCircle(400, 200, 180, stroke_blue);
+        canv.drawCircle(120, 150, 60, mFondoPaint);
+        canv.drawCircle(120, 150, 60, blue_Stroke);
 
-        stroke_red = new Paint();
-        stroke_red.setStyle(Paint.Style.STROKE);
-        stroke_red.setStrokeWidth(7);
-        stroke_red.setColor(Color.RED);
+        canv.drawCircle(280, 150, 80, mFondoPaint);
+        canv.drawCircle(280, 150, 80, red_stroke);
 
-        canv.drawCircle(1000, 200, 120, mFondoPaint);
-        canv.drawCircle(1000, 200, 120, stroke_red);
+        canv.drawCircle(480, 150, 100, mFondoPaint);
+        canv.drawCircle(480, 150, 100, yellow_Stroke);
 
-        stroke_yellow = new Paint();
-        stroke_yellow.setStyle(Paint.Style.STROKE);
-        stroke_yellow.setStrokeWidth(7);
-        stroke_yellow.setColor(Color.YELLOW);
+        canv.drawCircle(720, 150, 120, mFondoPaint);
+        canv.drawCircle(720, 150, 120, green_Stroke);
 
-        canv.drawCircle(1600, 200, 80, mFondoPaint);
-        canv.drawCircle(1600, 200, 80, stroke_yellow);
+        canv.drawCircle(1000, 170, 150, mFondoPaint);
+        canv.drawCircle(1000, 170, 150, gray_Stroke);
 
 
         //Texto indicativo.
-        Paint paintText = new Paint();
+       /* Paint paintText = new Paint();
         paintText.setTextSize(50);
         paintText.setColor(Color.BLACK);
         paintText.setStrokeWidth(5);
         String texto = "COLOQUE LAS FICHAS";
-        canv.drawText(texto, 750, 900, paintText);
+        canv.drawText(texto, 750, 900, paintText);*/
 
         //imagen boton de checkeo
        // w = 1740;
       //  h = 790;
-        canv.drawBitmap(next_Bitmap, 1740, 790, null);
-
-        canv.drawBitmap(pause_Bitmap, 70, 790, null);
+        canv.drawBitmap(next_Bitmap, 1170, 600, null);
+        canv.drawBitmap(pause_Bitmap, 70, 600, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedCircle(1000, 600);
-        x2 = obtainTouchedCircle(1400, 600);
-        x3 = obtainTouchedCircle(600, 600);
+        x1 = obtainTouchedCircle(400, 600);
+        x2 = obtainTouchedCircle(450, 600);
+        x3 = obtainTouchedCircle(600, 500);
+        x4 = obtainTouchedCircle(700, 600);
+        x5 = obtainTouchedCircle(300, 500);
 
 
 
         for (CircleArea circle : mCircles) {
-            if(circle.radius==180)
-                canv.drawCircle(circle.centerX, circle.centerY, 180, mCirclePaint);
-            else if(circle.radius == 120)
-                canv.drawCircle(circle.centerX, circle.centerY, 120, mRectPaint);
+            if(circle.radius==60)
+                canv.drawCircle(circle.centerX, circle.centerY, 60, bluePaint);
+            else if(circle.radius == 80)
+                canv.drawCircle(circle.centerX, circle.centerY, 80, redPaint);
+            else if (circle.radius == 100)
+                canv.drawCircle(circle.centerX, circle.centerY, 100, yellowPaint);
+            else if (circle.radius == 120)
+                canv.drawCircle(circle.centerX, circle.centerY, 120, greenPaint);
             else
-                canv.drawCircle(circle.centerX, circle.centerY, 80, yellowPaint);
+                canv.drawCircle(circle.centerX, circle.centerY, 150, grayPaint);
+
 
 
         }
@@ -269,38 +297,55 @@ public class Screen_3 extends View {
                     }
 
 
-                    if(touchedCircle.radius == 180) {
+                    if(touchedCircle.radius == 60) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedCircle.centerX > 390) && (touchedCircle.centerX < 410) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 110) && (touchedCircle.centerX < 130) && (touchedCircle.centerY > 140) && (touchedCircle.centerY < 160)) {
                             Log.w(TAG, "circulo 1");
 
                             //if(check1 == 0)
                             check1 = 1;
 
-                        } else
-                            check1 = 0;
-                    }
-
-                    if(touchedCircle.radius == 120) {
-
-                        if ((touchedCircle.centerX > 990) && (touchedCircle.centerX < 1010) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
-                            Log.w(TAG, "circulo 2");
-
-                            check2 = 1;
-
-                        } else
-                            check2 = 0;
+                        }
                     }
 
                     if(touchedCircle.radius == 80) {
 
-                        if ((touchedCircle.centerX > 1590) && (touchedCircle.centerX < 1610) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 270) && (touchedCircle.centerX < 290) && (touchedCircle.centerY > 140) && (touchedCircle.centerY < 160)) {
+                            Log.w(TAG, "circulo 2");
+
+                            check2 = 1;
+
+                        }
+                    }
+
+                    if(touchedCircle.radius == 100) {
+
+                        if ((touchedCircle.centerX > 470) && (touchedCircle.centerX < 490) && (touchedCircle.centerY > 140) && (touchedCircle.centerY < 160)) {
                             Log.w(TAG, "circulo 2");
 
                             check3 = 1;
+                        }
 
-                        } else
-                            check3 = 0;
+                    }
+
+                    if(touchedCircle.radius == 120) {
+
+                        if ((touchedCircle.centerX > 700) && (touchedCircle.centerX < 740) && (touchedCircle.centerY > 140) && (touchedCircle.centerY < 160)) {
+                            Log.w(TAG, "circulo 2");
+
+                            check4 = 1;
+                        }
+
+                    }
+
+                    if(touchedCircle.radius == 150) {
+
+                        if ((touchedCircle.centerX > 980) && (touchedCircle.centerX < 1020) && (touchedCircle.centerY > 150) && (touchedCircle.centerY < 190)) {
+                            Log.w(TAG, "circulo 2");
+
+                            check5 = 1;
+                        }
+
                     }
 
 
@@ -314,7 +359,7 @@ public class Screen_3 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
+                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -326,12 +371,14 @@ public class Screen_3 extends View {
 
 
                     //check = Comprobar();
-                    if ((check1 == 1) && (check2 == 1) && (check3 == 1)) {
+                    if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1)) {
                         check1 = 0;
                         check2 = 0;
                         check3 = 0;
+                        check4 = 0;
+                        check5 = 0;
                         mostrar.set_fallos(fail);
-                        mostrar.set_nivel(2);
+                        mostrar.set_nivel(1);
                         Log.w(TAG, "funcionando");
 
 
@@ -348,11 +395,17 @@ public class Screen_3 extends View {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        mCircles.clear();
+                        x1 = obtainTouchedCircle(400, 600);
+                        x2 = obtainTouchedCircle(450, 600);
+                        x3 = obtainTouchedCircle(600, 500);
+                        x4 = obtainTouchedCircle(700, 600);
+                        x5 = obtainTouchedCircle(300, 500);
                         invalidate();
                     }
                 }
 
-                else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -410,24 +463,34 @@ public class Screen_3 extends View {
             switch(valor) {
 
                 case 1:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 120, 0);
+                    touchedCircle = new CircleArea(xTouch, yTouch, 60, 0);
                     valor = 2;
                     break;
 
                 case 2:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 180, 0);
+                    touchedCircle = new CircleArea(xTouch, yTouch, 80, 0);
                     valor = 3;
                     break;
 
                 case 3:
-                    touchedCircle = new CircleArea(xTouch, yTouch, 80, 0);
+                    touchedCircle = new CircleArea(xTouch, yTouch, 100, 0);
+                    valor = 4;
+                    break;
+
+                case 4:
+                    touchedCircle = new CircleArea(xTouch, yTouch, 120, 0);
+                    valor = 5;
+                    break;
+
+                case 5:
+                    touchedCircle = new CircleArea(xTouch, yTouch, 150, 0);
                     valor = 1;
                     break;
 
 
             }
 
-            if (mCircles.size() < 3) {
+            if (mCircles.size() < 5) {
                 Log.w(TAG, "Added circle " + touchedCircle);
                 mCircles.add(touchedCircle);
             }

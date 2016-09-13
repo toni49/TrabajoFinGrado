@@ -32,13 +32,12 @@ public class Screen_ima3 extends View {
     public Canvas canvas;
     // Activity de la clase Play
     private Activity newActivity = null;
-    public Ini_screen finish;
     /**
      * Main bitmap
      */
     private Bitmap coche_rojo_sp = null, coche_rojo = null, coche_azul_sp = null, coche_azul = null, coche_amarillo = null, coche_amarillo_sp = null;
     private Bitmap pause_Bitmap = null, next_Bitmap = null;
-    private Bitmap Bitma = null;
+
 
 
     private BitArea x1, x2, x3, x4;
@@ -168,20 +167,20 @@ public class Screen_ima3 extends View {
         canv.drawText(texto, 750, 900, paintText);
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1740, 790, null);
-        canv.drawBitmap(pause_Bitmap, 70, 790, null);
+        canv.drawBitmap(next_Bitmap, 1170, 600, null);
+        canv.drawBitmap(pause_Bitmap, 70, 600, null);
 
         //silueta de las imagenes
         canv.drawBitmap(coche_amarillo_sp, 50, 80, null);
         canv.drawBitmap(coche_azul_sp, 50, 350, null);
-        canv.drawBitmap(coche_rojo_sp, 850, 80, null);
+        canv.drawBitmap(coche_rojo_sp, 650, 80, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedBit(1200, 350);
-        x2 = obtainTouchedBit(1200, 400);
-        x3 = obtainTouchedBit(1200, 500);
+        x1 = obtainTouchedBit(700, 300);
+        x2 = obtainTouchedBit(700, 400);
+        x3 = obtainTouchedBit(700, 500);
 
 
         for (BitArea imagen : mBit) {
@@ -254,12 +253,10 @@ public class Screen_ima3 extends View {
 
                     if (touchedBit.num == 1) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedBit.leftX > 840) && (touchedBit.leftX < 860) && (touchedBit.leftY > 70) && (touchedBit.leftY < 90)) {
+                        if ((touchedBit.leftX > 640) && (touchedBit.leftX < 660) && (touchedBit.leftY > 70) && (touchedBit.leftY < 90)) {
                             Log.w(TAG, "circulo 1");
                             check1 = 1;
-
-                        } else
-                            check1 = 0;
+                        }
                     }
 
                     if (touchedBit.num == 2) {
@@ -268,9 +265,7 @@ public class Screen_ima3 extends View {
                             Log.w(TAG, "circulo 2");
 
                             check2 = 1;
-
-                        } else
-                            check2 = 0;
+                        }
                     }
 
                     if (touchedBit.num == 3) {
@@ -279,9 +274,7 @@ public class Screen_ima3 extends View {
                             Log.w(TAG, "circulo 2");
 
                             check3 = 1;
-
-                        } else
-                            check3 = 0;
+                        }
                     }
 
 
@@ -294,7 +287,7 @@ public class Screen_ima3 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
+                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num1 = Integer.toString(check1);
                     String num2 = Integer.toString(check2);
@@ -311,7 +304,7 @@ public class Screen_ima3 extends View {
                         check3 = 0;
                         Log.w(TAG, "funcionando");
                         mostrar.set_fallos(fail);
-                        mostrar.set_nivel(6);
+                        mostrar.set_nivel(3);
                         Screen_ima screen_ima = new Screen_ima(getContext(), newActivity);
                         screen_ima.destroyDrawingCache();
 
@@ -328,10 +321,14 @@ public class Screen_ima3 extends View {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        mBit.clear();
+                        x1 = obtainTouchedBit(700, 300);
+                        x2 = obtainTouchedBit(700, 400);
+                        x3 = obtainTouchedBit(700, 500);
                         invalidate();
                     }
 
-                } else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                } else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -367,11 +364,11 @@ public class Screen_ima3 extends View {
     /**
      * Clears all CircleArea - pointer id relations
      */
-  /*  private void clearCirclePointer() {
-        Log.w(TAG, "clearCirclePointer");
+    private void clearBitPointer() {
+        Log.w(TAG, "clear BitPointer");
 
-        mCirclePointer.clear();
-    }*/
+        mBitPointer.clear();
+    }
 
     /**
      * Search and creates new (if needed) circle based on touch area
@@ -426,7 +423,7 @@ public class Screen_ima3 extends View {
         BitArea touched = null;
 
         for (BitArea imagen : mBit) {
-            if ((imagen.leftX < xTouch) && ((imagen.leftX + 660) > xTouch) && (imagen.leftY < yTouch) && ((imagen.leftY + 200) > yTouch)) {
+            if ((imagen.leftX < xTouch) && ((imagen.leftX + 500) > xTouch) && (imagen.leftY < yTouch) && ((imagen.leftY + 100) > yTouch)) {
                 touched = imagen;
                 break;
             }

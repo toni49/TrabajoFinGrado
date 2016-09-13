@@ -3,10 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="blue_1">#768fc2</color>
+    <color name="blue_1">#8da6d5</color>
     <color name="red_1">#ca195a</color>
-    <color name="rojo_1">#851b1b</color>
+    <color name="rojo_1">#910202</color>
     <color name="rojo_2">#8d8989</color>
     <color name="gris_1">#8d8989</color>
     <color name="red_2">#e93f1d</color>
+    <color name="blue_2">#5178c7</color>
+    <color name="blue_3">#2e5196</color>
+    <color name="nivel_1">#3d91cd</color>
+    <color name="nivel_2">#17ab2b</color>
+    <color name="nivel_3">#f7131e</color>
 </resources>

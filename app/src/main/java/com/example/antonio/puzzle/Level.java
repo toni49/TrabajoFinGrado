@@ -21,7 +21,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
     String TAG = "class level";
     TextView txt, txtfallos;
-    ImageView imagen;
+    ImageView imagen, imagen2, imagen3, imagen4, flash_stars;
     Button next_level, salir;
     int valor = 0;
 
@@ -41,6 +41,11 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         txt = (TextView) findViewById(R.id.texto1);
         txtfallos = (TextView) findViewById(R.id.text_fallos);
         imagen = (ImageView) findViewById(R.id.imageView4);
+        imagen2 = (ImageView) findViewById(R.id.imageStar1);
+        imagen3 = (ImageView) findViewById(R.id.imageStar2);
+        imagen4 = (ImageView)findViewById(R.id.imageStar3);
+        flash_stars = (ImageView)findViewById(R.id.imageStars);
+
 
         next_level.setOnClickListener(this);
         salir.setOnClickListener(this);
@@ -54,8 +59,13 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
         switch(y){
             case 1:
+                correct.start();
                 txt.setText("Nivel 1");
                 txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen2);
+                move(flash_stars);
                 //imagen.setImageResource(R.drawable.);
                 valor = 1;
                 break;
@@ -63,24 +73,16 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 correct.start();
                 txt.setText("Nivel 2");
                 txtfallos.setText("Número de fallos: " + err);
-                imagen.setImageResource(R.drawable.ping_2);
-                slide(imagen);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                imagen3.setImageResource(R.drawable.yellow_star);
+                zoom(imagen3);
+                //slide(imagen);
                 valor = 2;
                 break;
             case 3:
                 txt.setText("Nivel 3");
                 txtfallos.setText("Número de fallos: " + err);
                 valor = 3;
-                break;
-            case 4:
-                txt.setText("Nivel 4");
-                txtfallos.setText("Número de fallos: " + err);
-                valor = 4;
-                break;
-            case 5:
-                txt.setText("Nivel 5");
-                txtfallos.setText("Número de fallos: " + err);
-                valor = 5;
                 break;
             default:
                 txt.setText("Nivel --");
@@ -91,11 +93,14 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    public void slide(View view){
-        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.slide_down);
-        imagen.startAnimation(animation);
-        //imagen.setImageResource(R.drawable.ping_1);
+    public void zoom(View view){
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.zoom_in);
+        view.startAnimation(animation);
+    }
 
+    public void move(View view){
+        Animation animation = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.move);
+        view.startAnimation(animation);
     }
 
     @Override
@@ -103,13 +108,11 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         switch(v.getId()){
             case R.id.button_next:
                 if(valor == 1)
-                    setContentView(new Screen_3(getApplicationContext(), Level.this));
+                    setContentView(new Screen_6(getApplicationContext(), Level.this));
                 else if (valor == 2)
-                    setContentView(new Screen_4(getApplicationContext(), Level.this));
+                    setContentView(new Screen_ima(getApplicationContext(), Level.this));
                 else if (valor == 3)
                     setContentView(new Screen_ima(getApplicationContext(), Level.this));
-                else if (valor == 4)
-                    setContentView(new Screen_ima3(getApplicationContext(), Level.this));
                 break;
 
             case R.id.button_exit:

@@ -1,5 +1,10 @@
 <resources>
     <string name="app_name">TFG Antonio Sanz</string>
-    <string name="text_menu2">Comenzar</string>
+    <string name="text_menu1">Comenzar</string>
+    <string name="text_menu2">Elegir nivel</string>
     <string name="text_menu3">Salir</string>
+    <string name="text_nivel1">Nivel 1</string>
+    <string name="text_nivel2">Nivel 2</string>
+    <string name="text_nivel3">Nivel 3</string>
+
 </resources>

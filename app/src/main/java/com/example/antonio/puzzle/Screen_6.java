@@ -174,7 +174,6 @@ public class Screen_6 extends View {
         // w = 1740;
         //  h = 790;
         canv.drawBitmap(next_Bitmap, 1170, 600, null);
-
         canv.drawBitmap(pause_Bitmap, 70, 600, null);
 
 
@@ -323,13 +322,15 @@ public class Screen_6 extends View {
                         mostrar.set_nivel(2);
                         Log.w(TAG, "funcionando");
 
+                        Screen_5 screen_5 = new Screen_5(getContext(), newActivity);
+                        newActivity.setContentView(screen_5);
 
                         // mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
                         // x1 = obtainTouchedCircle(1200, 200);
                         // x2 = obtainTouchedCircle(200, 200);
                         // x1 = obtainTouchedCircle(1200, 200);
-                        Intent intent = new Intent(getContext(), Level.class);
-                        newActivity.startActivity(intent);
+                        //Intent intent = new Intent(getContext(), Level.class);
+                        //newActivity.startActivity(intent);
 
                     }
                     else

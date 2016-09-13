@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9590f8"
+    android:background="@drawable/fondo_espacial"
     android:weightSum="1">
 
     <TextView
@@ -22,11 +22,11 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="600dp"
-        android:background="#777070"
+        android:background="@color/rojo_1"
         android:text="Salir"
         android:textSize="20dp"
         android:id="@+id/button_exit"
-        android:textColor="#f6f1f1"
+        android:textColor="@color/primary_dark_material_dark"
         android:foregroundTint="@color/abc_input_method_navigation_guard" />
 
     <Button
@@ -34,12 +34,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
         android:layout_marginLeft="1000dp"
-        android:background="#777070"
+        android:background="@color/rojo_1"
         android:text="Siguiente Nivel"
         android:textSize="20dp"
         android:id="@+id/button_next"
         android:layout_gravity="right"
-        android:textColor="#f6f1f1"
+        android:textColor="@color/primary_dark_material_dark"
         android:backgroundTintMode="add" />
 
     <ImageView
@@ -65,6 +65,44 @@
         android:layout_toRightOf="@+id/button_exit"
         android:layout_toEndOf="@+id/button_exit" />
 
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="240dp"
+        android:id="@+id/imageStar1"
+        android:src="@drawable/black_star"
+        android:layout_alignBottom="@+id/button_exit"
+        android:layout_alignRight="@+id/texto1"
+        android:layout_alignEnd="@+id/texto1" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="120dp"
+        android:id="@+id/imageStar2"
+        android:src="@drawable/black_star"
+        android:layout_alignBottom="@+id/button_exit"
+        android:layout_alignRight="@+id/texto1"
+        android:layout_alignEnd="@+id/texto1" />
+
+    <ImageView
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginRight="0dp"
+        android:id="@+id/imageStar3"
+        android:src="@drawable/black_star"
+        android:layout_alignBottom="@+id/button_exit"
+        android:layout_alignRight="@+id/texto1"
+        android:layout_alignEnd="@+id/texto1" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageStars"
+        android:layout_marginTop="130dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

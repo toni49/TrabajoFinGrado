@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/fondo_espacial">
+    android:background="@drawable/madera_1">
 
 
     <TextView
@@ -36,9 +36,9 @@
         android:layout_marginTop="140dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/text_menu1"
-        android:id="@+id/button_start"
-        android:background="@color/blue_1"
+        android:text="@string/text_nivel1"
+        android:id="@+id/button_1"
+        android:background="@color/nivel_1"
         android:textColor="@color/primary_dark_material_dark" />
 
     <Button
@@ -46,20 +46,20 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
-        android:text="@string/text_menu2"
-        android:id="@+id/button_nivel"
-        android:background="@color/blue_2"
+        android:text="@string/text_nivel2"
+        android:id="@+id/button_2"
+        android:background="@color/nivel_2"
         android:textColor="@color/primary_dark_material_dark" />
 
-        <Button
-            android:layout_width="400dp"
-            android:layout_marginTop="10dp"
-            android:layout_gravity="center"
-            android:layout_height="wrap_content"
-            android:text="@string/text_menu3"
-            android:id="@+id/button_logout"
-            android:background="@color/blue_3"
-            android:textColor="@color/primary_dark_material_dark" />
+    <Button
+        android:layout_width="400dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="@string/text_nivel3"
+        android:id="@+id/button_3"
+        android:background="@color/nivel_3"
+        android:textColor="@color/primary_dark_material_dark" />
 
 
 </LinearLayout>

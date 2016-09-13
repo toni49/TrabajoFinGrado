@@ -18,15 +18,19 @@ import org.apache.http.params.HttpParams;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONObject;
 
+
+
+
 import java.util.ArrayList;
+
 
 /**
  * Created by antonio on 8/3/16.
  */
-public class ServerRequests {
+public class ServerRequests{
     ProgressDialog progressDialog;
     public static final int CONNECTION_TIME = 1000 * 15; //15 segundos
-    public static final String SERVER_ADDRESS = "http://";
+    public static final String SERVER_ADDRESS = "http://www.antoniosanz.comeze.com/";
 
     public ServerRequests(Context context)
     {
@@ -62,7 +66,6 @@ public class ServerRequests {
             ArrayList<NameValuePair> dataToSend = new ArrayList<>();
             dataToSend.add(new BasicNameValuePair("username", user.username));
             dataToSend.add(new BasicNameValuePair("password", user.password));
-            dataToSend.add(new BasicNameValuePair("edad", user.age + ""));
 
             HttpParams httpRequestParams = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(httpRequestParams, CONNECTION_TIME);
@@ -129,9 +132,8 @@ public class ServerRequests {
                 }
                 else {
                     String username = jObject.getString("username");
-                    int age = jObject.getInt("age");
 
-                    returnedUser = new User(user.username, user.password, age);
+                    returnedUser = new User(user.username, user.password);
                 }
             }
             catch (Exception e) {

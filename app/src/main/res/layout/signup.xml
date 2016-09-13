@@ -19,7 +19,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="100dp"
         android:layout_marginBottom="0dp"
         android:paddingLeft="200dp"
         android:layout_gravity="center"
@@ -40,29 +40,7 @@
         android:layout_gravity="center"
         android:textColor="@color/accent_material_light" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="0dp"
-        android:paddingLeft="200dp"
-        android:layout_gravity="center"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Edad:"
-        android:textSize="20dp"
-        android:id="@+id/textView8"
-        android:textColor="@android:color/white" />
 
-    <EditText
-        android:layout_width="500dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="5dp"
-        android:inputType="number"
-        android:ems="10"
-        android:id="@+id/date_sign"
-        android:layout_gravity="center"
-        android:textColor="@color/accent_material_light" />
 
     <TextView
         android:layout_width="match_parent"

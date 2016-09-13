@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private static final String TAG = "MainActivity";
-    Button empezar, logout;
+    Button empezar, logout, nivel;
     TextView nombre_usuario;
     UserLocalStore userLocalStore;
 
@@ -42,13 +42,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         Log.w(TAG, "activity_main");
 
-        //correct.start();
 
         nombre_usuario = (TextView) findViewById(R.id.nombre);
         empezar=(Button)findViewById(R.id.button_start);
         logout = (Button) findViewById(R.id.button_logout);
+        nivel = (Button) findViewById(R.id.button_nivel);
 
         empezar.setOnClickListener(this);
+        nivel.setOnClickListener(this);
         logout.setOnClickListener(this);
 
         userLocalStore = new UserLocalStore(this);
@@ -80,15 +81,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
+        final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
+
         switch (v.getId()) {
             case R.id.button_start:
-                setContentView(new Screen_ima(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                click.start();
+                setContentView(new Screen_ima3(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                break;
+
+            case R.id.button_nivel:
+                click.start();
+                startActivity(new Intent(this, Elegir_nivel.class));
                 break;
 
             case R.id.button_logout:
+                click.start();
                 userLocalStore.clearUserData();
                 userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(this, Login.class));   //Se realiza un logout volviendo a la pagina donde se solicitan los credenciales.
+                startActivity(new Intent(this, LoginActivity.class));   //Se realiza un logout volviendo a la pagina donde se solicitan los credenciales.
                 break;
         }
     }

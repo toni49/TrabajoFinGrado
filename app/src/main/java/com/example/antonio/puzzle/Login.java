@@ -51,7 +51,7 @@ public class Login extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.newuser:
-                startActivity(new Intent(this, SignUp.class));      //Boton crear nuevo usuario, pasamos a la clase signup.
+                startActivity(new Intent(this, RegisterActivity.class));      //Boton crear nuevo usuario, pasamos a la clase signup.
 
                 break;
         }

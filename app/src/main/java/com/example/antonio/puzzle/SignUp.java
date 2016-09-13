@@ -14,7 +14,7 @@ import android.widget.EditText;
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     Button signup;
-    EditText username, password, age;
+    EditText username, password;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -22,7 +22,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         username = (EditText) findViewById(R.id.user_sign);
         password = (EditText) findViewById(R.id.password_sign);
-        age = (EditText) findViewById(R.id.date_sign);
         signup = (Button) findViewById(R.id.button_sign);
 
         signup.setOnClickListener(this);
@@ -35,9 +34,8 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                 String nombreusuario = username.getText().toString();
                 String contrasena = password.getText().toString();
-                int edad = Integer.parseInt(age.getText().toString());
 
-                User user = new User(nombreusuario, contrasena, edad);
+                User user = new User(nombreusuario, contrasena);
 
                 SignUpUser(user);
                 break;

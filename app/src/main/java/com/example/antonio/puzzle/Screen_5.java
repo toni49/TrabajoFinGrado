@@ -182,41 +182,41 @@ public class Screen_5 extends View {
         setBackgroundResource(R.drawable.madera_1);
 
         //cuadrados fijos.
-        canv.drawRect(700, 50, 1100, 120, whitePaint);
-        canv.drawRect(700, 50, 1100, 120, red_stroke);
+        canv.drawRect(100, 50, 500, 100, whitePaint);
+        canv.drawRect(100, 50, 500, 100, red_stroke);
 
-        canv.drawRect(570, 160, 640, 560, whitePaint);
-        canv.drawRect(570, 160, 640, 560, green_Stroke);
+        canv.drawRect(70, 140, 120, 500, whitePaint);
+        canv.drawRect(70, 140, 120, 500, green_Stroke);
 
-        canv.drawRect(700, 600, 1100, 670, whitePaint);
-        canv.drawRect(700, 600, 1100, 670, blue_Stroke);
+        canv.drawRect(100, 530, 500, 580, whitePaint);
+        canv.drawRect(100, 530, 500, 580, blue_Stroke);
 
-        canv.drawRect(1160, 160, 1230, 560, whitePaint);
-        canv.drawRect(1160, 160, 1230, 560, yellow_Stroke);
+        canv.drawRect(480, 140, 530, 500, whitePaint);
+        canv.drawRect(480, 140, 530, 500, yellow_Stroke);
 
 
 
         //Texto indicativo.
-        Paint paintText = new Paint();
+       /* Paint paintText = new Paint();
         paintText.setTextSize(40);
         paintText.setColor(Color.BLACK);
         paintText.setStrokeWidth(7);
         String texto = "COLOQUE LAS FICHAS";
-        canv.drawText(texto, 750, 800, paintText);
+        canv.drawText(texto, 750, 800, paintText);*/
 
 
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1740, 790, null);
-        canv.drawBitmap(pause_Bitmap, 70, 790, null);
+        canv.drawBitmap(next_Bitmap, 1170, 600, null);
+        canv.drawBitmap(pause_Bitmap, 70, 600, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedSquare(1400, 200);
-        x2 = obtainTouchedSquare(1400, 500);
-        x3 = obtainTouchedSquare(1600, 300);
-        x4 = obtainTouchedSquare(1800, 300);
+        x1 = obtainTouchedSquare(700, 200);
+        x2 = obtainTouchedSquare(700, 500);
+        x3 = obtainTouchedSquare(900, 300);
+        x4 = obtainTouchedSquare(800, 300);
 
 
         for (SquareArea square : mSquare) {
@@ -303,36 +303,32 @@ public class Screen_5 extends View {
                         }
 
                         if (touchedSquare.num == 1) {
-                            if ((touchedSquare.leftX > 690) && (touchedSquare.leftX < 710) && (touchedSquare.leftY > 40) && (touchedSquare.leftY < 60)) {
+                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70)) {
                                 Log.w(TAG, "fig 1");
                                 check1 = 1;
-                            } else
-                                check1 = 0;
+                            }
                         }
 
                         if (touchedSquare.num == 2) {
-                            if ((touchedSquare.leftX > 690) && (touchedSquare.leftX < 710) && (touchedSquare.leftY > 590) && (touchedSquare.leftY < 610)) {
+                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 510) && (touchedSquare.leftY < 550)) {
                                 Log.w(TAG, "fig 2");
                                 check2 = 1;
 
-                            } else
-                                check2 = 0;
+                            }
                         }
 
                         if (touchedSquare.num == 3) {
-                            if ((touchedSquare.leftX > 560) && (touchedSquare.leftX < 580) && (touchedSquare.leftY > 150) && (touchedSquare.leftY < 170)) {
+                            if ((touchedSquare.leftX > 50) && (touchedSquare.leftX < 90) && (touchedSquare.leftY > 120) && (touchedSquare.leftY < 160)) {
                                 check3 = 1;
                                 Log.w(TAG, "fig 3");
-                            } else
-                                check3 = 0;
+                            }
                         }
 
                         if (touchedSquare.num == 4) {
-                            if ((touchedSquare.leftX > 1150) && (touchedSquare.leftX < 1170) && (touchedSquare.leftY > 150) && (touchedSquare.leftY < 170)) {
+                            if ((touchedSquare.leftX > 460) && (touchedSquare.leftX < 500) && (touchedSquare.leftY > 120) && (touchedSquare.leftY < 160)) {
                                 check4 = 1;
                                 Log.w(TAG, "fig 4");
-                            } else
-                                check4 = 0;
+                            }
                         }
 
                     }
@@ -345,7 +341,7 @@ public class Screen_5 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1720) && (xTouch < 1880) && (yTouch > 780) && (yTouch < 940)) {
+                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -363,13 +359,15 @@ public class Screen_5 extends View {
                         check3 = 0;
                         check4 = 0;
                         mostrar.set_fallos(fail);
-                        mostrar.set_nivel(1);
+                        mostrar.set_nivel(2);
                         Log.w(TAG, "funcionando");
 
                        // newActivity.setContentView(R.layout.prueba);
-                        Intent intent = new Intent(getContext(), Level.class);
-                        newActivity.startActivity(intent);
+                       // Intent intent = new Intent(getContext(), Level.class);
+                       // newActivity.startActivity(intent);
 
+                        Screen_4 screen_4 = new Screen_4(getContext(), newActivity);
+                        newActivity.setContentView(screen_4);
 
 
                         // Show_level show_level = new Show_level(getContext(), newActivity);
@@ -383,15 +381,15 @@ public class Screen_5 extends View {
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
                         mSquare.clear();
-                        x1 = obtainTouchedSquare(1400, 200);
-                        x2 = obtainTouchedSquare(1400, 500);
-                        x3 = obtainTouchedSquare(1600, 300);
-                        x4 = obtainTouchedSquare(1800, 300);
+                        x1 = obtainTouchedSquare(700, 200);
+                        x2 = obtainTouchedSquare(700, 500);
+                        x3 = obtainTouchedSquare(900, 300);
+                        x4 = obtainTouchedSquare(800, 300);
                         invalidate();
                     }
                 }
 
-                else if ((xTouch > 40) && (xTouch < 200) && (yTouch > 760) && (yTouch < 940)) {
+                else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -491,22 +489,22 @@ public class Screen_5 extends View {
             switch(valor) {
 
                 case 1:
-                    touchedSquare = new SquareArea(400, 70, xTouch, yTouch, 1);
+                    touchedSquare = new SquareArea(400, 50, xTouch, yTouch, 1);
                     valor = 2;
                     break;
 
                 case 2:
-                    touchedSquare= new SquareArea(400, 70, xTouch, yTouch, 2);
+                    touchedSquare= new SquareArea(400, 50, xTouch, yTouch, 2);
                     valor = 3;
                     break;
 
                 case 3:
-                    touchedSquare= new SquareArea(70, 400, xTouch, yTouch, 3);
+                    touchedSquare= new SquareArea(50, 360, xTouch, yTouch, 3);
                     valor = 4;
                     break;
 
                 case 4:
-                    touchedSquare= new SquareArea(70, 400, xTouch, yTouch, 4);
+                    touchedSquare= new SquareArea(50, 360, xTouch, yTouch, 4);
                     valor = 1;
                     break;
 
