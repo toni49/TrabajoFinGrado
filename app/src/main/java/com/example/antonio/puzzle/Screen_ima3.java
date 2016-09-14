@@ -305,12 +305,13 @@ public class Screen_ima3 extends View {
                         Log.w(TAG, "funcionando");
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(3);
-                        Screen_ima screen_ima = new Screen_ima(getContext(), newActivity);
-                        screen_ima.destroyDrawingCache();
 
-                        Intent intent = new Intent(getContext(), Level.class);
-                        newActivity.startActivity(intent);
-                        /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
+                        Screen_ima2 screen_ima2 = new Screen_ima2(getContext(), newActivity);
+                        newActivity.setContentView(screen_ima2);
+
+                       // screen_ima2.destroyDrawingCache();
+                       // Intent intent = new Intent(getContext(), Level.class);
+                        /*Circles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
                         x1 = obtainTouchedSquare(1200, 200);
                         x2 = obtainTouchedSquare(200, 200);*/
 

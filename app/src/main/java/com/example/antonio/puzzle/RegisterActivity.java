@@ -23,13 +23,13 @@ public class RegisterActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register);
+        setContentView(R.layout.signup);
 
        // final EditText etAge = (EditText) findViewById(R.id.etAge);
        // final EditText etName = (EditText) findViewById(R.id.etName);
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final Button bRegister = (Button) findViewById(R.id.bRegister);
+        final EditText etUsername = (EditText) findViewById(R.id.user_sign);
+        final EditText etPassword = (EditText) findViewById(R.id.password_sign);
+        final Button bRegister = (Button) findViewById(R.id.button_sign);
 
         bRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,7 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
                             if (success) {
                                 Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                                 RegisterActivity.this.startActivity(intent);
-                            } else {
+                            }
+                        else {
                                 AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                 builder.setMessage("Register Failed")
                                         .setNegativeButton("Retry", null)

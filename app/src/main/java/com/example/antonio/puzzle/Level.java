@@ -69,21 +69,33 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 //imagen.setImageResource(R.drawable.);
                 valor = 1;
                 break;
+
             case 2:
                 correct.start();
                 txt.setText("Nivel 2");
                 txtfallos.setText("Número de fallos: " + err);
                 imagen2.setImageResource(R.drawable.yellow_star);
                 imagen3.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
                 zoom(imagen3);
+                move(flash_stars);
                 //slide(imagen);
                 valor = 2;
                 break;
+
             case 3:
+                correct.start();
                 txt.setText("Nivel 3");
                 txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                imagen3.setImageResource(R.drawable.yellow_star);
+                imagen4.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen4);
+                move(flash_stars);
                 valor = 3;
                 break;
+
             default:
                 txt.setText("Nivel --");
                 break;
@@ -110,9 +122,9 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 if(valor == 1)
                     setContentView(new Screen_6(getApplicationContext(), Level.this));
                 else if (valor == 2)
-                    setContentView(new Screen_ima(getApplicationContext(), Level.this));
+                    setContentView(new Screen_ima3(getApplicationContext(), Level.this));
                 else if (valor == 3)
-                    setContentView(new Screen_ima(getApplicationContext(), Level.this));
+                    setContentView(new Screen_1(getApplicationContext(), Level.this));
                 break;
 
             case R.id.button_exit:

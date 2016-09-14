@@ -12,7 +12,7 @@ import android.widget.Button;
  */
 public class Elegir_nivel extends AppCompatActivity implements View.OnClickListener {
 
-    Button nivel1, nivel2;
+    Button nivel1, nivel2, nivel3;
 
 
         @Override
@@ -23,9 +23,12 @@ public class Elegir_nivel extends AppCompatActivity implements View.OnClickListe
 
             nivel1 = (Button) findViewById(R.id.button_1);
             nivel2 = (Button) findViewById(R.id.button_2);
+            nivel3 = (Button) findViewById(R.id.button_3);
 
             nivel1.setOnClickListener(this);
             nivel2.setOnClickListener(this);
+            nivel3.setOnClickListener(this);
+
 
 
         }
@@ -37,12 +40,17 @@ public class Elegir_nivel extends AppCompatActivity implements View.OnClickListe
             switch (v.getId()) {
                 case R.id.button_1:
                     click.start();
-                    setContentView(new Screen_3(getApplicationContext(), Elegir_nivel.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                    setContentView(new Screen_1(getApplicationContext(), Elegir_nivel.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
                     break;
 
                 case R.id.button_2:
                     click.start();
-                    setContentView(new Screen_6(getApplicationContext(), Elegir_nivel.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                    setContentView(new Screen_6(getApplicationContext(), Elegir_nivel.this));
+                    break;
+
+                case R.id.button_3:
+                    click.start();
+                    setContentView(new Screen_ima3(getApplicationContext(), Elegir_nivel.this));
                     break;
 
                 default:

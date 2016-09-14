@@ -23,12 +23,6 @@
         <activity android:name=".MainActivity"
             android:screenOrientation="landscape"></activity>
 
-        <activity android:name=".Login"
-            android:screenOrientation="landscape"></activity>
-
-        <activity android:name=".SignUp"
-            android:screenOrientation="landscape"></activity>
-
         <activity android:name=".Level"
             android:screenOrientation="landscape"></activity>
 
@@ -36,9 +30,6 @@
             android:screenOrientation="landscape"></activity>
 
         <activity android:name=".RegisterActivity"
-            android:screenOrientation="landscape"></activity>
-
-        <activity android:name=".UserAreaActivity"
             android:screenOrientation="landscape"></activity>
 
         <activity android:name=".LoginActivity"

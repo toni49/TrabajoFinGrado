@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
     Button empezar, logout, nivel;
     TextView nombre_usuario;
-    UserLocalStore userLocalStore;
+    //UserLocalStore userLocalStore;
 
 
 
@@ -52,7 +52,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nivel.setOnClickListener(this);
         logout.setOnClickListener(this);
 
-        userLocalStore = new UserLocalStore(this);
+        //userLocalStore = new UserLocalStore(this);
+
+        Intent intent = getIntent();
+        // String name = intent.getStringExtra("name");
+        String username = intent.getStringExtra("username");
+        nombre_usuario.setText(username);
 
     }
 
@@ -70,14 +75,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }*/
 
     private void MostrarUsuario(){
-        User user = userLocalStore.getLoggedInUser();
 
-        nombre_usuario.setText(user.username);
+       /* Intent intent = getIntent();
+        // String name = intent.getStringExtra("name");
+        String username = intent.getStringExtra("username");
+        nombre_usuario.setText(username);*/
+        //User user = userLocalStore.getLoggedInUser();
+        //nombre_usuario.setText(user.username);
     }
 
-    private boolean authenticate(){
+    /*private boolean authenticate(){
         return userLocalStore.getUserLoggedIn();
-    }
+    }*/
 
     @Override
     public void onClick(View v) {
@@ -86,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.button_start:
                 click.start();
-                setContentView(new Screen_ima3(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                setContentView(new Screen_1(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
                 break;
 
             case R.id.button_nivel:
@@ -96,8 +105,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.button_logout:
                 click.start();
-                userLocalStore.clearUserData();
-                userLocalStore.setUserLoggedIn(false);
+                //userLocalStore.clearUserData();
+                //userLocalStore.setUserLoggedIn(false);
                 startActivity(new Intent(this, LoginActivity.class));   //Se realiza un logout volviendo a la pagina donde se solicitan los credenciales.
                 break;
         }

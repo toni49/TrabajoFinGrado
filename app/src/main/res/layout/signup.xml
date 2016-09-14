@@ -12,6 +12,7 @@
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
+        android:layout_marginTop="50dp"
         android:src="@drawable/testea"
         android:id="@+id/imageView"
         android:layout_gravity="center_horizontal" />
@@ -69,7 +70,7 @@
     <Button
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="40dp"
         android:text="Crear Cuenta"
         android:textSize="24dp"
         android:background="@color/blue_1"

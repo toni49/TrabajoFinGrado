@@ -97,7 +97,7 @@ public class Ini_screen extends AppCompatActivity {
     public void onPause()
     {
         super.onPause();
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);    //Al finalizar la barra de progreso pasamos a la clase MainActivity donde esta el menu.
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);    //Al finalizar la barra de progreso pasamos a la clase MainActivity donde esta el menu.
         Log.d(TAG, "La barra de progreso ha finalizado");
         startActivity(intent);
     }

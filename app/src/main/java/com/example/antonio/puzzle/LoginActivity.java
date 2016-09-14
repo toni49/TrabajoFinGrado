@@ -23,12 +23,12 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.login);
 
-        final EditText etUsername = (EditText) findViewById(R.id.etUsername);
-        final EditText etPassword = (EditText) findViewById(R.id.etPassword);
-        final TextView tvRegisterLink = (TextView) findViewById(R.id.tvRegisterLink);
-        final Button bLogin = (Button) findViewById(R.id.bSignIn);
+        final EditText userInput = (EditText) findViewById(R.id.user_input);
+        final EditText passInput = (EditText) findViewById(R.id.password_input);
+        final Button tvRegisterLink = (Button) findViewById(R.id.newuser);
+        final Button bLogin = (Button) findViewById(R.id.buttonLogin);
 
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,8 +41,8 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = etUsername.getText().toString();
-                final String password = etPassword.getText().toString();
+                final String username = userInput.getText().toString();
+                final String password = passInput.getText().toString();
 
                 // Response received from the server
                 Response.Listener<String> responseListener = new Response.Listener<String>() {
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                                // String name = jsonResponse.getString("name");
                                // int age = jsonResponse.getInt("age");
 
-                                Intent intent = new Intent(LoginActivity.this, UserAreaActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                // intent.putExtra("name", name);
                                // intent.putExtra("age", age);
                                 intent.putExtra("username", username);
