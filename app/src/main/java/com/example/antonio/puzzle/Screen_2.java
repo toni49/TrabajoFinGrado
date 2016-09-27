@@ -329,31 +329,43 @@ public class Screen_2 extends View {
                             //comprobamos que el circulo pulsado se situa en la posicion correcta.
                             if (touchedCircle.num == 1) {
 
-                                if ((touchedCircle.centerX > 730) && (touchedCircle.centerX < 770) && (touchedCircle.centerY > 130) && (touchedCircle.centerY < 170))
+                                if ((touchedCircle.centerX > 730) && (touchedCircle.centerX < 770) && (touchedCircle.centerY > 130) && (touchedCircle.centerY < 170)) {
                                     check3 = 1;
+                                    touchedCircle.centerX = 750;
+                                    touchedCircle.centerY = 150;
+                                }
 
                             }
 
                             if (touchedCircle.num == 2) {
 
-                                if ((touchedCircle.centerX > 130) && (touchedCircle.centerX < 170) && (touchedCircle.centerY > 130) && (touchedCircle.centerY < 170))
+                                if ((touchedCircle.centerX > 130) && (touchedCircle.centerX < 170) && (touchedCircle.centerY > 130) && (touchedCircle.centerY < 170)) {
                                     check1 = 1;
+                                    touchedCircle.centerX = 150;
+                                    touchedCircle.centerY = 150;
+                                }
 
                             }
 
 
                             if (touchedSquare.num == 3) {
 
-                                if ((touchedSquare.leftX > 330) && (touchedSquare.leftX < 370) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 90))
+                                if ((touchedSquare.leftX > 330) && (touchedSquare.leftX < 370) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 90)) {
                                     check2 = 1;
+                                    touchedSquare.leftX = 350;
+                                    touchedSquare.leftY = 60;
+                                }
 
 
                             }
 
                             if (touchedSquare.num == 4) {
 
-                                if ((touchedSquare.leftX > 930) && (touchedSquare.leftX < 980) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 90))
+                                if ((touchedSquare.leftX > 930) && (touchedSquare.leftX < 980) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 90)) {
                                     check4 = 1;
+                                    touchedSquare.leftX = 950;
+                                    touchedSquare.leftY = 60;
+                                }
 
                             }
 
@@ -368,7 +380,7 @@ public class Screen_2 extends View {
                         xTouch = (int) event.getX(0);
                         yTouch = (int) event.getY(0);
 
-                        if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
+                        if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
                             Log.w(TAG, "PULSADO");
                             String num = Integer.toString(check1);
                             String num1 = Integer.toString(check2);
@@ -382,10 +394,7 @@ public class Screen_2 extends View {
 
                             //check = Comprobar();
                             if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1)) {
-                                check1 = 0;
-                                check2 = 0;
-                                check3 = 0;
-                                check4 = 0;
+
 
                                 Log.w(TAG, "funcionando");
                                 mostrar.set_fallos(fail);
@@ -403,6 +412,10 @@ public class Screen_2 extends View {
                                 fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                                 String fallo = Integer.toString(fail);
                                 Log.w(fallo, "numero de fallos");
+                                check1 = 0;
+                                check2 = 0;
+                                check3 = 0;
+                                check4 = 0;
                                 mCircles.clear();
                                 mSquare.clear();
                                 s1 = obtainTouchedSquare(950, 400);
@@ -416,7 +429,7 @@ public class Screen_2 extends View {
 
                         }
 
-                        else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
+                        else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
                             Log.w(TAG, "PULSADO PAUSE");
 
                             newActivity.setContentView(R.layout.activity_main);

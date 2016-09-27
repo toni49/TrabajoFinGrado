@@ -13,6 +13,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -33,12 +34,13 @@ public class Screen_4 extends View {
     // Activity de la clase Play
     private Activity newActivity = null;
     Mostrar_nivel mostrar = new Mostrar_nivel();
+
+
     /**
      * Main bitmap
      */
     private Bitmap next_Bitmap = null;
     private Bitmap pause_Bitmap = null;
-    private Bitmap Bitma = null;
 
 
     private Rect Rect1, Rect2;
@@ -47,13 +49,12 @@ public class Screen_4 extends View {
     private int valor = 1;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
     int fail = 0;
-    MainActivity main = new MainActivity();
+    //MainActivity main = new MainActivity();
 
 
     public Screen_4(Context context, Activity activity) {
         super(context);
         newActivity = activity;
-
         init(context);
 
     }
@@ -71,6 +72,10 @@ public class Screen_4 extends View {
         init(context);
 
     }
+
+
+
+
 
 
     // Guardamos atributos de la clase circulo.
@@ -115,7 +120,7 @@ public class Screen_4 extends View {
     private Paint Rect_stroke;
     private Paint mFondoPaint;
 
-    private static final int CIRCLES_LIMIT = 4;
+    private static final int CIRCLES_LIMIT = 6;
 
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
@@ -293,43 +298,62 @@ public class Screen_4 extends View {
 
                     if(touchedSquare.num == 1)
                     {
-                        if((touchedSquare.leftX > 30) && (touchedSquare.leftX < 70)& (touchedSquare.leftY > 30)&&(touchedSquare.leftY < 70))
+                        if((touchedSquare.leftX > 30) && (touchedSquare.leftX < 70)& (touchedSquare.leftY > 30)&&(touchedSquare.leftY < 70)){
                             check1 = 1;
+                            touchedSquare.leftX = 50;
+                            touchedSquare.leftY = 50;
+                        }
+
 
                     }
 
                     if(touchedSquare.num == 2)
                     {
-                        if((touchedSquare.leftX > 30) && (touchedSquare.leftX < 70) && (touchedSquare.leftY > 380) && (touchedSquare.leftY < 420))
+                        if((touchedSquare.leftX > 30) && (touchedSquare.leftX < 70) && (touchedSquare.leftY > 380) && (touchedSquare.leftY < 420)) {
                             check2 = 1;
+                            touchedSquare.leftX = 50;
+                            touchedSquare.leftY = 400;
+                        }
 
                     }
 
                     if(touchedSquare.num == 3)
                     {
-                        if((touchedSquare.leftX > 230) && (touchedSquare.leftX < 270) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70))
+                        if((touchedSquare.leftX > 230) && (touchedSquare.leftX < 270) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70)) {
                             check3 = 1;
+                            touchedSquare.leftX = 250;
+                            touchedSquare.leftY = 50;
+                        }
 
                     }
 
                     if(touchedSquare.num == 4)
                     {
-                        if((touchedSquare.leftX > 230) && (touchedSquare.leftX < 270) && (touchedSquare.leftY > 380) && (touchedSquare.leftY < 420))
+                        if((touchedSquare.leftX > 230) && (touchedSquare.leftX < 270) && (touchedSquare.leftY > 380) && (touchedSquare.leftY < 420)) {
                             check4 = 1;
+                            touchedSquare.leftX = 250;
+                            touchedSquare.leftY = 400;
+                        }
 
                     }
 
                     if(touchedSquare.num == 5)
                     {
-                        if((touchedSquare.leftX > 480) && (touchedSquare.leftX < 520) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70))
+                        if((touchedSquare.leftX > 480) && (touchedSquare.leftX < 520) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70)) {
                             check5 = 1;
+                            touchedSquare.leftX = 500;
+                            touchedSquare.leftY = 50;
+                        }
 
                     }
 
                     if(touchedSquare.num == 6)
                     {
-                        if((touchedSquare.leftX > 480) && (touchedSquare.leftX < 520) && (touchedSquare.leftY > 380) && (touchedSquare.leftY < 420))
+                        if((touchedSquare.leftX > 480) && (touchedSquare.leftX < 520) && (touchedSquare.leftY > 380) && (touchedSquare.leftY < 420)) {
                             check6 = 1;
+                            touchedSquare.leftX = 500;
+                            touchedSquare.leftY = 400;
+                        }
 
                     }
 
@@ -367,7 +391,8 @@ public class Screen_4 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
+
+                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -384,10 +409,7 @@ public class Screen_4 extends View {
 
                     //check = Comprobar();
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)) {
-                        check1 = 0;
-                        check2 = 0;
-                        check3 = 0;
-                        check4 = 0;
+
                         Log.w(TAG, "funcionando");
                         mostrar.set_nivel(2);
                         mostrar.set_fallos(fail);
@@ -409,6 +431,12 @@ public class Screen_4 extends View {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        check1 = 0;
+                        check2 = 0;
+                        check3 = 0;
+                        check4 = 0;
+                        check5 = 0;
+                        check6 = 0;
                         mSquare.clear();
                         x1 = obtainTouchedSquare(1000, 100);
                         x2 = obtainTouchedSquare(1000, 200);
@@ -422,7 +450,6 @@ public class Screen_4 extends View {
 
                 else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
                     Log.w(TAG, "PULSADO PAUSE");
-
                     /*Intent intent = new Intent();
                     intent.setClass(MainActivity.getContext(), FullscreenView.Class);
                     startActivity(intent);*/

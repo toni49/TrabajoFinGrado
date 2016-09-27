@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private static final String TAG = "MainActivity";
-    Button empezar, logout, nivel;
+    Button empezar, logout, nivel, medidas;
     TextView nombre_usuario;
     //UserLocalStore userLocalStore;
 
@@ -35,22 +35,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        Log.w(TAG, "activity_main");
 
         //final MediaPlayer correct = MediaPlayer.create(this, R.raw.correct);
         // requestWindowFeature(Window.FEATURE_NO_TITLE);
-       // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
-        Log.w(TAG, "activity_main");
+        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
         nombre_usuario = (TextView) findViewById(R.id.nombre);
         empezar=(Button)findViewById(R.id.button_start);
         logout = (Button) findViewById(R.id.button_logout);
+        medidas = (Button) findViewById(R.id.button_medidas);
         nivel = (Button) findViewById(R.id.button_nivel);
 
         empezar.setOnClickListener(this);
         nivel.setOnClickListener(this);
         logout.setOnClickListener(this);
+        medidas.setOnClickListener(this);
 
         //userLocalStore = new UserLocalStore(this);
 
@@ -101,6 +104,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.button_nivel:
                 click.start();
                 startActivity(new Intent(this, Elegir_nivel.class));
+                break;
+
+            case R.id.button_medidas:
+                click.start();
+                startActivity(new Intent(this, pruebas_vel.class));
                 break;
 
             case R.id.button_logout:

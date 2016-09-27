@@ -3,10 +3,11 @@
     package="com.example.antonio.puzzle" >
 
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-feature android:name="android.hardware.touchscreen.multitouch" android:required="false"/>
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar">
@@ -35,6 +36,8 @@
         <activity android:name=".LoginActivity"
             android:screenOrientation="landscape"></activity>
 
+        <activity android:name=".pruebas_vel"
+            android:screenOrientation="landscape"></activity>
 
 
     </application>

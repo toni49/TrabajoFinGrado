@@ -33,7 +33,7 @@
 
     <Button
         android:layout_width="400dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="@string/text_menu1"
@@ -51,14 +51,25 @@
         android:background="@color/blue_2"
         android:textColor="@color/primary_dark_material_dark" />
 
-        <Button
+    <Button
+        android:layout_width="400dp"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:text="Medidas velocidad"
+        android:id="@+id/button_medidas"
+        android:background="@color/blue_4"
+        android:textColor="@color/primary_dark_material_dark" />
+
+
+    <Button
             android:layout_width="400dp"
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:text="@string/text_menu3"
             android:id="@+id/button_logout"
-            android:background="@color/blue_3"
+            android:background="@color/blue_5"
             android:textColor="@color/primary_dark_material_dark" />
 
 

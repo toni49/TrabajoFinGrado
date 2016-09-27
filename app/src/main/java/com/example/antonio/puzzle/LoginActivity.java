@@ -5,6 +5,7 @@ package com.example.antonio.puzzle;
  */
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -29,11 +30,27 @@ public class LoginActivity extends AppCompatActivity {
         final EditText passInput = (EditText) findViewById(R.id.password_input);
         final Button tvRegisterLink = (Button) findViewById(R.id.newuser);
         final Button bLogin = (Button) findViewById(R.id.buttonLogin);
+        final Button bInvitado = (Button) findViewById(R.id.buttonAn);
+
+        final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
+
 
         tvRegisterLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                click.start();
                 Intent registerIntent = new Intent(LoginActivity.this, RegisterActivity.class);
+                LoginActivity.this.startActivity(registerIntent);
+            }
+        });
+
+        bInvitado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                click.start();
+                Intent registerIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(registerIntent);
             }
         });
@@ -55,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (success) {
                                // String name = jsonResponse.getString("name");
                                // int age = jsonResponse.getInt("age");
-
+                                click.start();
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                                // intent.putExtra("name", name);
                                // intent.putExtra("age", age);

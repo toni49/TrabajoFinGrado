@@ -268,16 +268,19 @@ public class Screen_ima2 extends View {
                         if ((touchedBit.leftX > 990) && (touchedBit.leftX < 1010) && (touchedBit.leftY > 110) && (touchedBit.leftY < 130)) {
                             Log.w(TAG, "circulo 1");
                             check1 = 1;
+                            touchedBit.leftX = 1000;
+                            touchedBit.leftY = 120;
 
                         }
                     }
 
                     if (touchedBit.num == 2) {
 
-                        if ((touchedBit.leftX > 80) && (touchedBit.leftX < 90) && (touchedBit.leftY > 50) && (touchedBit.leftY < 70)) {
+                        if ((touchedBit.leftX > 60) && (touchedBit.leftX < 80) && (touchedBit.leftY > 50) && (touchedBit.leftY < 70)) {
                             Log.w(TAG, "circulo 2");
-
                             check2 = 1;
+                            touchedBit.leftX = 70;
+                            touchedBit.leftY = 60;
 
                         }
                     }
@@ -286,8 +289,9 @@ public class Screen_ima2 extends View {
 
                         if ((touchedBit.leftX > 340) && (touchedBit.leftX < 370) && (touchedBit.leftY > 110) && (touchedBit.leftY < 130)) {
                             Log.w(TAG, "circulo 3");
-
                             check3 = 1;
+                            touchedBit.leftX = 350;
+                            touchedBit.leftY = 120;
 
                         }
                     }
@@ -296,8 +300,9 @@ public class Screen_ima2 extends View {
 
                         if ((touchedBit.leftX > 670) && (touchedBit.leftX < 690) && (touchedBit.leftY > 130) && (touchedBit.leftY < 150)) {
                             Log.w(TAG, "circulo 4");
-
                             check4 = 1;
+                            touchedBit.leftX = 680;
+                            touchedBit.leftY = 140;
 
                         }
                     }
@@ -312,7 +317,7 @@ public class Screen_ima2 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
+                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num1 = Integer.toString(check1);
                     String num2 = Integer.toString(check2);
@@ -323,11 +328,9 @@ public class Screen_ima2 extends View {
                     Log.w(num2, "valor check2");
                     Log.w(num3, "valor check3");
 
+
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1)) {
-                        check1 = 0;
-                        check2 = 0;
-                        check3 = 0;
-                        check4 = 0;
+
                         Log.w(TAG, "funcionando");
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(3);
@@ -348,6 +351,10 @@ public class Screen_ima2 extends View {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        check1 = 0;
+                        check2 = 0;
+                        check3 = 0;
+                        check4 = 0;
                         mBit.clear();
                         x1 = obtainTouchedBit(200, 500);
                         x2 = obtainTouchedBit(900, 350);
@@ -357,7 +364,7 @@ public class Screen_ima2 extends View {
                         invalidate();
                     }
 
-                } else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
+                } else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();

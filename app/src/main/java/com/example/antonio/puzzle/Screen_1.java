@@ -13,6 +13,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.Button;
 
@@ -33,7 +34,7 @@ import java.util.HashSet;
         private Activity newActivity = null;
 
         /** Main bitmap */
-        private Bitmap next_Bitmap = null, pause_Bitmap = null;
+        private Bitmap next_Bitmap = null, home_Bitmap = null;
 
 
         private Rect Rect1, Rect2;
@@ -41,6 +42,9 @@ import java.util.HashSet;
         private float w, h;
         int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
         int fail = 0;
+        VelocityTracker tracker = null;
+        float MaxVelocity_x = 0;
+        float MaxVelocity_y = 0;
         Mostrar_nivel mostrar = new Mostrar_nivel();
 
         public Screen_1(Context context, Activity activity) {
@@ -89,6 +93,8 @@ import java.util.HashSet;
             int Sheight;
             int leftY;
             int leftX;
+            int centerX;
+            int centerY;
             int num;
 
 
@@ -97,6 +103,8 @@ import java.util.HashSet;
                 this.Sheight = Sheight;
                 this.leftX = leftX;
                 this.leftY = leftY;
+                this.centerX = leftX + Swidth/2;
+                this.centerY = leftY + Sheight/2;
                 this.num = num;
 
             }
@@ -139,8 +147,8 @@ import java.util.HashSet;
             // Generate bitmap used for background
 
             // sBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.success_64);
-            next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
-            pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+            next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
+            home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
 
             greenPaint = new Paint();
             greenPaint.setColor(Color.GREEN);
@@ -226,16 +234,16 @@ import java.util.HashSet;
 
             //Texto indicativo.
                /* Paint paintText = new Paint();
-                paintText.setTextSize(50);
+                paintText.setTextSize(30);
                 paintText.setColor(Color.BLACK);
-                paintText.setStrokeWidth(7);
-                String texto = "COLOQUE LAS FICHAS";
-                canv.drawText(texto, 750, 800, paintText);*/
+                paintText.setStrokeWidth(4);
+                String texto = "Velocidades";
+                canv.drawText(texto, 750, 400, paintText);*/
 
             //imagen boton de checkeo
 
-            canv.drawBitmap(next_Bitmap, 1170, 600, null);
-            canv.drawBitmap(pause_Bitmap, 70, 600, null);
+            canv.drawBitmap(next_Bitmap, 1140, 600, null);
+            canv.drawBitmap(home_Bitmap, 70, 600, null);
 
 
 
@@ -270,25 +278,37 @@ import java.util.HashSet;
 
 
 
-        }
+        }                       //final
 
         @Override
-        public boolean onTouchEvent(final MotionEvent event) {
+        public boolean onTouchEvent(MotionEvent event) {
             boolean handled = false;
 
-            CircleArea touchedCircle;
+            //CircleArea touchedCircle;
             SquareArea touchedSquare;
 
             int xTouch;
             int yTouch;
             int pointerId;
             int actionIndex = event.getActionIndex();
+            //int numPointers = event.getPointerCount();
 
 
+            switch (event.getActionMasked()) {   //(event.getActionMasked()) {
 
-            // get touch event coordinates and make transparent circle from it
-            switch (event.getActionMasked()) {
+
                 case MotionEvent.ACTION_DOWN:
+
+
+                    if (tracker == null) {
+                        tracker = VelocityTracker.obtain();
+                    } else {
+                        tracker.clear();
+                    }
+
+                    tracker.addMovement(event); //track ACTION
+                    MaxVelocity_y = 0;
+                    MaxVelocity_x = 0;
 
                     xTouch = (int) event.getX(0);
                     yTouch = (int) event.getY(0);
@@ -300,18 +320,37 @@ import java.util.HashSet;
                     touchedSquare.leftY = yTouch;
                     mSquarePointer.put(event.getPointerId(0), touchedSquare);
 
-
                     invalidate();
                     handled = true;
                     break;
 
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    //handled = true;
+                    break;
+
+
 
                 case MotionEvent.ACTION_MOVE:
-                    final int pointerCount = event.getPointerCount();
+                    //final int pointerCount = event.getPointerCount();
 
-                    Log.w(TAG, "Move");
+                    tracker.addMovement(event); //track ACTION
+                    tracker.computeCurrentVelocity(1000);
+                    float x_vel = tracker.getXVelocity();
+                    float y_vel = tracker.getYVelocity();
 
-                    for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                    if(x_vel > MaxVelocity_x){
+                        MaxVelocity_x = x_vel;
+                    }
+
+                    if(y_vel > MaxVelocity_y){
+                        MaxVelocity_y = y_vel;
+                    }
+
+                    Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                    Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
+
+                    //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                         // Some pointer has moved, search it by pointer id
                         pointerId = event.getPointerId(actionIndex);
 
@@ -332,50 +371,66 @@ import java.util.HashSet;
 
                         if (touchedSquare.num == 1) {
 
-                            if ((touchedSquare.leftX > 180) && (touchedSquare.leftX < 220) && (touchedSquare.leftY > 60) && (touchedSquare.leftY < 100))
+                            if ((touchedSquare.leftX > 180) && (touchedSquare.leftX < 220) && (touchedSquare.leftY > 60) && (touchedSquare.leftY < 100)) {
                                 check1 = 1;
+                                touchedSquare.leftX = 200;
+                                touchedSquare.leftY = 80;
+                            }
 
 
                         }
 
                         if (touchedSquare.num == 2) {
 
-                            if ((touchedSquare.leftX > 130) && (touchedSquare.leftX < 170) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170))
+                            if ((touchedSquare.leftX > 130) && (touchedSquare.leftX < 170) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170)) {
                                 check2 = 1;
+                                touchedSquare.leftY = 150;
+                                touchedSquare.leftX = 150;
+                            }
 
                         }
 
                         if (touchedSquare.num == 3) {
 
-                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 200) && (touchedSquare.leftY < 240))
+                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 200) && (touchedSquare.leftY < 240)) {
                                 check3 = 1;
+                                touchedSquare.leftX = 100;
+                                touchedSquare.leftY = 220;
+                            }
 
                         }
 
                         if (touchedSquare.num == 4) {
 
-                            if ((touchedSquare.leftX > 780) && (touchedSquare.leftX < 820) && (touchedSquare.leftY > 60) && (touchedSquare.leftY < 100))
+                            if ((touchedSquare.leftX > 780) && (touchedSquare.leftX < 820) && (touchedSquare.leftY > 60) && (touchedSquare.leftY < 100)) {
                                 check4 = 1;
+                                touchedSquare.leftX = 800;
+                                touchedSquare.leftY = 80;
+                            }
 
                         }
 
                         if (touchedSquare.num == 5) {
 
-                            if ((touchedSquare.leftX > 730) && (touchedSquare.leftX < 770) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170))
+                            if ((touchedSquare.leftX > 730) && (touchedSquare.leftX < 770) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170)) {
                                 check5 = 1;
+                                touchedSquare.leftX = 750;
+                                touchedSquare.leftY = 150;
+                            }
 
                         }
 
                         if (touchedSquare.num == 6) {
 
-                            if ((touchedSquare.leftX > 680) && (touchedSquare.leftX < 720) && (touchedSquare.leftY > 200) && (touchedSquare.leftY < 240))
+                            if ((touchedSquare.leftX > 680) && (touchedSquare.leftX < 720) && (touchedSquare.leftY > 200) && (touchedSquare.leftY < 240)) {
                                 check6 = 1;
+                                touchedSquare.leftX = 700;
+                                touchedSquare.leftY = 220;
+                            }
 
                         }
 
-
-
-                    }
+                    //}
                     invalidate();
                     handled = true;
                     break;
@@ -384,7 +439,7 @@ import java.util.HashSet;
                     xTouch = (int) event.getX(0);
                     yTouch = (int) event.getY(0);
 
-                    if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
+                    if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
                         Log.w(TAG, "PULSADO");
                         String num = Integer.toString(check1);
                         String num1 = Integer.toString(check2);
@@ -396,14 +451,11 @@ import java.util.HashSet;
                         Log.w(num3, "valor check4");
 
 
+
+
                         //check = Comprobar();
                         if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)) {
-                            check1 = 0;
-                            check2 = 0;
-                            check3 = 0;
-                            check4 = 0;
-                            check5 = 0;
-                            check6 = 0;
+
 
                             Log.w(TAG, "funcionando");
                             mostrar.set_fallos(fail);
@@ -419,6 +471,12 @@ import java.util.HashSet;
                         else {
                             fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                             String fallo = Integer.toString(fail);
+                            check1 = 0;
+                            check2 = 0;
+                            check3 = 0;
+                            check4 = 0;
+                            check5 = 0;
+                            check6 = 0;
                             Log.w(fallo, "numero de fallos");
                             mSquare.clear();
                             s1 = obtainTouchedSquare(300, 450);
@@ -429,6 +487,7 @@ import java.util.HashSet;
                             s6 = obtainTouchedSquare(700, 650);
 
                             invalidate();
+
                         }
 
                         // playActivity.setContentView();
@@ -451,6 +510,12 @@ import java.util.HashSet;
                     break;
 
 
+
+                case MotionEvent.ACTION_POINTER_UP:
+                    //handled = true;
+                    break;
+
+
                 case MotionEvent.ACTION_CANCEL:
                     handled = true;
                     break;
@@ -460,7 +525,7 @@ import java.util.HashSet;
                     break;
             }
 
-            return super.onTouchEvent(event) || handled;
+            return true; //super.onTouchEvent(event) || handled;
         }
 
         /**

@@ -112,7 +112,7 @@ public class Screen_5 extends View {
     private Paint yellowPaint;
 
 
-    private static final int CIRCLES_LIMIT = 4;
+    private static final int CIRCLES_LIMIT = 6;
 
     private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(CIRCLES_LIMIT);
     private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(CIRCLES_LIMIT);
@@ -178,10 +178,9 @@ public class Screen_5 extends View {
     public void onDraw(final Canvas canv) {
 
 
-
         setBackgroundResource(R.drawable.madera_1);
 
-        //cuadrados fijos.
+
         canv.drawRect(100, 50, 500, 100, whitePaint);
         canv.drawRect(100, 50, 500, 100, red_stroke);
 
@@ -306,6 +305,8 @@ public class Screen_5 extends View {
                             if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70)) {
                                 Log.w(TAG, "fig 1");
                                 check1 = 1;
+                                touchedSquare.leftX = 100;
+                                touchedSquare.leftY = 50;
                             }
                         }
 
@@ -313,6 +314,8 @@ public class Screen_5 extends View {
                             if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 510) && (touchedSquare.leftY < 550)) {
                                 Log.w(TAG, "fig 2");
                                 check2 = 1;
+                                touchedSquare.leftX = 100;
+                                touchedSquare.leftY = 530;
 
                             }
                         }
@@ -320,6 +323,8 @@ public class Screen_5 extends View {
                         if (touchedSquare.num == 3) {
                             if ((touchedSquare.leftX > 50) && (touchedSquare.leftX < 90) && (touchedSquare.leftY > 120) && (touchedSquare.leftY < 160)) {
                                 check3 = 1;
+                                touchedSquare.leftX = 70;
+                                touchedSquare.leftY = 140;
                                 Log.w(TAG, "fig 3");
                             }
                         }
@@ -327,6 +332,8 @@ public class Screen_5 extends View {
                         if (touchedSquare.num == 4) {
                             if ((touchedSquare.leftX > 460) && (touchedSquare.leftX < 500) && (touchedSquare.leftY > 120) && (touchedSquare.leftY < 160)) {
                                 check4 = 1;
+                                touchedSquare.leftX = 480;
+                                touchedSquare.leftY = 140;
                                 Log.w(TAG, "fig 4");
                             }
                         }
@@ -341,7 +348,7 @@ public class Screen_5 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
+                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -354,10 +361,7 @@ public class Screen_5 extends View {
 
                     //check = Comprobar();
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1)) {
-                        check1 = 0;
-                        check2 = 0;
-                        check3 = 0;
-                        check4 = 0;
+
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(2);
                         Log.w(TAG, "funcionando");
@@ -380,6 +384,10 @@ public class Screen_5 extends View {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        check1 = 0;
+                        check2 = 0;
+                        check3 = 0;
+                        check4 = 0;
                         mSquare.clear();
                         x1 = obtainTouchedSquare(700, 200);
                         x2 = obtainTouchedSquare(700, 500);
@@ -389,7 +397,7 @@ public class Screen_5 extends View {
                     }
                 }
 
-                else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
+                else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();

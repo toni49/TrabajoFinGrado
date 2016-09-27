@@ -261,8 +261,9 @@ public class Screen_6 extends View {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
                         if ((touchedCircle.centerX > 140) && (touchedCircle.centerX < 160) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
                             Log.w(TAG, "circulo 1");
-
                             check1 = 1;
+                            touchedCircle.centerX = 150;
+                            touchedCircle.centerY = 200;
 
                         }
 
@@ -272,8 +273,9 @@ public class Screen_6 extends View {
 
                         if ((touchedCircle.centerX > 590) && (touchedCircle.centerX < 610) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
                             Log.w(TAG, "circulo 2");
-
                             check2 = 1;
+                            touchedCircle.centerX = 600;
+                            touchedCircle.centerY = 200;
 
                         }
 
@@ -284,8 +286,9 @@ public class Screen_6 extends View {
 
                         if ((touchedCircle.centerX > 1090) && (touchedCircle.centerX < 1110) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
                             Log.w(TAG, "circulo 3");
-
                             check3 = 1;
+                            touchedCircle.centerX = 1100;
+                            touchedCircle.centerY = 200;
 
                         }
 
@@ -302,7 +305,7 @@ public class Screen_6 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1120) && (xTouch < 1220) && (yTouch > 560) && (yTouch < 640)) {
+                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -315,9 +318,7 @@ public class Screen_6 extends View {
 
                     //check = Comprobar();
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1)) {
-                        check1 = 0;
-                        check2 = 0;
-                        check3 = 0;
+
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(2);
                         Log.w(TAG, "funcionando");
@@ -339,6 +340,9 @@ public class Screen_6 extends View {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
+                        check1 = 0;
+                        check2 = 0;
+                        check3 = 0;
                         mCircles.clear();
                         x1 = obtainTouchedCircle(1050, 580);
                         x2 = obtainTouchedCircle(800, 580);
@@ -348,7 +352,7 @@ public class Screen_6 extends View {
                     }
                 }
 
-                else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
+                else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
