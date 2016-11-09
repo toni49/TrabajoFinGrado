@@ -14,7 +14,7 @@ public class pruebas_vel extends Activity {
 
 
         TextView textAvtion, textVelocityX, textVelocityY,
-                textMaxVelocityX, textMaxVelocityY, textTime;
+                textMaxVelocityX, textMaxVelocityY, textTime, textPressure;
 
         VelocityTracker velocityTracker = null;
 
@@ -23,6 +23,7 @@ public class pruebas_vel extends Activity {
         long initialTime = 0;
         long endTime = 0;
         long diff = 0;
+        float press = 0;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,7 @@ public class pruebas_vel extends Activity {
             textMaxVelocityX = (TextView) findViewById(R.id.maxvelocityx);
             textMaxVelocityY = (TextView) findViewById(R.id.maxvelocityy);
             textTime = (TextView) findViewById(R.id.time);
+            textPressure = (TextView) findViewById(R.id.pressure);
         }
 
         @Override
@@ -52,7 +54,7 @@ public class pruebas_vel extends Activity {
                     maxXVelocity = 0;
                     maxYVelocity = 0;
 
-
+                    press = event.getPressure(); // presion de pulsacion
 
                     if(initialTime == 0){
                         initialTime = System.currentTimeMillis();
@@ -64,11 +66,13 @@ public class pruebas_vel extends Activity {
                         Log.i("Screen_5", "Time between clicks: " + diff);
                     }
 
-                    textVelocityX.setText("X-velocity (pixel/s): 0");
-                    textVelocityY.setText("Y-velocity (pixel/s): 0");
-                    textMaxVelocityX.setText("max. X-velocity: 0");
-                    textMaxVelocityY.setText("max. Y-velocity: 0");
-                    textTime.setText("time between touches: 0");
+                    textVelocityX.setText("Velocidad eje X (pixel/s): 0");
+                    textVelocityY.setText("Velocidad eje Y (pixel/s): 0");
+                    textMaxVelocityX.setText("max velocidad X: 0");
+                    textMaxVelocityY.setText("max velocidad Y: 0");
+                    textTime.setText("tiempo entre pulsaciones: 0");
+                    textPressure.setText("Presion: 0");
+
 
 
                     break;
@@ -90,11 +94,13 @@ public class pruebas_vel extends Activity {
                         maxYVelocity = yVelocity;
                     }
 
-                    textVelocityX.setText("X-velocity (pixel/s): " + xVelocity);
-                    textVelocityY.setText("Y-velocity (pixel/s): " + yVelocity);
-                    textMaxVelocityX.setText("max. X-velocity: " + maxXVelocity);
-                    textMaxVelocityY.setText("max. Y-velocity: " + maxYVelocity);
-                    textTime.setText("time between touches (milliseconds): " + diff);
+                    textVelocityX.setText("Velocidad eje X (pixel/s): " + xVelocity);
+                    textVelocityY.setText("Velocidad eje Y (pixel/s): " + yVelocity);
+                    textMaxVelocityX.setText("max velocidad X: " + maxXVelocity);
+                    textMaxVelocityY.setText("max velocidad Y: " + maxYVelocity);
+                    textTime.setText("tiempo entre pulsaciones (ms): " + diff);
+                    textPressure.setText("Presion: " + press);
+
 
 
                     break;

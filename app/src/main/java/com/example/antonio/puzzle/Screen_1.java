@@ -27,14 +27,14 @@ import java.util.HashSet;
 
         private static final String TAG = "Screen_2";
         int valor = 1;
+        int color;
 
 
 
         // Activity de la clase Play
         private Activity newActivity = null;
 
-        /** Main bitmap */
-        private Bitmap next_Bitmap = null, home_Bitmap = null;
+        private Bitmap next_Bitmap = null, home_Bitmap = null, speak_Bitmap = null;
 
 
         private Rect Rect1, Rect2;
@@ -46,6 +46,9 @@ import java.util.HashSet;
         float MaxVelocity_x = 0;
         float MaxVelocity_y = 0;
         Mostrar_nivel mostrar = new Mostrar_nivel();
+        Registro_datos registro = new Registro_datos();
+
+        AudioRecordTest speak = new AudioRecordTest();
 
         public Screen_1(Context context, Activity activity) {
             super(context);
@@ -113,22 +116,12 @@ import java.util.HashSet;
 
 
 
-        /**
-         * Paint to draw circles
-         */
+
         private Paint yellowPaint, redPaint, bluePaint, whitePaint, greenPaint, blackPaint;
         private Paint red_stroke, yellow_Stroke, blue_Stroke, green_Stroke, black_Stroke, white_Stroke;
 
-
-        //private final Random mRadiusGenerator = new Random();
-        // Radius limit in pixels
-        //private final static int RADIUS_LIMIT = 100;
-
         private static final int SHAPES_LIMIT = 2;
 
-        /**
-         * All available circles
-         */
         private HashSet<CircleArea> mCircles = new HashSet<CircleArea>(SHAPES_LIMIT);
         private SparseArray<CircleArea> mCirclePointer = new SparseArray<CircleArea>(SHAPES_LIMIT);
 
@@ -146,9 +139,9 @@ import java.util.HashSet;
         private void init(final Context context) {
             // Generate bitmap used for background
 
-            // sBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.success_64);
             next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
             home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
+            speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
 
             greenPaint = new Paint();
             greenPaint.setColor(Color.GREEN);
@@ -208,42 +201,52 @@ import java.util.HashSet;
 
         @Override
         public void onDraw(final Canvas canv) {
-            // background bitmap to cover all area
 
-            setBackgroundResource(R.drawable.madera_1);
+            // background
+            //setBackgroundResource(R.drawable.madera_1);
+            color = registro.getFondo();
 
-            canv.drawRect(200, 80, 350, 120, whitePaint);
-            canv.drawRect(200, 80, 350, 120, red_stroke);
+            switch(color){
+                case 1: setBackgroundColor(0xfffabfd0); break; //rosa
 
-            canv.drawRect(150, 150, 400, 190, whitePaint);
-            canv.drawRect(150, 150, 400, 190, red_stroke);
+                case 2: setBackgroundColor(0xffbce29a); break;  //verde
 
-            canv.drawRect(100, 220, 450, 260, whitePaint);
-            canv.drawRect(100, 220, 450, 260, red_stroke);
+                case 3: setBackgroundColor(0xffbfd3fa); break;  //azul
 
-            canv.drawRect(800, 80, 950, 120, whitePaint);
-            canv.drawRect(800, 80, 950, 120, black_Stroke);
+                case 4: setBackgroundColor(0xffffffff); break;  //blanco
 
-            canv.drawRect(750, 150, 1000, 190, whitePaint);
-            canv.drawRect(750, 150, 1000, 190, black_Stroke);
+                case 5: setBackgroundResource(R.drawable.madera_1); break;
 
-            canv.drawRect(700, 220, 1050, 260, whitePaint);
-            canv.drawRect(700, 220, 1050, 260, black_Stroke);
+                default: setBackgroundResource(R.drawable.madera_1); break;
+            }
+
+            //setBackgroundColor(0xFFBCE29A); //verde
+            //setBackgroundColor(0xffbfd3fa);     //azul
+            //setBackgroundColor(0xFFFABFD0);     //rosa
+
+            canv.drawRect(200, 120, 350, 160, whitePaint);
+            canv.drawRect(200, 120, 350, 160, red_stroke);
+
+            canv.drawRect(150, 190, 400, 230, whitePaint);
+            canv.drawRect(150, 190, 400, 230, red_stroke);
+
+            canv.drawRect(100, 260, 450, 300, whitePaint);
+            canv.drawRect(100, 260, 450, 300, red_stroke);
+
+            canv.drawRect(800, 120, 950, 160, whitePaint);
+            canv.drawRect(800, 120, 950, 160, black_Stroke);
+
+            canv.drawRect(750, 190, 1000, 230, whitePaint);
+            canv.drawRect(750, 190, 1000, 230, black_Stroke);
+
+            canv.drawRect(700, 260, 1050, 300, whitePaint);
+            canv.drawRect(700, 260, 1050, 300, black_Stroke);
 
 
 
-            //Texto indicativo.
-               /* Paint paintText = new Paint();
-                paintText.setTextSize(30);
-                paintText.setColor(Color.BLACK);
-                paintText.setStrokeWidth(4);
-                String texto = "Velocidades";
-                canv.drawText(texto, 750, 400, paintText);*/
-
-            //imagen boton de checkeo
-
-            canv.drawBitmap(next_Bitmap, 1140, 600, null);
-            canv.drawBitmap(home_Bitmap, 70, 600, null);
+            canv.drawBitmap(next_Bitmap, 1160, 20, null);
+            canv.drawBitmap(speak_Bitmap, 120, 20, null);
+            canv.drawBitmap(home_Bitmap, 20, 20, null);
 
 
 
@@ -275,26 +278,21 @@ import java.util.HashSet;
 
             }
 
-
-
-
-        }                       //final
+        }
 
         @Override
         public boolean onTouchEvent(MotionEvent event) {
             boolean handled = false;
 
-            //CircleArea touchedCircle;
             SquareArea touchedSquare;
 
             int xTouch;
             int yTouch;
             int pointerId;
             int actionIndex = event.getActionIndex();
-            //int numPointers = event.getPointerCount();
 
 
-            switch (event.getActionMasked()) {   //(event.getActionMasked()) {
+            switch (event.getActionMasked()) {
 
 
                 case MotionEvent.ACTION_DOWN:
@@ -314,24 +312,23 @@ import java.util.HashSet;
                     yTouch = (int) event.getY(0);
 
 
-                    // check if we've touched inside some Square
+                    // detectar pulsacion dentro del objeto
                     touchedSquare = obtainTouchedSquare(xTouch, yTouch);
                     touchedSquare.leftX = xTouch;
                     touchedSquare.leftY = yTouch;
                     mSquarePointer.put(event.getPointerId(0), touchedSquare);
 
                     invalidate();
-                    handled = true;
+                   // handled = true;
                     break;
 
                 case MotionEvent.ACTION_POINTER_DOWN:
-                    //handled = true;
                     break;
+
 
 
 
                 case MotionEvent.ACTION_MOVE:
-                    //final int pointerCount = event.getPointerCount();
 
                     tracker.addMovement(event); //track ACTION
                     tracker.computeCurrentVelocity(1000);
@@ -340,18 +337,20 @@ import java.util.HashSet;
 
                     if(x_vel > MaxVelocity_x){
                         MaxVelocity_x = x_vel;
+                        //registro.setVeloX(MaxVelocity_x);
+                        registro.setVelx(MaxVelocity_x);
+
                     }
 
                     if(y_vel > MaxVelocity_y){
                         MaxVelocity_y = y_vel;
+                        //registro.setVeloY(MaxVelocity_y);
+                        registro.setVely(MaxVelocity_y);
                     }
 
                     Log.w(TAG, "velocidad x = " + MaxVelocity_x);
                     Log.w(TAG, "velocidad y = " + MaxVelocity_y);
 
-
-                    //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
-                        // Some pointer has moved, search it by pointer id
                         pointerId = event.getPointerId(actionIndex);
 
                         xTouch = (int) event.getX(actionIndex);
@@ -371,10 +370,10 @@ import java.util.HashSet;
 
                         if (touchedSquare.num == 1) {
 
-                            if ((touchedSquare.leftX > 180) && (touchedSquare.leftX < 220) && (touchedSquare.leftY > 60) && (touchedSquare.leftY < 100)) {
+                            if ((touchedSquare.leftX > 180) && (touchedSquare.leftX < 220) && (touchedSquare.leftY > 100) && (touchedSquare.leftY < 140)) {
                                 check1 = 1;
                                 touchedSquare.leftX = 200;
-                                touchedSquare.leftY = 80;
+                                touchedSquare.leftY = 120;
                             }
 
 
@@ -382,9 +381,9 @@ import java.util.HashSet;
 
                         if (touchedSquare.num == 2) {
 
-                            if ((touchedSquare.leftX > 130) && (touchedSquare.leftX < 170) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170)) {
+                            if ((touchedSquare.leftX > 130) && (touchedSquare.leftX < 170) && (touchedSquare.leftY > 170) && (touchedSquare.leftY < 210)) {
                                 check2 = 1;
-                                touchedSquare.leftY = 150;
+                                touchedSquare.leftY = 190;
                                 touchedSquare.leftX = 150;
                             }
 
@@ -392,54 +391,53 @@ import java.util.HashSet;
 
                         if (touchedSquare.num == 3) {
 
-                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 200) && (touchedSquare.leftY < 240)) {
+                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 240) && (touchedSquare.leftY < 280)) {
                                 check3 = 1;
                                 touchedSquare.leftX = 100;
-                                touchedSquare.leftY = 220;
+                                touchedSquare.leftY = 260;
                             }
 
                         }
 
                         if (touchedSquare.num == 4) {
 
-                            if ((touchedSquare.leftX > 780) && (touchedSquare.leftX < 820) && (touchedSquare.leftY > 60) && (touchedSquare.leftY < 100)) {
+                            if ((touchedSquare.leftX > 780) && (touchedSquare.leftX < 820) && (touchedSquare.leftY > 100) && (touchedSquare.leftY < 140)) {
                                 check4 = 1;
                                 touchedSquare.leftX = 800;
-                                touchedSquare.leftY = 80;
+                                touchedSquare.leftY = 120;
                             }
 
                         }
 
                         if (touchedSquare.num == 5) {
 
-                            if ((touchedSquare.leftX > 730) && (touchedSquare.leftX < 770) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170)) {
+                            if ((touchedSquare.leftX > 730) && (touchedSquare.leftX < 770) && (touchedSquare.leftY > 170) && (touchedSquare.leftY < 210)) {
                                 check5 = 1;
                                 touchedSquare.leftX = 750;
-                                touchedSquare.leftY = 150;
+                                touchedSquare.leftY = 190;
                             }
 
                         }
 
                         if (touchedSquare.num == 6) {
 
-                            if ((touchedSquare.leftX > 680) && (touchedSquare.leftX < 720) && (touchedSquare.leftY > 200) && (touchedSquare.leftY < 240)) {
+                            if ((touchedSquare.leftX > 680) && (touchedSquare.leftX < 720) && (touchedSquare.leftY > 240) && (touchedSquare.leftY < 280)) {
                                 check6 = 1;
                                 touchedSquare.leftX = 700;
-                                touchedSquare.leftY = 220;
+                                touchedSquare.leftY = 260;
                             }
 
                         }
 
-                    //}
                     invalidate();
-                    handled = true;
-                    break;
+                   // handled = true;
+                   break;
 
                 case MotionEvent.ACTION_UP:
                     xTouch = (int) event.getX(0);
                     yTouch = (int) event.getY(0);
 
-                    if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
+                    if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
                         Log.w(TAG, "PULSADO");
                         String num = Integer.toString(check1);
                         String num1 = Integer.toString(check2);
@@ -451,21 +449,20 @@ import java.util.HashSet;
                         Log.w(num3, "valor check4");
 
 
-
-
-                        //check = Comprobar();
                         if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)) {
 
 
                             Log.w(TAG, "funcionando");
                             mostrar.set_fallos(fail);
-                            //mostrar.set_nivel(2);
+                            //registro.registrar();
 
-                            Screen_2 screen_2 = new Screen_2(getContext(), newActivity);
-                            newActivity.setContentView(screen_2);
+                            //newActivity.setContentView(R.layout.activity_main);
+                            Intent intent = new Intent(getContext(), Registro_datos.class);
+                            newActivity.startActivity(intent);
 
-                            //Intent intent = new Intent(getContext(), Level.class);
-                            //newActivity.startActivity(intent);
+                            //Screen_2 screen_2 = new Screen_2(getContext(), newActivity);
+                            //newActivity.setContentView(screen_2);
+
 
                         }
                         else {
@@ -490,54 +487,47 @@ import java.util.HashSet;
 
                         }
 
-                        // playActivity.setContentView();
-
                     }
 
-                    else if ((xTouch > 30) && (xTouch < 110) && (yTouch > 560) && (yTouch < 640)) {
+                    else if ((xTouch > 1) && (xTouch < 80) && (yTouch > 1) && (yTouch < 80)) {
                         Log.w(TAG, "PULSADO PAUSE");
 
                         newActivity.setContentView(R.layout.activity_main);
                         Intent intent = new Intent(getContext(), MainActivity.class);
                         newActivity.startActivity(intent);
 
+                    }
 
-                        //finish.onDestroy();
-                        //System.exit(0);
+                    else if ((xTouch > 110) && (xTouch < 180) && (yTouch > 1) && (yTouch < 80)) {
+                        Log.w(TAG, "Audio Record");
+
+                        speak.startPlaying();
+
                     }
                     invalidate();
-                    handled = true;
+                    //handled = true;
                     break;
 
 
 
                 case MotionEvent.ACTION_POINTER_UP:
-                    //handled = true;
                     break;
 
 
                 case MotionEvent.ACTION_CANCEL:
-                    handled = true;
+                   // handled = true;
                     break;
 
+                case (MotionEvent.ACTION_OUTSIDE):
+                    break;
+
+
                 default:
-                    // do nothing
                     break;
             }
 
-            return true; //super.onTouchEvent(event) || handled;
+            return true;
         }
-
-        /**
-         * Clears all CircleArea - pointer id relations
-         */
-  /*  private void clearCirclePointer() {
-        Log.w(TAG, "clearCirclePointer");
-
-        mCirclePointer.clear();
-    }*/
-
-        //////////////////////////////////////////////////////////////////////////////////////
 
         private SquareArea obtainTouchedSquare(final int xTouch, final int yTouch) {
             SquareArea touchedSquare = getTouchedSquare(xTouch, yTouch);
@@ -600,5 +590,3 @@ import java.util.HashSet;
         }
 
 }
-
-

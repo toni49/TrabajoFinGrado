@@ -36,7 +36,7 @@ public class Screen_ima2 extends View {
      * Main bitmap
      */
     private Bitmap leon = null, leon_sp = null, girafa = null, girafa_sp = null, cocodrilo = null, cocodrilo_sp = null, elefante = null, elefante_sp = null;
-    private Bitmap pause_Bitmap = null, next_Bitmap = null;
+    private Bitmap home_Bitmap = null, next_Bitmap = null;
     private Bitmap Bitma = null;
 
 
@@ -122,8 +122,8 @@ public class Screen_ima2 extends View {
 
     private void init(final Context context) {
 
-        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
-        pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
+        home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
         leon = BitmapFactory.decodeResource(context.getResources(), R.drawable.leon);
         leon_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.leon_sp);
         elefante = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante);
@@ -173,8 +173,8 @@ public class Screen_ima2 extends View {
         canv.drawText(texto, 750, 1000, paintText);
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1170, 600, null);
-        canv.drawBitmap(pause_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1140, 600, null);
+        canv.drawBitmap(home_Bitmap, 70, 600, null);
 
         //silueta de las imagenes
         canv.drawBitmap(girafa_sp, 70, 60, null);
@@ -241,13 +241,17 @@ public class Screen_ima2 extends View {
                 handled = true;
                 break;
 
+            case MotionEvent.ACTION_POINTER_DOWN:
+                //handled = true;
+                break;
+
 
             case MotionEvent.ACTION_MOVE:
                 final int pointerCount = event.getPointerCount();
 
                 Log.w(TAG, "Move");
 
-                for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                     // Some pointer has moved, search it by pointer id
                     pointerId = event.getPointerId(actionIndex);
 
@@ -308,7 +312,7 @@ public class Screen_ima2 extends View {
                     }
 
 
-                }
+                //}
                 invalidate();
                 handled = true;
                 break;
@@ -382,6 +386,10 @@ public class Screen_ima2 extends View {
 
                 invalidate();
                 handled = true;
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                //handled = true;
                 break;
 
 

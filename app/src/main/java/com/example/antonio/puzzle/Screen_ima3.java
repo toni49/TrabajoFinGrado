@@ -36,7 +36,7 @@ public class Screen_ima3 extends View {
      * Main bitmap
      */
     private Bitmap coche_rojo_sp = null, coche_rojo = null, coche_azul_sp = null, coche_azul = null, coche_amarillo = null, coche_amarillo_sp = null;
-    private Bitmap pause_Bitmap = null, next_Bitmap = null;
+    private Bitmap home_Bitmap = null, next_Bitmap = null;
 
 
 
@@ -119,8 +119,8 @@ public class Screen_ima3 extends View {
 
     private void init(final Context context) {
 
-        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
-        pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
+        home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
         coche_azul_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_azul_sp);
         coche_azul = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_azul);
         coche_rojo = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_rojo);
@@ -167,8 +167,8 @@ public class Screen_ima3 extends View {
         canv.drawText(texto, 750, 900, paintText);
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1170, 600, null);
-        canv.drawBitmap(pause_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1140, 600, null);
+        canv.drawBitmap(home_Bitmap, 70, 600, null);
 
         //silueta de las imagenes
         canv.drawBitmap(coche_amarillo_sp, 50, 80, null);
@@ -229,13 +229,17 @@ public class Screen_ima3 extends View {
                 handled = true;
                 break;
 
+            case MotionEvent.ACTION_POINTER_DOWN:
+                //handled = true;
+                break;
+
 
             case MotionEvent.ACTION_MOVE:
                 final int pointerCount = event.getPointerCount();
 
                 Log.w(TAG, "Move");
 
-                for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                     // Some pointer has moved, search it by pointer id
                     pointerId = event.getPointerId(actionIndex);
 
@@ -282,7 +286,7 @@ public class Screen_ima3 extends View {
                     }
 
 
-                }
+                //}
                 invalidate();
                 handled = true;
                 break;
@@ -354,6 +358,10 @@ public class Screen_ima3 extends View {
 
                 invalidate();
                 handled = true;
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                //handled = true;
                 break;
 
 

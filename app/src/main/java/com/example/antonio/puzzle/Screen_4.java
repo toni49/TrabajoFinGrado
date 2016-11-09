@@ -40,7 +40,7 @@ public class Screen_4 extends View {
      * Main bitmap
      */
     private Bitmap next_Bitmap = null;
-    private Bitmap pause_Bitmap = null;
+    private Bitmap home_Bitmap = null;
 
 
     private Rect Rect1, Rect2;
@@ -132,8 +132,8 @@ public class Screen_4 extends View {
 
     private void init(final Context context) {
 
-        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
-        pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
+        home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
 
 
         mSquarePaint = new Paint();
@@ -209,8 +209,8 @@ public class Screen_4 extends View {
         canv.drawText(texto, 500, 500, paintText);*/
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1170, 600, null);
-        canv.drawBitmap(pause_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1140, 600, null);
+        canv.drawBitmap(home_Bitmap, 70, 600, null);
 
 
         // Posición inicial de figuras dinámicas
@@ -273,13 +273,17 @@ public class Screen_4 extends View {
                 handled = true;
                 break;
 
+            case MotionEvent.ACTION_POINTER_DOWN:
+                //handled = true;
+                break;
+
 
             case MotionEvent.ACTION_MOVE:
                 final int pointerCount = event.getPointerCount();
 
                 Log.w(TAG, "Move");
 
-                for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                     // Some pointer has moved, search it by pointer id
                     pointerId = event.getPointerId(actionIndex);
 
@@ -382,7 +386,7 @@ public class Screen_4 extends View {
 
 
 
-                }
+                //}
                 invalidate();
                 handled = true;
                 break;
@@ -467,6 +471,10 @@ public class Screen_4 extends View {
                 handled = true;
                 break;
 
+            case MotionEvent.ACTION_POINTER_UP:
+                //handled = true;
+                break;
+
 
             case MotionEvent.ACTION_CANCEL:
                 handled = true;
@@ -477,7 +485,7 @@ public class Screen_4 extends View {
                 break;
         }
 
-        return super.onTouchEvent(event) || handled;
+        return true; //super.onTouchEvent(event) || handled;
     }
 
     /**

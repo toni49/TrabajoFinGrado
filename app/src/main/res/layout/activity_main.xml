@@ -52,6 +52,16 @@
         android:textColor="@color/primary_dark_material_dark" />
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:width="400dp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/button_opciones"
+        android:text="Opciones"
+        android:layout_gravity="center_horizontal"
+        android:background="@color/azul5" />
+
+    <Button
         android:layout_width="400dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"

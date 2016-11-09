@@ -40,7 +40,7 @@ public class Screen_2 extends View {
     private Activity newActivity = null;
 
     /** Main bitmap */
-    private Bitmap next_Bitmap = null, pause_Bitmap = null;
+    private Bitmap next_Bitmap = null, home_Bitmap = null;
 
 
     private Rect Rect1, Rect2;
@@ -147,8 +147,8 @@ public class Screen_2 extends View {
                 // Generate bitmap used for background
 
                // sBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.success_64);
-                next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
-                pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+                next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
+                home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
 
                 greenPaint = new Paint();
                 greenPaint.setColor(Color.GREEN);
@@ -222,8 +222,8 @@ public class Screen_2 extends View {
 
                 //imagen boton de checkeo
 
-                canv.drawBitmap(next_Bitmap, 1170, 600, null);
-                canv.drawBitmap(pause_Bitmap, 70, 600, null);
+                canv.drawBitmap(next_Bitmap, 1140, 600, null);
+                canv.drawBitmap(home_Bitmap, 70, 600, null);
 
 
 
@@ -297,13 +297,17 @@ public class Screen_2 extends View {
                         handled = true;
                         break;
 
+                    case MotionEvent.ACTION_POINTER_DOWN:
+                        //handled = true;
+                        break;
+
 
                     case MotionEvent.ACTION_MOVE:
                         final int pointerCount = event.getPointerCount();
 
                         Log.w(TAG, "Move");
 
-                        for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                        //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                             // Some pointer has moved, search it by pointer id
                             pointerId = event.getPointerId(actionIndex);
 
@@ -371,7 +375,7 @@ public class Screen_2 extends View {
 
 
 
-                        }
+                        //}
                         invalidate();
                         handled = true;
                         break;
@@ -444,6 +448,10 @@ public class Screen_2 extends View {
                         handled = true;
                         break;
 
+                    case MotionEvent.ACTION_POINTER_UP:
+                        //handled = true;
+                        break;
+
 
                     case MotionEvent.ACTION_CANCEL:
                         handled = true;
@@ -454,7 +462,7 @@ public class Screen_2 extends View {
                         break;
                 }
 
-                return super.onTouchEvent(event) || handled;
+                return true; //super.onTouchEvent(event) || handled;
             }
 
             /**

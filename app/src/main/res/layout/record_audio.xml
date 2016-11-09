@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#90d0f5">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text=""
+        android:id="@+id/textView4"
+        android:layout_marginBottom="300dp"
+        android:layout_gravity="center_horizontal" />
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="300dp"
+        android:id="@+id/button_record"
+        android:maxWidth="100dp"
+        android:background="@drawable/record"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="100dp"
+        android:id="@+id/button_stop"
+        android:background="@drawable/stop"
+        android:layout_gravity="center_horizontal" />
+
+    <ImageButton
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginLeft="120dp"
+        android:id="@+id/button_play"
+        android:background="@drawable/speaker"
+        android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>
+</LinearLayout>

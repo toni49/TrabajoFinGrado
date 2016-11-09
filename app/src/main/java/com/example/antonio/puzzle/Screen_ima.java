@@ -37,7 +37,7 @@ public class Screen_ima extends View {
      * Main bitmap
      */
     private Bitmap ping_1 = null, ping_sp = null, ping_2 = null, ping2_sp = null, ping_3 = null, ping3_sp = null, ping_4 = null, ping4_sp = null, ping_5 = null, ping5_sp = null, ping_6 = null, ping6_sp = null;
-    private Bitmap pause_Bitmap = null, next_Bitmap = null;
+    private Bitmap home_Bitmap = null, next_Bitmap = null;
 
 
     private BitArea x1, x2, x3, x4, x5, x6;
@@ -119,8 +119,8 @@ public class Screen_ima extends View {
 
     private void init(final Context context) {
 
-        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.next);
-        pause_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.pause);
+        next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
+        home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
         ping_1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_1);
         ping_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_sp);
         ping_2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_2);
@@ -174,8 +174,8 @@ public class Screen_ima extends View {
         canv.drawText(texto, 750, 900, paintText);*/
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1170, 600, null);
-        canv.drawBitmap(pause_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1140, 600, null);
+        canv.drawBitmap(home_Bitmap, 70, 600, null);
 
         //silueta de las imagenes
         canv.drawBitmap(ping_sp, 100, 100, null);
@@ -251,13 +251,17 @@ public class Screen_ima extends View {
                 handled = true;
                 break;
 
+            case MotionEvent.ACTION_POINTER_DOWN:
+                //handled = true;
+                break;
+
 
             case MotionEvent.ACTION_MOVE:
                 final int pointerCount = event.getPointerCount();
 
                 Log.w(TAG, "Move");
 
-                for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                     // Some pointer has moved, search it by pointer id
                     pointerId = event.getPointerId(actionIndex);
 
@@ -340,7 +344,7 @@ public class Screen_ima extends View {
                     }
 
 
-                }
+                //}
                 invalidate();
                 handled = true;
                 break;
@@ -421,6 +425,10 @@ public class Screen_ima extends View {
 
                 invalidate();
                 handled = true;
+                break;
+
+            case MotionEvent.ACTION_POINTER_UP:
+                //handled = true;
                 break;
 
 
