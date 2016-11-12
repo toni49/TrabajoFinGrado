@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case R.id.button_nivel:
                 click.start();
-                startActivity(new Intent(this, Elegir_nivel.class));
+                startActivity(new Intent(this, Juegos.class));
                 break;
 
             case R.id.button_medidas:

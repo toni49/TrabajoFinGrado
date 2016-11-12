@@ -14,6 +14,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by antonio on 8/7/16.
  */
@@ -29,10 +39,46 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
     Mostrar_nivel mostrar = new Mostrar_nivel();
 
 
+    private static float MaxVeloX = 0, MaxVeloY = 0;
+    private static int colorFondo = 0;
+    //private static float time = 0;
+
+    public static List<Float> veloX = new ArrayList<Float>();
+    public static List<Float> veloY = new ArrayList<Float>();
+    public static List<Float> time = new ArrayList<Float>();
+
+
+    public void setTime(float t){
+        time.add(t);
+    }
+
+    public List<Float> getTime(){
+        return time;
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.nivel);
+
+        ////////////////////////////////////////////////////////////////////////////////////
+        float maxVeloX, maxVeloY, timeMedio;
+        Mostrar_nivel fallos = new Mostrar_nivel();
+        int var = fallos.get_fallos();
+
+        maxVeloX = calcMediaVelX();
+        maxVeloY = calcMediaVelY();
+        timeMedio = mediaTiempos();
+
+        //calcular la media de la velocidad y , de la velocidad x y de las diferencias de tiempo;
+
+        //for(int i=0; i<veloX.size(); i++) {
+
+        RegisterData registerData = new RegisterData(maxVeloY, maxVeloX, var, timeMedio,  responseListener);
+        RequestQueue queue = Volley.newRequestQueue(Level.this);
+        queue.add(registerData);
+        //////////////////////////////////////////////////////////////////////////
 
         final MediaPlayer correct = MediaPlayer.create(this, R.raw.correct);
 
@@ -134,6 +180,73 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
             default:
                 break;
         }
+    }
+
+    Response.Listener<String> responseListener = new Response.Listener<String>() {
+        @Override
+        public void onResponse(String response) {
+            try {
+                JSONObject jsonResponse = new JSONObject(response);
+                boolean success = jsonResponse.getBoolean("success");
+                if (success) {
+                    //click.start();// Ir a LoginActivity
+
+                }
+                else {
+
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public void setVelx(float x){
+        veloX.add(x);
+
+    }
+
+    public List<Float> getVelx(){
+        return veloX;
+    }
+
+    public void setVely(float y){
+        veloY.add(y);
+    }
+
+    public List<Float> getVely(){
+        return veloY;
+    }
+
+    public float calcMediaVelX(){
+        float media = 0;
+        for(int i=0; i< getVelx().size(); i++)
+            media += getVelx().get(i);
+
+        media = media / getVelx().size();
+        Log.w(TAG, "Media velocidad x = " + media);
+        return media;
+    }
+
+    public float calcMediaVelY(){
+        float media = 0;
+        for(int i=0; i< getVely().size(); i++)
+            media += getVely().get(i);
+
+        media = media / getVely().size();
+        Log.w(TAG, "Media velocidad y = " + media);
+        return media;
+    }
+
+    public float mediaTiempos(){
+        float media = 0;
+
+        for(int i=0; i<getTime().size(); i++)
+            media += getTime().get(i);
+
+        Log.w(TAG, "Media tiempos = " + media);
+        media = media / getTime().size();
+        return media;
     }
 
 

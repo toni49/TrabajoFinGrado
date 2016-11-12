@@ -37,12 +37,17 @@ public class Screen_5 extends View {
 
 
     Mostrar_nivel mostrar = new Mostrar_nivel();
+    Registro_datos registro = new Registro_datos();
+    AudioRecordTest speak = new AudioRecordTest();
+
     private Bitmap next_Bitmap = null;
     private Bitmap home_Bitmap = null;
+    private Bitmap speak_Bitmap = null;
     private SquareArea x1, x2, x3, x4;
     private int valor = 1;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
     int fail = 0;
+    int color;
     long initialTime = 0;
     long endTime = 0;
     MainActivity main = new MainActivity();
@@ -125,6 +130,7 @@ public class Screen_5 extends View {
 
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
         home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
+        speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
 
 
         greenPaint = new Paint();
@@ -177,20 +183,36 @@ public class Screen_5 extends View {
     public void onDraw(final Canvas canv) {
 
 
-        setBackgroundResource(R.drawable.madera_1);
+        //setBackgroundResource(R.drawable.madera_1);
+
+        color = registro.getFondo();
+
+        switch(color){
+            case 1: setBackgroundColor(0xfffabfd0); break; //rosa
+
+            case 2: setBackgroundColor(0xffbce29a); break;  //verde
+
+            case 3: setBackgroundColor(0xffbfd3fa); break;  //azul
+
+            case 4: setBackgroundColor(0xffffffff); break;  //blanco
+
+            case 5: setBackgroundResource(R.drawable.madera_1); break;
+
+            default: setBackgroundResource(R.drawable.madera_1); break;
+        }
 
 
-        canv.drawRect(100, 50, 500, 100, whitePaint);
-        canv.drawRect(100, 50, 500, 100, red_stroke);
+        canv.drawRect(100, 150, 500, 200, whitePaint);
+        canv.drawRect(100, 150, 500, 200, red_stroke);
 
-        canv.drawRect(70, 140, 120, 500, whitePaint);
-        canv.drawRect(70, 140, 120, 500, green_Stroke);
+        canv.drawRect(70, 240, 120, 600, whitePaint);
+        canv.drawRect(70, 240, 120, 600, green_Stroke);
 
-        canv.drawRect(100, 530, 500, 580, whitePaint);
-        canv.drawRect(100, 530, 500, 580, blue_Stroke);
+        canv.drawRect(100, 630, 500, 680, whitePaint);
+        canv.drawRect(100, 630, 500, 680, blue_Stroke);
 
-        canv.drawRect(480, 140, 530, 500, whitePaint);
-        canv.drawRect(480, 140, 530, 500, yellow_Stroke);
+        canv.drawRect(480, 240, 530, 600, whitePaint);
+        canv.drawRect(480, 240, 530, 600, yellow_Stroke);
 
 
 
@@ -205,8 +227,10 @@ public class Screen_5 extends View {
 
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1140, 600, null);
-        canv.drawBitmap(home_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1160, 20, null);
+        canv.drawBitmap(speak_Bitmap, 120, 20, null);
+        canv.drawBitmap(home_Bitmap, 20, 20, null);
+
 
 
         // Posición inicial de figuras dinámicas
@@ -305,38 +329,38 @@ public class Screen_5 extends View {
                         }
 
                         if (touchedSquare.num == 1) {
-                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 30) && (touchedSquare.leftY < 70)) {
+                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 130) && (touchedSquare.leftY < 170)) {
                                 Log.w(TAG, "fig 1");
                                 check1 = 1;
                                 touchedSquare.leftX = 100;
-                                touchedSquare.leftY = 50;
+                                touchedSquare.leftY = 150;
                             }
                         }
 
                         if (touchedSquare.num == 2) {
-                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 510) && (touchedSquare.leftY < 550)) {
+                            if ((touchedSquare.leftX > 80) && (touchedSquare.leftX < 120) && (touchedSquare.leftY > 610) && (touchedSquare.leftY < 650)) {
                                 Log.w(TAG, "fig 2");
                                 check2 = 1;
                                 touchedSquare.leftX = 100;
-                                touchedSquare.leftY = 530;
+                                touchedSquare.leftY = 630;
 
                             }
                         }
 
                         if (touchedSquare.num == 3) {
-                            if ((touchedSquare.leftX > 50) && (touchedSquare.leftX < 90) && (touchedSquare.leftY > 120) && (touchedSquare.leftY < 160)) {
+                            if ((touchedSquare.leftX > 50) && (touchedSquare.leftX < 90) && (touchedSquare.leftY > 220) && (touchedSquare.leftY < 260)) {
                                 check3 = 1;
                                 touchedSquare.leftX = 70;
-                                touchedSquare.leftY = 140;
+                                touchedSquare.leftY = 240;
                                 Log.w(TAG, "fig 3");
                             }
                         }
 
                         if (touchedSquare.num == 4) {
-                            if ((touchedSquare.leftX > 460) && (touchedSquare.leftX < 500) && (touchedSquare.leftY > 120) && (touchedSquare.leftY < 160)) {
+                            if ((touchedSquare.leftX > 460) && (touchedSquare.leftX < 500) && (touchedSquare.leftY > 220) && (touchedSquare.leftY < 260)) {
                                 check4 = 1;
                                 touchedSquare.leftX = 480;
-                                touchedSquare.leftY = 140;
+                                touchedSquare.leftY = 240;
                                 Log.w(TAG, "fig 4");
                             }
                         }
@@ -351,7 +375,7 @@ public class Screen_5 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
+                if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -400,7 +424,7 @@ public class Screen_5 extends View {
                     }
                 }
 
-                else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
+                else if ((xTouch > 1) && (xTouch < 80) && (yTouch > 1) && (yTouch < 80)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -414,6 +438,13 @@ public class Screen_5 extends View {
 
                     //finish.onDestroy();
                     //System.exit(0);
+                }
+
+                else if ((xTouch > 110) && (xTouch < 180) && (yTouch > 1) && (yTouch < 80)) {
+                    Log.w(TAG, "Audio Record");
+
+                    speak.startPlaying();
+
                 }
 
                 invalidate();

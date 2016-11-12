@@ -25,7 +25,7 @@ import java.util.HashSet;
 
     public class Screen_1 extends View {
 
-        private static final String TAG = "Screen_2";
+        private static final String TAG = "Screen_1";
         int valor = 1;
         int color;
 
@@ -40,11 +40,12 @@ import java.util.HashSet;
         private Rect Rect1, Rect2;
         private SquareArea s1, s2, s3, s4, s5, s6;
         private float w, h;
+        long endTime= 0, initialTime = 0;
         int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
         int fail = 0;
         VelocityTracker tracker = null;
-        float MaxVelocity_x = 0;
-        float MaxVelocity_y = 0;
+        static float MaxVelocity_x = 0;
+        static float MaxVelocity_y = 0;
         Mostrar_nivel mostrar = new Mostrar_nivel();
         Registro_datos registro = new Registro_datos();
 
@@ -297,6 +298,19 @@ import java.util.HashSet;
 
                 case MotionEvent.ACTION_DOWN:
 
+                    //tiempo entre pulsaciones del usuario.
+                    if(initialTime == 0){
+                        initialTime = System.currentTimeMillis();
+                    }
+                    else{
+                        endTime = System.currentTimeMillis();
+                        long diff = endTime - initialTime;
+                        registro.setTime(diff);
+                        initialTime = endTime;
+                        Log.i("Screen_1", "Time between clicks: " + diff);
+                    }
+
+                    ////////////////////////////////////////
 
                     if (tracker == null) {
                         tracker = VelocityTracker.obtain();
@@ -310,6 +324,8 @@ import java.util.HashSet;
 
                     xTouch = (int) event.getX(0);
                     yTouch = (int) event.getY(0);
+
+
 
 
                     // detectar pulsacion dentro del objeto
@@ -335,21 +351,22 @@ import java.util.HashSet;
                     float x_vel = tracker.getXVelocity();
                     float y_vel = tracker.getYVelocity();
 
-                    if(x_vel > MaxVelocity_x){
+                    if(x_vel > 0.05f){
                         MaxVelocity_x = x_vel;
-                        //registro.setVeloX(MaxVelocity_x);
                         registro.setVelx(MaxVelocity_x);
-
+                        Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                        //registro.veloX.add(MaxVelocity_x);
                     }
 
-                    if(y_vel > MaxVelocity_y){
+                    if(y_vel > 0.05f){
                         MaxVelocity_y = y_vel;
-                        //registro.setVeloY(MaxVelocity_y);
                         registro.setVely(MaxVelocity_y);
+                        Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
                     }
 
-                    Log.w(TAG, "velocidad x = " + MaxVelocity_x);
-                    Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+                   // registro.registrar(MaxVelocity_x, MaxVelocity_y);
+
 
                         pointerId = event.getPointerId(actionIndex);
 
@@ -437,12 +454,16 @@ import java.util.HashSet;
                     xTouch = (int) event.getX(0);
                     yTouch = (int) event.getY(0);
 
+
+
                     if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
                         Log.w(TAG, "PULSADO");
                         String num = Integer.toString(check1);
                         String num1 = Integer.toString(check2);
                         String num2 = Integer.toString(check3);
                         String num3 = Integer.toString(check4);
+
+
                         Log.w(num, "valor check1");
                         Log.w(num1, "valor check2");
                         Log.w(num2, "valor check3");
@@ -452,12 +473,13 @@ import java.util.HashSet;
                         if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)) {
 
 
+
                             Log.w(TAG, "funcionando");
                             mostrar.set_fallos(fail);
                             //registro.registrar();
 
                             //newActivity.setContentView(R.layout.activity_main);
-                            Intent intent = new Intent(getContext(), Registro_datos.class);
+                            Intent intent = new Intent(getContext(), Level.class);
                             newActivity.startActivity(intent);
 
                             //Screen_2 screen_2 = new Screen_2(getContext(), newActivity);

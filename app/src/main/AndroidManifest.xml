@@ -54,6 +54,12 @@
         <activity android:name=".AudioRecordTest"
             android:screenOrientation="landscape"></activity>
 
+        <activity android:name=".Juegos"
+            android:screenOrientation="landscape"></activity>
+
+        <activity android:name=".Juegos_2"
+            android:screenOrientation="landscape"></activity>
+
 
     </application>
 

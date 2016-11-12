@@ -49,14 +49,18 @@ public class Screen_6 extends View {
      */
     private Bitmap next_Bitmap = null;
     private Bitmap home_Bitmap = null;
+    private Bitmap speak_Bitmap = null;
 
     private CircleArea x1, x2, x3, x4;
     private float w, h;
     private int valor = 1;
     int check1 = 0, check2 = 0, check3 = 0;
-    int fail = 0;
+    int fail = 0, color;
     Mostrar_nivel mostrar = new Mostrar_nivel();
     MainActivity main = new MainActivity();
+    Registro_datos registro = new Registro_datos();
+
+    AudioRecordTest speak = new AudioRecordTest();
 
 
     public Screen_6(Context context, Activity activity) {
@@ -117,6 +121,7 @@ public class Screen_6 extends View {
 
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
         home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
+        speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
 
 
         greenPaint = new Paint();
@@ -145,36 +150,53 @@ public class Screen_6 extends View {
     @Override
     public void onDraw(final Canvas canv) {
 
+        color = registro.getFondo();
+
+        switch(color){
+            case 1: setBackgroundColor(0xfffabfd0); break; //rosa
+
+            case 2: setBackgroundColor(0xffbce29a); break;  //verde
+
+            case 3: setBackgroundColor(0xffbfd3fa); break;  //azul
+
+            case 4: setBackgroundColor(0xffffffff); break;  //blanco
+
+            case 5: setBackgroundResource(R.drawable.madera_1); break;
+
+            default: setBackgroundResource(R.drawable.madera_1); break;
+        }
+
         stroke_blue = new Paint();
         stroke_blue.setStyle(Paint.Style.STROKE);
         stroke_blue.setStrokeWidth(7);
         stroke_blue.setColor(Color.BLUE);
-        setBackgroundResource(R.drawable.madera_1);
+        //setBackgroundResource(R.drawable.madera_1);
 
         //Cirulos fijos
-        canv.drawCircle(150, 200, 140, mFondoPaint);
-        canv.drawCircle(150, 200, 140, stroke_blue);
+        canv.drawCircle(150, 300, 140, mFondoPaint);
+        canv.drawCircle(150, 300, 140, stroke_blue);
 
-        canv.drawCircle(600, 200, 120, mFondoPaint);
-        canv.drawCircle(600, 200, 120, stroke_blue);
+        canv.drawCircle(600, 300, 120, mFondoPaint);
+        canv.drawCircle(600, 300, 120, stroke_blue);
 
-        canv.drawCircle(1100, 200, 100, mFondoPaint);
-        canv.drawCircle(1100, 200, 100, stroke_blue);
+        canv.drawCircle(1100, 300, 100, mFondoPaint);
+        canv.drawCircle(1100, 300, 100, stroke_blue);
 
 
         //Texto indicativo.
-        Paint paintText = new Paint();
+       /* Paint paintText = new Paint();
         paintText.setTextSize(30);
         paintText.setColor(Color.BLACK);
         paintText.setStrokeWidth(4);
         String texto = "COLOQUE LAS FICHAS";
-        canv.drawText(texto, 450, 400, paintText);
+        canv.drawText(texto, 450, 400, paintText);*/
 
         //imagen boton de checkeo
         // w = 1740;
         //  h = 790;
-        canv.drawBitmap(next_Bitmap, 1140, 600, null);
-        canv.drawBitmap(home_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1160, 20, null);
+        canv.drawBitmap(speak_Bitmap, 120, 20, null);
+        canv.drawBitmap(home_Bitmap, 20, 20, null);
 
 
         // Posición inicial de figuras dinámicas
@@ -263,11 +285,11 @@ public class Screen_6 extends View {
 
                     if(touchedCircle.radius == 140) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedCircle.centerX > 140) && (touchedCircle.centerX < 160) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 140) && (touchedCircle.centerX < 160) && (touchedCircle.centerY > 290) && (touchedCircle.centerY < 310)) {
                             Log.w(TAG, "circulo 1");
                             check1 = 1;
                             touchedCircle.centerX = 150;
-                            touchedCircle.centerY = 200;
+                            touchedCircle.centerY = 300;
 
                         }
 
@@ -275,11 +297,11 @@ public class Screen_6 extends View {
 
                     if(touchedCircle.radius == 120) {
 
-                        if ((touchedCircle.centerX > 590) && (touchedCircle.centerX < 610) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 590) && (touchedCircle.centerX < 610) && (touchedCircle.centerY > 290) && (touchedCircle.centerY < 310)) {
                             Log.w(TAG, "circulo 2");
                             check2 = 1;
                             touchedCircle.centerX = 600;
-                            touchedCircle.centerY = 200;
+                            touchedCircle.centerY = 300;
 
                         }
 
@@ -288,11 +310,11 @@ public class Screen_6 extends View {
                     if(touchedCircle.radius == 100) {
 
 
-                        if ((touchedCircle.centerX > 1090) && (touchedCircle.centerX < 1110) && (touchedCircle.centerY > 190) && (touchedCircle.centerY < 210)) {
+                        if ((touchedCircle.centerX > 1090) && (touchedCircle.centerX < 1110) && (touchedCircle.centerY > 290) && (touchedCircle.centerY < 310)) {
                             Log.w(TAG, "circulo 3");
                             check3 = 1;
                             touchedCircle.centerX = 1100;
-                            touchedCircle.centerY = 200;
+                            touchedCircle.centerY = 300;
 
                         }
 
@@ -309,7 +331,7 @@ public class Screen_6 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
+                if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num = Integer.toString(check1);
                     String num1 = Integer.toString(check2);
@@ -356,7 +378,7 @@ public class Screen_6 extends View {
                     }
                 }
 
-                else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
+                else if ((xTouch > 1) && (xTouch < 80) && (yTouch > 1) && (yTouch < 80)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -370,6 +392,13 @@ public class Screen_6 extends View {
 
                     //finish.onDestroy();
                     //System.exit(0);
+                }
+
+                else if ((xTouch > 110) && (xTouch < 180) && (yTouch > 1) && (yTouch < 80)) {
+                    Log.w(TAG, "Audio Record");
+
+                    speak.startPlaying();
+
                 }
 
                 invalidate();
