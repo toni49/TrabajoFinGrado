@@ -100,7 +100,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
         //calcular la media de la velocidad y , de la velocidad x y de las diferencias de tiempo;
 
-        //for(int i=0; i<veloX.size(); i++) {
+
         LoginRequest loginRequest = new LoginRequest(getUsername(), getPassword(), responseListener);
         RequestQueue queue = Volley.newRequestQueue(Level.this);
         queue.add(loginRequest);
