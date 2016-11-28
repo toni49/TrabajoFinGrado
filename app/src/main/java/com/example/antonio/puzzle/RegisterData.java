@@ -13,16 +13,20 @@ import java.util.Map;
  */
 
 public class RegisterData extends StringRequest {
-    private static final String DATA_REGISTER_URL = "http://www.antoniosanz.comeze.com/Data.php";
+    //private static final String DATA_REGISTER_URL = "http://www.antoniosanz.comeze.com/Data.php";
+    private static final String DATA_REGISTER_URL = "http://www.antoniosanz.hol.es/DataUsuario.php";
     private Map<String, String> vars;
 
-    public RegisterData(float maxVeloX, float maxVeloY, int fallos, float diffTime, Response.Listener<String> listener) {
+    public RegisterData(String username, String fecha, int puzle, float maxVeloX, float maxVeloY, int fallos, float diffTime, Response.Listener<String> listener) {
         super(Request.Method.POST, DATA_REGISTER_URL, listener, null);
         //vars = new HashMap<>();
         //params.put("name", name);
         //params.put("age", age + "");
         vars = new HashMap<>();
 
+        vars.put("username", username);
+        vars.put("fecha", fecha);
+        vars.put("puzle", puzle + "");
         vars.put("maxVeloX", maxVeloX + "");
         vars.put("maxVeloY", maxVeloY + "");
         vars.put("fallos", fallos + "");

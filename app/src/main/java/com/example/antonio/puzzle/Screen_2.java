@@ -15,6 +15,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -50,8 +51,13 @@ public class Screen_2 extends View {
     private float w, h;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
     int fail = 0;
+    long initialTime = 0, endTime = 0;
+    VelocityTracker tracker = null;
+    static float MaxVelocity_x = 0;
+    static float MaxVelocity_y = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
     Registro_datos registro = new Registro_datos();
+    Level registros = new Level();
 
     AudioRecordTest speak = new AudioRecordTest();
 
@@ -300,6 +306,30 @@ public class Screen_2 extends View {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
 
+                        if(initialTime == 0){
+                            initialTime = System.currentTimeMillis();
+                        }
+                        else{
+                            endTime = System.currentTimeMillis();
+                            long diff = endTime - initialTime;
+                            //registro.setTime(diff);
+                            registros.setTime(diff); //Clase Level
+                            initialTime = endTime;
+                            Log.i("Screen_1", "Time between clicks: " + diff);
+                        }
+
+                        ////////////////////////////////////////
+
+                        if (tracker == null) {
+                            tracker = VelocityTracker.obtain();
+                        } else {
+                            tracker.clear();
+                        }
+
+                        tracker.addMovement(event); //track ACTION
+                        MaxVelocity_y = 0;
+                        MaxVelocity_x = 0;
+
                         xTouch = (int) event.getX(0);
                         yTouch = (int) event.getY(0);
 
@@ -330,6 +360,27 @@ public class Screen_2 extends View {
                         final int pointerCount = event.getPointerCount();
 
                         Log.w(TAG, "Move");
+
+                        tracker.addMovement(event); //track ACTION
+                        tracker.computeCurrentVelocity(1000);
+                        float x_vel = tracker.getXVelocity();
+                        float y_vel = tracker.getYVelocity();
+
+                        if(x_vel > 0.05f){
+                            MaxVelocity_x = x_vel;
+                            registros.setVelx(MaxVelocity_x); //Clase Level
+                            //registro.setVelx(MaxVelocity_x);
+                            Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                            //registro.veloX.add(MaxVelocity_x);
+                        }
+
+                        if(y_vel > 0.05f){
+                            MaxVelocity_y = y_vel;
+                            registros.setVely(MaxVelocity_y);   //Clase Level;
+                            //registro.setVely(MaxVelocity_y);
+                            Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
+                        }
 
                         //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                             // Some pointer has moved, search it by pointer id
@@ -426,10 +477,17 @@ public class Screen_2 extends View {
 
                                 Log.w(TAG, "funcionando");
                                 mostrar.set_fallos(fail);
+                                mostrar.set_nivel(1);
+                                //registro.registrar();
+
+                                //newActivity.setContentView(R.layout.activity_main);
+                                Intent intent = new Intent(getContext(), Level.class);
+                                newActivity.startActivity(intent);
+                                //mostrar.set_fallos(fail);
                                 //mostrar.set_nivel(2);
 
-                                Screen_3 screen_3 = new Screen_3(getContext(), newActivity);
-                                newActivity.setContentView(screen_3);
+                              /*  Screen_3 screen_3 = new Screen_3(getContext(), newActivity);
+                                newActivity.setContentView(screen_3);*/
 
 
                                 //Intent intent = new Intent(getContext(), Level.class);

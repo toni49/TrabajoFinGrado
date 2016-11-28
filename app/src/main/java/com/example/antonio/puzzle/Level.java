@@ -21,7 +21,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -34,6 +36,8 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
     ImageView imagen, imagen2, imagen3, imagen4, flash_stars;
     Button next_level, salir;
     int valor = 0;
+    private static String username = "";
+    private static String password = "";
 
 
     Mostrar_nivel mostrar = new Mostrar_nivel();
@@ -56,6 +60,29 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         return time;
     }
 
+    public void setUsername(String name){
+        username = name;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public void setPassword(String pass){
+        password = pass;
+    }
+
+    public String getPassword(){
+        return password;
+    }
+
+    public String getDate(){
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(date.getTime());
+        return formattedDate;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +101,12 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         //calcular la media de la velocidad y , de la velocidad x y de las diferencias de tiempo;
 
         //for(int i=0; i<veloX.size(); i++) {
-
-        RegisterData registerData = new RegisterData(maxVeloY, maxVeloX, var, timeMedio,  responseListener);
+        LoginRequest loginRequest = new LoginRequest(getUsername(), getPassword(), responseListener);
         RequestQueue queue = Volley.newRequestQueue(Level.this);
+        queue.add(loginRequest);
+
+        RegisterData registerData = new RegisterData(getUsername(), getDate(), 1, maxVeloY, maxVeloX, var, timeMedio,  responseListener);
+        queue = Volley.newRequestQueue(Level.this);
         queue.add(registerData);
         //////////////////////////////////////////////////////////////////////////
 
@@ -166,7 +196,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         switch(v.getId()){
             case R.id.button_next:
                 if(valor == 1)
-                    setContentView(new Screen_6(getApplicationContext(), Level.this));
+                    setContentView(new Screen_2(getApplicationContext(), Level.this));
                 else if (valor == 2)
                     setContentView(new Screen_ima3(getApplicationContext(), Level.this));
                 else if (valor == 3)

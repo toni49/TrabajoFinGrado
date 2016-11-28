@@ -17,7 +17,7 @@ public class Mostrar_nivel {
 
     public int get_fallos() {return fallos;}
 
-    public void set_fallos(int err) { fallos = fallos + err; }
+    public void set_fallos(int err) { fallos = err; }
 
 
 

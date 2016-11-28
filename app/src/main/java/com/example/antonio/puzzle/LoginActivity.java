@@ -70,6 +70,10 @@ public class LoginActivity extends AppCompatActivity {
                             boolean success = jsonResponse.getBoolean("success");
 
                             if (success) {
+
+                                Level datos = new Level();
+                                datos.setUsername(username);
+                                datos.setPassword(password);
                                // String name = jsonResponse.getString("name");
                                // int age = jsonResponse.getInt("age");
                                 click.start();

@@ -13,7 +13,9 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
@@ -29,11 +31,20 @@ public class Registro_datos extends AppCompatActivity {
 
     private static float MaxVeloX = 0, MaxVeloY = 0;
     private static int colorFondo = 0;
+    private static String username = "";
+
     //private static float time = 0;
 
     public static List<Float> veloX = new ArrayList<Float>();
     public static List<Float> veloY = new ArrayList<Float>();
     public static List<Float> time = new ArrayList<Float>();
+
+    public String getDate(){
+        Calendar date = Calendar.getInstance();
+        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = df.format(date.getTime());
+        return formattedDate;
+    }
 
 
     public void setTime(float t){
@@ -70,9 +81,18 @@ public class Registro_datos extends AppCompatActivity {
         return MaxVeloY;
     }
 
+    ////////////////////////////////////////////////////77
+
+    public void setUsername(String name){
+        username = name;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
     public void setVelx(float x){
         veloX.add(x);
-
     }
 
     public List<Float> getVelx(){
@@ -159,7 +179,7 @@ public class Registro_datos extends AppCompatActivity {
 
         //for(int i=0; i<veloX.size(); i++) {
 
-            RegisterData registerData = new RegisterData(maxVeloY, maxVeloX, var, timeMedio,  responseListener);
+            RegisterData registerData = new RegisterData(getUsername(), getDate(), 1, maxVeloY, maxVeloX, var, timeMedio,  responseListener);
             RequestQueue queue = Volley.newRequestQueue(Registro_datos.this);
             queue.add(registerData);
         //}

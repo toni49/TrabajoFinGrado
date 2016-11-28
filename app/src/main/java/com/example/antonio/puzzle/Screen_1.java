@@ -48,6 +48,8 @@ import java.util.HashSet;
         static float MaxVelocity_y = 0;
         Mostrar_nivel mostrar = new Mostrar_nivel();
         Registro_datos registro = new Registro_datos();
+        Level registros = new Level();
+
 
         AudioRecordTest speak = new AudioRecordTest();
 
@@ -305,7 +307,8 @@ import java.util.HashSet;
                     else{
                         endTime = System.currentTimeMillis();
                         long diff = endTime - initialTime;
-                        registro.setTime(diff);
+                        //registro.setTime(diff);
+                        registros.setTime(diff); //Clase Level
                         initialTime = endTime;
                         Log.i("Screen_1", "Time between clicks: " + diff);
                     }
@@ -353,14 +356,16 @@ import java.util.HashSet;
 
                     if(x_vel > 0.05f){
                         MaxVelocity_x = x_vel;
-                        registro.setVelx(MaxVelocity_x);
+                        registros.setVelx(MaxVelocity_x); //Clase Level
+                        //registro.setVelx(MaxVelocity_x);
                         Log.w(TAG, "velocidad x = " + MaxVelocity_x);
                         //registro.veloX.add(MaxVelocity_x);
                     }
 
                     if(y_vel > 0.05f){
                         MaxVelocity_y = y_vel;
-                        registro.setVely(MaxVelocity_y);
+                        registros.setVely(MaxVelocity_y);   //Clase Level;
+                        //registro.setVely(MaxVelocity_y);
                         Log.w(TAG, "velocidad y = " + MaxVelocity_y);
 
                     }
@@ -476,6 +481,7 @@ import java.util.HashSet;
 
                             Log.w(TAG, "funcionando");
                             mostrar.set_fallos(fail);
+                            mostrar.set_nivel(1);
                             //registro.registrar();
 
                             //newActivity.setContentView(R.layout.activity_main);

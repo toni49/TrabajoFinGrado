@@ -45,7 +45,7 @@ public class Elegir_nivel extends AppCompatActivity implements View.OnClickListe
 
                 case R.id.button_2:
                     click.start();
-                    setContentView(new Screen_6(getApplicationContext(), Elegir_nivel.this));
+                    setContentView(new Screen_2(getApplicationContext(), Elegir_nivel.this));
                     break;
 
                 case R.id.button_3:

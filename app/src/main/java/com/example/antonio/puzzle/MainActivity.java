@@ -26,6 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String TAG = "MainActivity";
     Button empezar, logout, nivel, medidas, opciones;
     TextView nombre_usuario;
+    Level registros = new Level();
     //UserLocalStore userLocalStore;
 
 
@@ -61,8 +62,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Intent intent = getIntent();
         // String name = intent.getStringExtra("name");
+
         String username = intent.getStringExtra("username");
+        String password = intent.getStringExtra("password");
+
+        username = registros.getUsername();
         nombre_usuario.setText(username);
+
+        registros.setUsername(username); // guardamos nombre de usuario
+        registros.setPassword(password);
 
     }
 
