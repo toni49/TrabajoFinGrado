@@ -142,7 +142,6 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 flash_stars.setImageResource(R.drawable.stars);
                 zoom(imagen2);
                 move(flash_stars);
-                //imagen.setImageResource(R.drawable.);
                 valor = 1;
                 break;
 
