@@ -58,48 +58,53 @@ public class LoginActivity extends AppCompatActivity {
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = userInput.getText().toString();
-                final String password = passInput.getText().toString();
 
-                // Response received from the server
-                Response.Listener<String> responseListener = new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonResponse = new JSONObject(response);
-                            boolean success = jsonResponse.getBoolean("success");
+                final String username = userInput.getText().toString().trim();
+                final String password = passInput.getText().toString().trim();
 
-                            if (success) {
+                    // Response received from the server
+                    Response.Listener<String> responseListener = new Response.Listener<String>() {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                JSONObject jsonResponse = new JSONObject(response);
+                                boolean success = jsonResponse.getBoolean("success");
 
-                                Level datos = new Level();
-                                datos.setUsername(username);
-                                datos.setPassword(password);
-                               // String name = jsonResponse.getString("name");
-                               // int age = jsonResponse.getInt("age");
-                                click.start();
-                                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                               // intent.putExtra("name", name);
-                               // intent.putExtra("age", age);
-                                intent.putExtra("username", username);
-                                LoginActivity.this.startActivity(intent);
-                            } else {
-                                AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                builder.setMessage("Login Failed")
-                                        .setNegativeButton("Retry", null)
-                                        .create()
-                                        .show();
+                                if (success) {
+
+                                    userInput.setText("");  //Borramos el nombre de usuario de la vista
+                                    passInput.setText("");  //Borramos la contraseña de la vista
+                                    Level datos = new Level();
+                                    datos.setUsername(username);
+                                    datos.setPassword(password);
+                                    // String name = jsonResponse.getString("name");
+                                    // int age = jsonResponse.getInt("age");
+                                    click.start();
+                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                                    // intent.putExtra("name", name);
+                                    // intent.putExtra("age", age);
+                                    intent.putExtra("username", username);
+                                    LoginActivity.this.startActivity(intent);
+                                } else {
+                                    AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
+                                    builder.setMessage("Los datos no son validos")
+                                            .setNegativeButton("Volver a intentar", null)
+                                            .create()
+                                            .show();
+                                }
+
+                            } catch (JSONException e) {
+                                e.printStackTrace();
                             }
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
                         }
-                    }
-                };
+                    };
 
-                LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
-                RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
-                queue.add(loginRequest);
-            }
+
+                    LoginRequest loginRequest = new LoginRequest(username, password, responseListener);
+                    RequestQueue queue = Volley.newRequestQueue(LoginActivity.this);
+                    queue.add(loginRequest);
+                }
+
         });
     }
 }

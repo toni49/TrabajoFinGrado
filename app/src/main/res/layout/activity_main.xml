@@ -36,6 +36,7 @@
         android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="22dp"
         android:text="@string/text_menu1"
         android:id="@+id/button_start"
         android:background="@color/blue_1"
@@ -46,9 +47,10 @@
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="22dp"
         android:text="@string/text_menu2"
         android:id="@+id/button_nivel"
-        android:background="@color/blue_2"
+        android:background="@color/blue_1"
         android:textColor="@color/primary_dark_material_dark" />
 
     <Button
@@ -56,19 +58,21 @@
         android:layout_height="wrap_content"
         android:width="400dp"
         android:layout_marginTop="10dp"
+        android:textSize="22dp"
         android:id="@+id/button_opciones"
         android:text="Opciones"
         android:layout_gravity="center_horizontal"
-        android:background="@color/azul5" />
+        android:background="@color/blue_1" />
 
     <Button
         android:layout_width="400dp"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="22dp"
         android:text="Medidas velocidad"
         android:id="@+id/button_medidas"
-        android:background="@color/blue_4"
+        android:background="@color/blue_1"
         android:textColor="@color/primary_dark_material_dark" />
 
 
@@ -77,9 +81,10 @@
             android:layout_marginTop="10dp"
             android:layout_gravity="center"
             android:layout_height="wrap_content"
+            android:textSize="22dp"
             android:text="@string/text_menu3"
             android:id="@+id/button_logout"
-            android:background="@color/blue_5"
+            android:background="@color/nivel_3"
             android:textColor="@color/primary_dark_material_dark" />
 
 

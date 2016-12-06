@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:background="#adccec"
+    android:background="@drawable/fondo_espacial"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -9,12 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="PUZLES"
-        android:textSize="62dp"
+        android:text="Niveles"
+        android:textSize="92dp"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="60dp"
         android:id="@+id/textView10"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_orange_light" />
 
     <ImageButton
         android:layout_width="60dp"
@@ -22,7 +23,7 @@
         android:layout_marginLeft="170dp"
         android:layout_marginBottom="30dp"
         android:src="@drawable/flecha_left"
-        android:background="#adccec"
+        android:background="@android:color/holo_orange_light"
         android:id="@+id/imageLeft" />
 
     <LinearLayout
@@ -33,14 +34,14 @@
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginLeft="150dp"
-            android:src="@drawable/rejuego1"
+            android:src="@drawable/rejuego7"
             android:id="@+id/imageButton7" />
 
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginLeft="50dp"
-            android:src="@drawable/rejuego2"
+            android:src="@drawable/rejuego8"
             android:id="@+id/imageButton8"
             android:layout_gravity="center_horizontal" />
 
@@ -48,7 +49,7 @@
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginLeft="50dp"
-            android:src="@drawable/rejuego3"
+            android:src="@drawable/rejuego9"
             android:id="@+id/imageButton9"
             android:layout_gravity="right" />
 

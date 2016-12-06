@@ -22,6 +22,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -48,6 +49,7 @@ public class Screen_3 extends View {
     private Bitmap next_Bitmap = null;
     private Bitmap home_Bitmap = null;
     private Bitmap speak_Bitmap = null;
+    private Bitmap save_Bitmap = null;
 
 
 
@@ -55,13 +57,20 @@ public class Screen_3 extends View {
     private Rect Rect1, Rect2;
     private CircleArea x1, x2, x3, x4, x5;
     private float w, h;
+    long endTime= 0, initialTime = 0, totalTime = 0;
     private int valor = 1;
+    private boolean flag_save = false;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0;
     int fail = 0;
+    VelocityTracker tracker = null;
+    static float MaxVelocity_x = 0;
+    static float MaxVelocity_y = 0;
     int color = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
     MainActivity main = new MainActivity();
     Registro_datos registro = new Registro_datos();
+    Level registros = new Level();
+
 
     AudioRecordTest speak = new AudioRecordTest();
 
@@ -122,6 +131,7 @@ public class Screen_3 extends View {
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
         home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
         speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
+        save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.save);
 
 
         greenPaint = new Paint();
@@ -231,6 +241,7 @@ public class Screen_3 extends View {
        // w = 1740;
       //  h = 790;
         canv.drawBitmap(next_Bitmap, 1160, 20, null);
+        canv.drawBitmap(save_Bitmap, 1060, 20, null);
         canv.drawBitmap(speak_Bitmap, 120, 20, null);
         canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -279,6 +290,39 @@ public class Screen_3 extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
 
+                //Tiempo total por puzzle
+                if(flag_save) {
+                    if(totalTime == 0) {
+                        totalTime = System.currentTimeMillis();
+                        registros.setTiempoTotal(totalTime);
+                    }
+                    Log.w(TAG, "tiempo parcial= " + totalTime);
+                }
+
+
+                //tiempo entre pulsaciones del usuario.
+                if(initialTime == 0){
+                    initialTime = System.currentTimeMillis();
+                }
+                else{
+                    endTime = System.currentTimeMillis();
+                    long diff = endTime - initialTime;
+                    //registro.setTime(diff);
+                    if(flag_save)
+                        registros.setTime(diff); //Clase Level
+
+                    initialTime = endTime;
+                    Log.i("Screen_1", "Time between clicks: " + diff);
+                }
+
+                ////////////////////////////////////////
+
+                if (tracker == null) {
+                    tracker = VelocityTracker.obtain();
+                } else {
+                    tracker.clear();
+                }
+
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
@@ -301,7 +345,30 @@ public class Screen_3 extends View {
 
 
             case MotionEvent.ACTION_MOVE:
-                final int pointerCount = event.getPointerCount();
+                //final int pointerCount = event.getPointerCount();
+
+                tracker.addMovement(event); //track ACTION
+                tracker.computeCurrentVelocity(1000);
+                float x_vel = tracker.getXVelocity();
+                float y_vel = tracker.getYVelocity();
+
+                if(x_vel > 0.05f){
+                    MaxVelocity_x = x_vel;
+                    if(flag_save)
+                        registros.setVelx(MaxVelocity_x); //Clase Level
+                    //registro.setVelx(MaxVelocity_x);
+                    Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                    //registro.veloX.add(MaxVelocity_x);
+                }
+
+                if(y_vel > 0.05f){
+                    MaxVelocity_y = y_vel;
+                    if(flag_save)
+                        registros.setVely(MaxVelocity_y);   //Clase Level;
+                    //registro.setVely(MaxVelocity_y);
+                    Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
+                }
 
                 Log.w(TAG, "Move");
 
@@ -411,7 +478,11 @@ public class Screen_3 extends View {
 
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(1);
+                        registros.setPuzzle(3);
                         Log.w(TAG, "funcionando");
+
+                        totalTime = System.currentTimeMillis();
+                        registros.calcularTiempo(totalTime);
 
 
                        // mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
@@ -461,6 +532,12 @@ public class Screen_3 extends View {
                     Log.w(TAG, "Audio Record");
 
                     speak.startPlaying();
+
+                }
+
+                else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
+                    Log.w(TAG, "Guardar variables");
+                    flag_save = true;
 
                 }
 

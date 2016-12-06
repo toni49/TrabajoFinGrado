@@ -39,17 +39,17 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
         switch(v.getId()){
             case R.id.imageButton7:
                 click.start();
-                setContentView(new Screen_1(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima(getApplicationContext(), Juegos_2.this));
                 break;
 
             case R.id.imageButton8:
                 click.start();
-                setContentView(new Screen_2(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima2(getApplicationContext(), Juegos_2.this));
                 break;
 
             case R.id.imageButton9:
                 click.start();
-                setContentView(new Screen_3(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima3(getApplicationContext(), Juegos_2.this));
                 break;
 
             case R.id.imageLeft:

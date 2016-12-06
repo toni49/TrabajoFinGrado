@@ -17,6 +17,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.Button;
 
@@ -36,15 +37,24 @@ public class Screen_ima3 extends View {
      * Main bitmap
      */
     private Bitmap coche_rojo_sp = null, coche_rojo = null, coche_azul_sp = null, coche_azul = null, coche_amarillo = null, coche_amarillo_sp = null;
-    private Bitmap home_Bitmap = null, next_Bitmap = null;
+    private Bitmap home_Bitmap = null, next_Bitmap = null, save_Bitmap = null, speak_Bitmap = null;
 
 
 
     private BitArea x1, x2, x3, x4;
     private int valor = 1;
+    private boolean flag_save = false;
+    long endTime= 0, initialTime = 0, totalTime = 0;
     int check1 = 0, check2 = 0, check3 = 0;
     int fail = 0;
+    VelocityTracker tracker = null;
+    static float MaxVelocity_x = 0;
+    static float MaxVelocity_y = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
+    Registro_datos registro = new Registro_datos();
+    Level registros = new Level();
+
+    AudioRecordTest speak = new AudioRecordTest();
 
 
     public Screen_ima3(Context context, Activity activity) {
@@ -121,6 +131,9 @@ public class Screen_ima3 extends View {
 
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
         home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
+        speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
+        save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.register);
+
         coche_azul_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_azul_sp);
         coche_azul = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_azul);
         coche_rojo = BitmapFactory.decodeResource(context.getResources(), R.drawable.coche_rojo);
@@ -167,19 +180,21 @@ public class Screen_ima3 extends View {
         canv.drawText(texto, 750, 900, paintText);
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1140, 600, null);
-        canv.drawBitmap(home_Bitmap, 70, 600, null);
+        canv.drawBitmap(next_Bitmap, 1160, 20, null);
+        canv.drawBitmap(save_Bitmap, 1060, 20, null);
+        canv.drawBitmap(speak_Bitmap, 120, 20, null);
+        canv.drawBitmap(home_Bitmap, 20, 20, null);
 
         //silueta de las imagenes
-        canv.drawBitmap(coche_amarillo_sp, 50, 80, null);
-        canv.drawBitmap(coche_azul_sp, 50, 350, null);
-        canv.drawBitmap(coche_rojo_sp, 650, 80, null);
+        canv.drawBitmap(coche_amarillo_sp, 50, 280, null);
+        canv.drawBitmap(coche_azul_sp, 50, 500, null);
+        canv.drawBitmap(coche_rojo_sp, 650, 280, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedBit(700, 300);
-        x2 = obtainTouchedBit(700, 400);
+        x1 = obtainTouchedBit(730, 500);
+        x2 = obtainTouchedBit(700, 530);
         x3 = obtainTouchedBit(700, 500);
 
 
@@ -213,6 +228,44 @@ public class Screen_ima3 extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
 
+                //Tiempo total por puzzle
+                if(flag_save) {
+                    if(totalTime == 0) {
+                        totalTime = System.currentTimeMillis();
+                        registros.setTiempoTotal(totalTime);
+                    }
+                    Log.w(TAG, "tiempo parcial= " + totalTime);
+                }
+
+
+                //tiempo entre pulsaciones del usuario.
+                if(initialTime == 0){
+                    initialTime = System.currentTimeMillis();
+                }
+                else{
+                    endTime = System.currentTimeMillis();
+                    long diff = endTime - initialTime;
+                    //registro.setTime(diff);
+                    if(flag_save)
+                        registros.setTime(diff); //Clase Level
+
+                    initialTime = endTime;
+                    Log.i("Screen_1", "Time between clicks: " + diff);
+                }
+
+                ////////////////////////////////////////
+
+                if (tracker == null) {
+                    tracker = VelocityTracker.obtain();
+                } else {
+                    tracker.clear();
+                }
+
+                tracker.addMovement(event); //track ACTION
+                MaxVelocity_y = 0;
+                MaxVelocity_x = 0;
+
+
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
@@ -235,7 +288,30 @@ public class Screen_ima3 extends View {
 
 
             case MotionEvent.ACTION_MOVE:
-                final int pointerCount = event.getPointerCount();
+                //final int pointerCount = event.getPointerCount();
+
+                tracker.addMovement(event); //track ACTION
+                tracker.computeCurrentVelocity(1000);
+                float x_vel = tracker.getXVelocity();
+                float y_vel = tracker.getYVelocity();
+
+                if(x_vel > 0.05f){
+                    MaxVelocity_x = x_vel;
+                    if(flag_save)
+                        registros.setVelx(MaxVelocity_x); //Clase Level
+                    //registro.setVelx(MaxVelocity_x);
+                    Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                    //registro.veloX.add(MaxVelocity_x);
+                }
+
+                if(y_vel > 0.05f){
+                    MaxVelocity_y = y_vel;
+                    if(flag_save)
+                        registros.setVely(MaxVelocity_y);   //Clase Level;
+                    //registro.setVely(MaxVelocity_y);
+                    Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
+                }
 
                 Log.w(TAG, "Move");
 
@@ -257,31 +333,31 @@ public class Screen_ima3 extends View {
 
                     if (touchedBit.num == 1) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedBit.leftX > 640) && (touchedBit.leftX < 660) && (touchedBit.leftY > 70) && (touchedBit.leftY < 90)) {
+                        if ((touchedBit.leftX > 640) && (touchedBit.leftX < 660) && (touchedBit.leftY > 270) && (touchedBit.leftY < 290)) {
                             Log.w(TAG, "circulo 1");
                             check1 = 1;
                             touchedBit.leftX = 650;
-                            touchedBit.leftY = 80;
+                            touchedBit.leftY = 280;
                         }
                     }
 
                     if (touchedBit.num == 2) {
 
-                        if ((touchedBit.leftX > 40) && (touchedBit.leftX < 60) && (touchedBit.leftY > 70) && (touchedBit.leftY < 90)) {
+                        if ((touchedBit.leftX > 40) && (touchedBit.leftX < 60) && (touchedBit.leftY > 270) && (touchedBit.leftY < 290)) {
                             Log.w(TAG, "circulo 2");
                             check2 = 1;
                             touchedBit.leftX = 50;
-                            touchedBit.leftY = 80;
+                            touchedBit.leftY = 280;
                         }
                     }
 
                     if (touchedBit.num == 3) {
 
-                        if ((touchedBit.leftX > 40) && (touchedBit.leftX < 60) && (touchedBit.leftY > 340) && (touchedBit.leftY < 360)) {
+                        if ((touchedBit.leftX > 40) && (touchedBit.leftX < 60) && (touchedBit.leftY > 480) && (touchedBit.leftY < 510)) {
                             Log.w(TAG, "circulo 2");
                             check3 = 1;
                             touchedBit.leftX = 50;
-                            touchedBit.leftY = 350;
+                            touchedBit.leftY = 500;
                         }
                     }
 
@@ -295,7 +371,7 @@ public class Screen_ima3 extends View {
                 xTouch = (int) event.getX(0);
                 yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1100) && (xTouch < 1240) && (yTouch > 540) && (yTouch < 660)) {
+                if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
                     Log.w(TAG, "PULSADO NEXT");
                     String num1 = Integer.toString(check1);
                     String num2 = Integer.toString(check2);
@@ -311,11 +387,19 @@ public class Screen_ima3 extends View {
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1)) {
 
                         Log.w(TAG, "funcionando");
+
+                        totalTime = System.currentTimeMillis();
+                        registros.calcularTiempo(totalTime);
+
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(3);
+                        registros.setPuzzle(9);
 
-                        Screen_ima2 screen_ima2 = new Screen_ima2(getContext(), newActivity);
-                        newActivity.setContentView(screen_ima2);
+                        Intent intent = new Intent(getContext(), Level.class);
+                        newActivity.startActivity(intent);
+
+                       // Screen_ima2 screen_ima2 = new Screen_ima2(getContext(), newActivity);
+                       // newActivity.setContentView(screen_ima2);
 
                        // screen_ima2.destroyDrawingCache();
                        // Intent intent = new Intent(getContext(), Level.class);
@@ -340,7 +424,7 @@ public class Screen_ima3 extends View {
                         invalidate();
                     }
 
-                } else if ((xTouch > 10) && (xTouch < 130) && (yTouch > 540) && (yTouch < 660)) {
+                } else if ((xTouch > 1) && (xTouch < 80) && (yTouch > 1) && (yTouch < 80)) {
                     Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
@@ -354,6 +438,19 @@ public class Screen_ima3 extends View {
 
                     //finish.onDestroy();
                     //System.exit(0);
+                }
+
+                else if ((xTouch > 110) && (xTouch < 180) && (yTouch > 1) && (yTouch < 80)) {
+                    Log.w(TAG, "Audio Record");
+
+                    speak.startPlaying();
+
+                }
+
+                else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
+                    Log.w(TAG, "Guardar variables");
+                    flag_save = true;
+
                 }
 
                 invalidate();

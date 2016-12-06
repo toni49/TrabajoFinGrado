@@ -3,19 +3,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#adccec"
+    android:background="@drawable/fondo_espacial"
     android:weightSum="1">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="PUZLES"
-        android:textSize="62dp"
+        android:text="Niveles"
+        android:textSize="92dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="30dp"
         android:id="@+id/textView5"
-        android:layout_gravity="center_horizontal" />
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/holo_orange_light" />
 
     <ImageButton
         android:layout_width="60dp"
@@ -24,7 +25,7 @@
         android:layout_marginBottom="20dp"
         android:src="@drawable/flecha_right"
         android:id="@+id/imageRight"
-        android:background="#adccec" />
+        android:background="@android:color/holo_orange_light" />
 
     <LinearLayout
         android:layout_width="match_parent"

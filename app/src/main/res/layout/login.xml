@@ -32,13 +32,16 @@
     <EditText
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:textSize="25dp"
         android:textColorHint="#000000"
         android:id="@+id/user_input"
         android:layout_gravity="center"
-        android:textColor="@color/material_deep_teal_500" />
+        android:textColor="@color/material_deep_teal_500"
+        android:autoText="false"
+        android:focusableInTouchMode="true"
+        android:focusable="true" />
 
     <TextView
         android:layout_width="match_parent"
@@ -54,30 +57,34 @@
     <EditText
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:layout_marginBottom="10dp"
-        android:textSize="20dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:textSize="25dp"
         android:textColorHint="#000000"
         android:inputType="textPassword"
         android:id="@+id/password_input"
         android:layout_gravity="center"
-        android:textColor="@color/material_deep_teal_500" />
+        android:textColor="@color/material_deep_teal_500"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
 
     <Button
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="55dp"
+        android:layout_marginTop="45dp"
         android:text="Iniciar sesión"
         android:id="@+id/buttonLogin"
-        android:textSize="20dp"
+        android:textSize="22dp"
         android:layout_gravity="center"
         android:background="@color/blue_1"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:focusable="false"
+        android:clickable="false" />
 
     <Button
         android:layout_width="500dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="22dp"
         android:text="Inicio como invitado"
         android:id="@+id/buttonAn"
         android:textSize="20dp"
@@ -87,12 +94,14 @@
 
     <Button
         android:layout_width="250dp"
-        android:layout_height="35dp"
+        android:layout_height="45dp"
         android:layout_marginTop="20dp"
-        android:textSize="16dp"
+        android:textSize="20dp"
         android:text="Crear nuevo usuario"
         android:id="@+id/newuser"
         android:layout_gravity="center"
         android:background="@color/blue_1"
-        android:textColor="@android:color/black" />
+        android:textColor="@android:color/black"
+        android:focusable="false"
+        android:clickable="false" />
 </LinearLayout>

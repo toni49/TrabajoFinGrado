@@ -34,14 +34,15 @@ import java.util.HashSet;
         // Activity de la clase Play
         private Activity newActivity = null;
 
-        private Bitmap next_Bitmap = null, home_Bitmap = null, speak_Bitmap = null;
+        public Bitmap next_Bitmap = null, home_Bitmap = null, speak_Bitmap = null, save_Bitmap = null;
 
 
         private Rect Rect1, Rect2;
         private SquareArea s1, s2, s3, s4, s5, s6;
         private float w, h;
-        long endTime= 0, initialTime = 0;
+        long endTime= 0, initialTime = 0, totalTime = 0;
         int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
+        private boolean flag_save = false;
         int fail = 0;
         VelocityTracker tracker = null;
         static float MaxVelocity_x = 0;
@@ -52,6 +53,7 @@ import java.util.HashSet;
 
 
         AudioRecordTest speak = new AudioRecordTest();
+
 
         public Screen_1(Context context, Activity activity) {
             super(context);
@@ -145,6 +147,7 @@ import java.util.HashSet;
             next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
             home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
             speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
+            save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.register);
 
             greenPaint = new Paint();
             greenPaint.setColor(Color.GREEN);
@@ -248,6 +251,7 @@ import java.util.HashSet;
 
 
             canv.drawBitmap(next_Bitmap, 1160, 20, null);
+            canv.drawBitmap(save_Bitmap, 1060, 20, null);
             canv.drawBitmap(speak_Bitmap, 120, 20, null);
             canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -300,6 +304,16 @@ import java.util.HashSet;
 
                 case MotionEvent.ACTION_DOWN:
 
+                    //Tiempo total por puzzle
+                    if(flag_save) {
+                        if(totalTime == 0) {
+                            totalTime = System.currentTimeMillis();
+                            registros.setTiempoTotal(totalTime);
+                        }
+                        Log.w(TAG, "tiempo parcial= " + totalTime);
+                    }
+
+
                     //tiempo entre pulsaciones del usuario.
                     if(initialTime == 0){
                         initialTime = System.currentTimeMillis();
@@ -308,7 +322,9 @@ import java.util.HashSet;
                         endTime = System.currentTimeMillis();
                         long diff = endTime - initialTime;
                         //registro.setTime(diff);
-                        registros.setTime(diff); //Clase Level
+                        if(flag_save)
+                            registros.setTime(diff); //Clase Level
+
                         initialTime = endTime;
                         Log.i("Screen_1", "Time between clicks: " + diff);
                     }
@@ -356,7 +372,8 @@ import java.util.HashSet;
 
                     if(x_vel > 0.05f){
                         MaxVelocity_x = x_vel;
-                        registros.setVelx(MaxVelocity_x); //Clase Level
+                        if(flag_save)
+                            registros.setVelx(MaxVelocity_x); //Clase Level
                         //registro.setVelx(MaxVelocity_x);
                         Log.w(TAG, "velocidad x = " + MaxVelocity_x);
                         //registro.veloX.add(MaxVelocity_x);
@@ -364,7 +381,8 @@ import java.util.HashSet;
 
                     if(y_vel > 0.05f){
                         MaxVelocity_y = y_vel;
-                        registros.setVely(MaxVelocity_y);   //Clase Level;
+                        if(flag_save)
+                            registros.setVely(MaxVelocity_y);   //Clase Level;
                         //registro.setVely(MaxVelocity_y);
                         Log.w(TAG, "velocidad y = " + MaxVelocity_y);
 
@@ -480,8 +498,13 @@ import java.util.HashSet;
 
 
                             Log.w(TAG, "funcionando");
+                            totalTime = System.currentTimeMillis();
+                            registros.calcularTiempo(totalTime);
+
                             mostrar.set_fallos(fail);
                             mostrar.set_nivel(1);
+                            registros.setPuzzle(1);
+
                             //registro.registrar();
 
                             //newActivity.setContentView(R.layout.activity_main);
@@ -530,6 +553,12 @@ import java.util.HashSet;
                         Log.w(TAG, "Audio Record");
 
                         speak.startPlaying();
+
+                    }
+
+                    else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
+                        Log.w(TAG, "Guardar variables");
+                        flag_save = true;
 
                     }
                     invalidate();

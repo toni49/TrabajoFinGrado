@@ -42,7 +42,7 @@ public class Screen_2 extends View {
     private Activity newActivity = null;
 
     /** Main bitmap */
-    private Bitmap next_Bitmap = null, home_Bitmap = null, speak_Bitmap = null;
+    private Bitmap next_Bitmap = null, home_Bitmap = null, speak_Bitmap = null, save_Bitmap= null;
 
 
     private Rect Rect1, Rect2;
@@ -50,16 +50,18 @@ public class Screen_2 extends View {
     private CircleArea x1, x2;
     private float w, h;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
+    private boolean flag_save = false;
     int fail = 0;
-    long initialTime = 0, endTime = 0;
+    long initialTime = 0, endTime = 0, totalTime = 0;
     VelocityTracker tracker = null;
     static float MaxVelocity_x = 0;
     static float MaxVelocity_y = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
     Registro_datos registro = new Registro_datos();
     Level registros = new Level();
-
     AudioRecordTest speak = new AudioRecordTest();
+
+
 
     public Screen_2(Context context, Activity activity) {
         super(context);
@@ -160,6 +162,7 @@ public class Screen_2 extends View {
                 next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
                 home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
                 speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
+                save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.save);
 
                 greenPaint = new Paint();
                 greenPaint.setColor(Color.GREEN);
@@ -250,6 +253,7 @@ public class Screen_2 extends View {
                 //imagen boton de checkeo
 
                 canv.drawBitmap(next_Bitmap, 1160, 20, null);
+                canv.drawBitmap(save_Bitmap, 1060, 20, null);
                 canv.drawBitmap(speak_Bitmap, 120, 20, null);
                 canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -306,6 +310,15 @@ public class Screen_2 extends View {
                 switch (event.getActionMasked()) {
                     case MotionEvent.ACTION_DOWN:
 
+                        //Tiempo total por puzzle
+                        if(flag_save) {
+                            if(totalTime == 0) {
+                                totalTime = System.currentTimeMillis();
+                                registros.setTiempoTotal(totalTime);
+                            }
+                            Log.w(TAG, "tiempo parcial= " + totalTime);
+                        }
+
                         if(initialTime == 0){
                             initialTime = System.currentTimeMillis();
                         }
@@ -313,7 +326,8 @@ public class Screen_2 extends View {
                             endTime = System.currentTimeMillis();
                             long diff = endTime - initialTime;
                             //registro.setTime(diff);
-                            registros.setTime(diff); //Clase Level
+                            if(flag_save == true)
+                                registros.setTime(diff); //Clase Level
                             initialTime = endTime;
                             Log.i("Screen_1", "Time between clicks: " + diff);
                         }
@@ -368,7 +382,8 @@ public class Screen_2 extends View {
 
                         if(x_vel > 0.05f){
                             MaxVelocity_x = x_vel;
-                            registros.setVelx(MaxVelocity_x); //Clase Level
+                            if(flag_save == true)
+                                registros.setVelx(MaxVelocity_x); //Clase Level
                             //registro.setVelx(MaxVelocity_x);
                             Log.w(TAG, "velocidad x = " + MaxVelocity_x);
                             //registro.veloX.add(MaxVelocity_x);
@@ -376,7 +391,8 @@ public class Screen_2 extends View {
 
                         if(y_vel > 0.05f){
                             MaxVelocity_y = y_vel;
-                            registros.setVely(MaxVelocity_y);   //Clase Level;
+                            if(flag_save == true)
+                                registros.setVely(MaxVelocity_y);   //Clase Level;
                             //registro.setVely(MaxVelocity_y);
                             Log.w(TAG, "velocidad y = " + MaxVelocity_y);
 
@@ -476,8 +492,13 @@ public class Screen_2 extends View {
 
 
                                 Log.w(TAG, "funcionando");
+                                totalTime = System.currentTimeMillis();
+                                registros.calcularTiempo(totalTime);
                                 mostrar.set_fallos(fail);
                                 mostrar.set_nivel(1);
+                                registros.setPuzzle(2);
+
+
                                 //registro.registrar();
 
                                 //newActivity.setContentView(R.layout.activity_main);
@@ -531,6 +552,12 @@ public class Screen_2 extends View {
                             Log.w(TAG, "Audio Record");
 
                             speak.startPlaying();
+
+                        }
+
+                        else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
+                            Log.w(TAG, "Guardar variables");
+                            flag_save = true;
 
                         }
                         invalidate();

@@ -18,6 +18,7 @@ import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
+import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.Button;
 
@@ -39,17 +40,23 @@ public class Screen_5 extends View {
     Mostrar_nivel mostrar = new Mostrar_nivel();
     Registro_datos registro = new Registro_datos();
     AudioRecordTest speak = new AudioRecordTest();
+    Level registros = new Level();
 
     private Bitmap next_Bitmap = null;
     private Bitmap home_Bitmap = null;
     private Bitmap speak_Bitmap = null;
+    private Bitmap save_Bitmap = null;
     private SquareArea x1, x2, x3, x4;
     private int valor = 1;
+
+    private boolean flag_save = false;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
     int fail = 0;
     int color;
-    long initialTime = 0;
-    long endTime = 0;
+    long initialTime = 0, endTime = 0, totalTime = 0;
+    VelocityTracker tracker = null;
+    static float MaxVelocity_x = 0;
+    static float MaxVelocity_y = 0;
     MainActivity main = new MainActivity();
 
 
@@ -131,6 +138,7 @@ public class Screen_5 extends View {
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
         home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
         speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
+        save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.save);
 
 
         greenPaint = new Paint();
@@ -228,6 +236,7 @@ public class Screen_5 extends View {
 
         //imagen boton de checkeo
         canv.drawBitmap(next_Bitmap, 1160, 20, null);
+        canv.drawBitmap(save_Bitmap, 1060, 20, null);
         canv.drawBitmap(speak_Bitmap, 120, 20, null);
         canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -274,8 +283,15 @@ public class Screen_5 extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
 
-                xTouch = (int) event.getX(0);
-                yTouch = (int) event.getY(0);
+                //Tiempo total por puzzle
+                if(flag_save) {
+                    if(totalTime == 0) {
+                        totalTime = System.currentTimeMillis();
+                        registros.setTiempoTotal(totalTime);
+                    }
+                    Log.w(TAG, "tiempo parcial= " + totalTime);
+                }
+
 
                 //tiempo entre pulsaciones del usuario.
                 if(initialTime == 0){
@@ -284,10 +300,28 @@ public class Screen_5 extends View {
                 else{
                     endTime = System.currentTimeMillis();
                     long diff = endTime - initialTime;
+                    //registro.setTime(diff);
+                    if(flag_save)
+                        registros.setTime(diff); //Clase Level
+
                     initialTime = endTime;
-                    Log.i("Screen_5", "Time between clicks: " + diff);
+                    Log.i("Screen_1", "Time between clicks: " + diff);
                 }
 
+                ////////////////////////////////////////
+
+                if (tracker == null) {
+                    tracker = VelocityTracker.obtain();
+                } else {
+                    tracker.clear();
+                }
+
+                tracker.addMovement(event); //track ACTION
+                MaxVelocity_y = 0;
+                MaxVelocity_x = 0;
+
+                xTouch = (int) event.getX(0);
+                yTouch = (int) event.getY(0);
 
                 // check if we've touched inside some Circle
                 touchedSquare = obtainTouchedSquare(xTouch, yTouch);
@@ -307,12 +341,33 @@ public class Screen_5 extends View {
 
 
             case MotionEvent.ACTION_MOVE:
-                final int pointerCount = event.getPointerCount();
+                //final int pointerCount = event.getPointerCount();
 
-                //Log.w(TAG, "Move");
+                tracker.addMovement(event); //track ACTION
+                tracker.computeCurrentVelocity(1000);
+                float x_vel = tracker.getXVelocity();
+                float y_vel = tracker.getYVelocity();
 
-                //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
-                    // Some pointer has moved, search it by pointer id
+                if(x_vel > 0.05f){
+                    MaxVelocity_x = x_vel;
+                    if(flag_save)
+                        registros.setVelx(MaxVelocity_x); //Clase Level
+                    //registro.setVelx(MaxVelocity_x);
+                    Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                    //registro.veloX.add(MaxVelocity_x);
+                }
+
+                if(y_vel > 0.05f){
+                    MaxVelocity_y = y_vel;
+                    if(flag_save)
+                        registros.setVely(MaxVelocity_y);   //Clase Level;
+                    //registro.setVely(MaxVelocity_y);
+                    Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
+                }
+
+
+
                     pointerId = event.getPointerId(actionIndex);
 
                     xTouch = (int) event.getX(actionIndex);
@@ -389,16 +444,24 @@ public class Screen_5 extends View {
                     //check = Comprobar();
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1)) {
 
+
+                        totalTime = System.currentTimeMillis();
+                        registros.calcularTiempo(totalTime);
+
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(2);
+                        registros.setPuzzle(5);
                         Log.w(TAG, "funcionando");
 
                        // newActivity.setContentView(R.layout.prueba);
                        // Intent intent = new Intent(getContext(), Level.class);
                        // newActivity.startActivity(intent);
 
-                        Screen_4 screen_4 = new Screen_4(getContext(), newActivity);
-                        newActivity.setContentView(screen_4);
+                        Intent intent = new Intent(getContext(), Level.class);
+                        newActivity.startActivity(intent);
+
+                       // Screen_4 screen_4 = new Screen_4(getContext(), newActivity);
+                       // newActivity.setContentView(screen_4);
 
 
                         // Show_level show_level = new Show_level(getContext(), newActivity);
@@ -444,6 +507,12 @@ public class Screen_5 extends View {
                     Log.w(TAG, "Audio Record");
 
                     speak.startPlaying();
+
+                }
+
+                else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
+                    Log.w(TAG, "Guardar variables");
+                    flag_save = true;
 
                 }
 

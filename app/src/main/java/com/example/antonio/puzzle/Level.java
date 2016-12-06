@@ -36,8 +36,11 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
     ImageView imagen, imagen2, imagen3, imagen4, flash_stars;
     Button next_level, salir;
     int valor = 0;
+    double tiempo = 0;
     private static String username = "";
     private static String password = "";
+    private static int puzzle = 0;
+    public boolean flag = false;
 
 
     Mostrar_nivel mostrar = new Mostrar_nivel();
@@ -60,6 +63,14 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         return time;
     }
 
+    public void setTiempoTotal(long t1){
+        tiempo = t1;
+    }
+    public void calcularTiempo(long t2){
+        tiempo = (t2 - tiempo)/1000;
+        Log.w(TAG, "tiempo total puzzle = " + tiempo);
+    }
+
     public void setUsername(String name){
         username = name;
     }
@@ -76,11 +87,31 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         return password;
     }
 
+    public void setPuzzle(int n) { puzzle = n; }
+
+    public int getPuzzle() { return puzzle; }
+
+    public void setFlagSave(boolean value){
+        flag = value;
+        Log.w(TAG, "flag= " + flag);
+    }
+
+    public boolean getFlag(){
+        return flag;
+    }
+
     public String getDate(){
         Calendar date = Calendar.getInstance();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = df.format(date.getTime());
         return formattedDate;
+    }
+
+    public void borraData(){
+        tiempo = 0;
+        time.clear();
+        veloX.clear();
+        veloY.clear();
     }
 
 
@@ -98,16 +129,24 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         maxVeloY = calcMediaVelY();
         timeMedio = mediaTiempos();
 
+
         //calcular la media de la velocidad y , de la velocidad x y de las diferencias de tiempo;
 
 
-        LoginRequest loginRequest = new LoginRequest(getUsername(), getPassword(), responseListener);
-        RequestQueue queue = Volley.newRequestQueue(Level.this);
-        queue.add(loginRequest);
 
-        RegisterData registerData = new RegisterData(getUsername(), getDate(), 1, maxVeloY, maxVeloX, var, timeMedio,  responseListener);
-        queue = Volley.newRequestQueue(Level.this);
-        queue.add(registerData);
+            LoginRequest loginRequest = new LoginRequest(getUsername(), getPassword(), responseListener);
+            RequestQueue queue = Volley.newRequestQueue(Level.this);
+            queue.add(loginRequest);
+
+
+            RegisterData registerData = new RegisterData(getUsername(), getDate(), getPuzzle(), maxVeloY, maxVeloX, var, timeMedio, responseListener);
+            queue = Volley.newRequestQueue(Level.this);
+            queue.add(registerData);
+
+            borraData();
+
+
+
         //////////////////////////////////////////////////////////////////////////
 
         final MediaPlayer correct = MediaPlayer.create(this, R.raw.correct);
@@ -126,6 +165,8 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         next_level.setOnClickListener(this);
         salir.setOnClickListener(this);
 
+        int a = getPuzzle();
+
         int y = mostrar.get_nivel();
         int fail = mostrar.get_fallos();
 
@@ -133,7 +174,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
 
 
-        switch(y){
+        switch(a){
             case 1:
                 correct.start();
                 txt.setText("Nivel 1");
@@ -147,7 +188,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
             case 2:
                 correct.start();
-                txt.setText("Nivel 2");
+                txt.setText("Nivel 1");
                 txtfallos.setText("Número de fallos: " + err);
                 imagen2.setImageResource(R.drawable.yellow_star);
                 imagen3.setImageResource(R.drawable.yellow_star);
@@ -159,6 +200,80 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case 3:
+                correct.start();
+                txt.setText("Nivel 1");
+                txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                imagen3.setImageResource(R.drawable.yellow_star);
+                imagen4.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen4);
+                move(flash_stars);
+                valor = 3;
+                break;
+
+            case 4:
+                correct.start();
+                txt.setText("Nivel 2");
+                txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen2);
+                move(flash_stars);
+                valor = 1;
+                break;
+
+            case 5:
+                correct.start();
+                txt.setText("Nivel 2");
+                txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                imagen3.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen3);
+                move(flash_stars);
+                //slide(imagen);
+                valor = 2;
+                break;
+
+            case 6:
+                correct.start();
+                txt.setText("Nivel 2");
+                txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                imagen3.setImageResource(R.drawable.yellow_star);
+                imagen4.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen4);
+                move(flash_stars);
+                valor = 3;
+                break;
+
+            case 7:
+                correct.start();
+                txt.setText("Nivel 3");
+                txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen4);
+                move(flash_stars);
+                valor = 1;
+                break;
+
+            case 8:
+                correct.start();
+                txt.setText("Nivel 3");
+                txtfallos.setText("Número de fallos: " + err);
+                imagen2.setImageResource(R.drawable.yellow_star);
+                imagen3.setImageResource(R.drawable.yellow_star);
+                flash_stars.setImageResource(R.drawable.stars);
+                zoom(imagen3);
+                move(flash_stars);
+                //slide(imagen);
+                valor = 2;
+                break;
+
+            case 9:
                 correct.start();
                 txt.setText("Nivel 3");
                 txtfallos.setText("Número de fallos: " + err);
@@ -197,7 +312,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 if(valor == 1)
                     setContentView(new Screen_2(getApplicationContext(), Level.this));
                 else if (valor == 2)
-                    setContentView(new Screen_ima3(getApplicationContext(), Level.this));
+                    setContentView(new Screen_3(getApplicationContext(), Level.this));
                 else if (valor == 3)
                     setContentView(new Screen_1(getApplicationContext(), Level.this));
                 break;

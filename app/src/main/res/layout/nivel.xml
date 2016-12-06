@@ -11,9 +11,9 @@
         android:layout_height="wrap_content"
         android:text="Nivel x"
         android:textSize="120dp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/holo_orange_light"
         android:layout_marginLeft="450dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="110dp"
         android:id="@+id/texto1" />
 
 
@@ -22,21 +22,21 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="50dp"
         android:layout_marginTop="600dp"
-        android:background="@color/rojo_1"
+        android:background="@android:color/holo_orange_light"
         android:text="Salir"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:id="@+id/button_exit"
         android:textColor="@color/primary_dark_material_dark"
         android:foregroundTint="@color/abc_input_method_navigation_guard" />
 
     <Button
-        android:layout_width="200dp"
+        android:layout_width="230dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="600dp"
         android:layout_marginLeft="1000dp"
-        android:background="@color/rojo_1"
+        android:background="@android:color/holo_orange_light"
         android:text="Siguiente Nivel"
-        android:textSize="20dp"
+        android:textSize="25dp"
         android:id="@+id/button_next"
         android:layout_gravity="right"
         android:textColor="@color/primary_dark_material_dark"
@@ -57,7 +57,7 @@
         android:layout_marginTop="40dp"
         android:layout_marginLeft="200dp"
         android:textSize="36dp"
-        android:textColor="@android:color/black"
+        android:textColor="@android:color/holo_orange_light"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="num"
         android:id="@+id/text_fallos"

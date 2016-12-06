@@ -13,6 +13,7 @@ import android.widget.Button;
 public class Elegir_nivel extends AppCompatActivity implements View.OnClickListener {
 
     Button nivel1, nivel2, nivel3;
+    Level registro = new Level();
 
 
         @Override
