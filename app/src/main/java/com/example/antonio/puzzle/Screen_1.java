@@ -43,7 +43,9 @@ import java.util.HashSet;
         long endTime= 0, initialTime = 0, totalTime = 0;
         int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
         private boolean flag_save = false;
+        public boolean flag_pintar = false;
         int fail = 0;
+        private long tiempo1 = 0, tiempo2 = 0;
         VelocityTracker tracker = null;
         static float MaxVelocity_x = 0;
         static float MaxVelocity_y = 0;
@@ -250,8 +252,10 @@ import java.util.HashSet;
 
 
 
+            if(flag_pintar == false)
+                canv.drawBitmap(save_Bitmap, 1060, 20, null);
+
             canv.drawBitmap(next_Bitmap, 1160, 20, null);
-            canv.drawBitmap(save_Bitmap, 1060, 20, null);
             canv.drawBitmap(speak_Bitmap, 120, 20, null);
             canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -306,11 +310,12 @@ import java.util.HashSet;
 
                     //Tiempo total por puzzle
                     if(flag_save) {
-                        if(totalTime == 0) {
-                            totalTime = System.currentTimeMillis();
-                            registros.setTiempoTotal(totalTime);
+                        if(tiempo1 == 0) {
+                            tiempo1 = System.currentTimeMillis();
+                            //registros.setTiempoTotal(totalTime);
+                            Log.w(TAG, "tiempo parcial= " + totalTime);
                         }
-                        Log.w(TAG, "tiempo parcial= " + totalTime);
+
                     }
 
 
@@ -498,8 +503,10 @@ import java.util.HashSet;
 
 
                             Log.w(TAG, "funcionando");
-                            totalTime = System.currentTimeMillis();
-                            registros.calcularTiempo(totalTime);
+                            tiempo2 = System.currentTimeMillis();
+                            //registros.calcularTiempo(totalTime);
+                            tiempo2 = tiempo2 - tiempo1;
+                            registros.setTiempo(tiempo2);
 
                             mostrar.set_fallos(fail);
                             mostrar.set_nivel(1);
@@ -558,6 +565,7 @@ import java.util.HashSet;
 
                     else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
                         Log.w(TAG, "Guardar variables");
+                        flag_pintar = true;
                         flag_save = true;
 
                     }

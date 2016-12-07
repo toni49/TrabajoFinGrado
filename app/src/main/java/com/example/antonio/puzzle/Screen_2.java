@@ -50,8 +50,9 @@ public class Screen_2 extends View {
     private CircleArea x1, x2;
     private float w, h;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
-    private boolean flag_save = false;
+    private boolean flag_save = false, flag_pintar = false;
     int fail = 0;
+    private long tiempo1 = 0, tiempo2 = 0;
     long initialTime = 0, endTime = 0, totalTime = 0;
     VelocityTracker tracker = null;
     static float MaxVelocity_x = 0;
@@ -162,7 +163,7 @@ public class Screen_2 extends View {
                 next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
                 home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
                 speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
-                save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.save);
+                save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.register);
 
                 greenPaint = new Paint();
                 greenPaint.setColor(Color.GREEN);
@@ -252,8 +253,10 @@ public class Screen_2 extends View {
 
                 //imagen boton de checkeo
 
+                if(flag_pintar== false)
+                    canv.drawBitmap(save_Bitmap, 1060, 20, null);
+
                 canv.drawBitmap(next_Bitmap, 1160, 20, null);
-                canv.drawBitmap(save_Bitmap, 1060, 20, null);
                 canv.drawBitmap(speak_Bitmap, 120, 20, null);
                 canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -312,9 +315,9 @@ public class Screen_2 extends View {
 
                         //Tiempo total por puzzle
                         if(flag_save) {
-                            if(totalTime == 0) {
-                                totalTime = System.currentTimeMillis();
-                                registros.setTiempoTotal(totalTime);
+                            if(tiempo1 == 0) {
+                                tiempo1 = System.currentTimeMillis();
+
                             }
                             Log.w(TAG, "tiempo parcial= " + totalTime);
                         }
@@ -492,8 +495,9 @@ public class Screen_2 extends View {
 
 
                                 Log.w(TAG, "funcionando");
-                                totalTime = System.currentTimeMillis();
-                                registros.calcularTiempo(totalTime);
+                                tiempo2 = System.currentTimeMillis();
+                                tiempo2 = tiempo2 - tiempo2;
+                                registros.setTiempo(tiempo2);
                                 mostrar.set_fallos(fail);
                                 mostrar.set_nivel(1);
                                 registros.setPuzzle(2);
@@ -557,6 +561,7 @@ public class Screen_2 extends View {
 
                         else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
                             Log.w(TAG, "Guardar variables");
+                            flag_pintar = true;
                             flag_save = true;
 
                         }

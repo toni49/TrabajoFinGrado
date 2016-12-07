@@ -32,6 +32,7 @@ public class Registro_datos extends AppCompatActivity {
     private static float MaxVeloX = 0, MaxVeloY = 0;
     private static int colorFondo = 0;
     private static String username = "";
+    Level level = new Level();
 
     //private static float time = 0;
 
@@ -179,9 +180,9 @@ public class Registro_datos extends AppCompatActivity {
 
         //for(int i=0; i<veloX.size(); i++) {
 
-            RegisterData registerData = new RegisterData(getUsername(), getDate(), 1, maxVeloY, maxVeloX, var, timeMedio,  responseListener);
-            RequestQueue queue = Volley.newRequestQueue(Registro_datos.this);
-            queue.add(registerData);
+            //RegisterData registerData = new RegisterData(getUsername(), getDate(), level.getPuzzle(), maxVeloY, maxVeloX, var, level.getTiempo(),  responseListener);
+            //RequestQueue queue = Volley.newRequestQueue(Registro_datos.this);
+            //queue.add(registerData);
         //}
 
             //float MaxVeloX = this.getVelx(i);

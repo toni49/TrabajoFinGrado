@@ -36,7 +36,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
     ImageView imagen, imagen2, imagen3, imagen4, flash_stars;
     Button next_level, salir;
     int valor = 0;
-    double tiempo = 0;
+    public static float tiempo = 0;
     private static String username = "";
     private static String password = "";
     private static int puzzle = 0;
@@ -63,13 +63,15 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         return time;
     }
 
-    public void setTiempoTotal(long t1){
-        tiempo = t1;
+    public void setTiempo(long t){
+        tiempo = (float) t/1000;
     }
-    public void calcularTiempo(long t2){
-        tiempo = (t2 - tiempo)/1000;
-        Log.w(TAG, "tiempo total puzzle = " + tiempo);
+
+    public float getTiempo(){
+        return tiempo;
     }
+
+
 
     public void setUsername(String name){
         username = name;
@@ -139,7 +141,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
             queue.add(loginRequest);
 
 
-            RegisterData registerData = new RegisterData(getUsername(), getDate(), getPuzzle(), maxVeloY, maxVeloX, var, timeMedio, responseListener);
+            RegisterData registerData = new RegisterData(getUsername(), getDate(), getPuzzle(), maxVeloX, maxVeloY, var, timeMedio, getTiempo(), responseListener);
             queue = Volley.newRequestQueue(Level.this);
             queue.add(registerData);
 

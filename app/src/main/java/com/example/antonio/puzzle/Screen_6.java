@@ -58,9 +58,9 @@ public class Screen_6 extends View {
     private int valor = 1;
     private boolean flag_save = false;
     long endTime= 0, initialTime = 0, totalTime = 0;
+    private long tiempo1 = 0, tiempo2 = 0;
     int check1 = 0, check2 = 0, check3 = 0;
     int fail = 0, color;
-
     VelocityTracker tracker = null;
     static float MaxVelocity_x = 0;
     static float MaxVelocity_y = 0;
@@ -251,9 +251,8 @@ public class Screen_6 extends View {
 
                 //Tiempo total por puzzle
                 if(flag_save) {
-                    if(totalTime == 0) {
-                        totalTime = System.currentTimeMillis();
-                        registros.setTiempoTotal(totalTime);
+                    if(tiempo1 == 0) {
+                        tiempo1 = System.currentTimeMillis();
                     }
                     Log.w(TAG, "tiempo parcial= " + totalTime);
                 }
@@ -416,8 +415,9 @@ public class Screen_6 extends View {
                     if ((check1 == 1) && (check2 == 1) && (check3 == 1)) {
 
                         Log.w(TAG, "funcionando");
-                        totalTime = System.currentTimeMillis();
-                        registros.calcularTiempo(totalTime);
+                        tiempo2 = System.currentTimeMillis();
+                        tiempo2 = tiempo2 - tiempo1;
+                        registros.setTiempo(tiempo2);
 
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(3);

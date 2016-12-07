@@ -17,7 +17,7 @@ public class RegisterData extends StringRequest {
     private static final String DATA_REGISTER_URL = "http://www.antoniosanz.hol.es/DataUsuario.php";
     private Map<String, String> vars;
 
-    public RegisterData(String username, String fecha, int puzle, float maxVeloX, float maxVeloY, int fallos, float diffTime, Response.Listener<String> listener) {
+    public RegisterData(String username, String fecha, int puzle, float maxVeloX, float maxVeloY, int fallos, float diffTime, float timeTotal, Response.Listener<String> listener) {
         super(Request.Method.POST, DATA_REGISTER_URL, listener, null);
         //vars = new HashMap<>();
         //params.put("name", name);
@@ -31,6 +31,7 @@ public class RegisterData extends StringRequest {
         vars.put("maxVeloY", maxVeloY + "");
         vars.put("fallos", fallos + "");
         vars.put("diffTime", diffTime + "");
+        vars.put("timeTotal", timeTotal + "");
 
 
     }
