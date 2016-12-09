@@ -56,7 +56,7 @@ public class Screen_6 extends View {
     private CircleArea x1, x2, x3, x4;
     private float w, h;
     private int valor = 1;
-    private boolean flag_save = false;
+    private boolean flag_save = false, flag_pintar = false;
     long endTime= 0, initialTime = 0, totalTime = 0;
     private long tiempo1 = 0, tiempo2 = 0;
     int check1 = 0, check2 = 0, check3 = 0;
@@ -130,7 +130,7 @@ public class Screen_6 extends View {
         next_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.check);
         home_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.home);
         speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
-        save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.save);
+        save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.register);
 
 
         greenPaint = new Paint();
@@ -203,8 +203,10 @@ public class Screen_6 extends View {
         //imagen boton de checkeo
         // w = 1740;
         //  h = 790;
+        if(flag_pintar == false)
+            canv.drawBitmap(save_Bitmap, 1060, 20, null);
+
         canv.drawBitmap(next_Bitmap, 1160, 20, null);
-        canv.drawBitmap(save_Bitmap, 1060, 20, null);
         canv.drawBitmap(speak_Bitmap, 120, 20, null);
         canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -480,6 +482,7 @@ public class Screen_6 extends View {
 
                 else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
                     Log.w(TAG, "Guardar variables");
+                    flag_pintar = true;
                     flag_save = true;
 
                 }

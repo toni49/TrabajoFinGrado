@@ -12,7 +12,7 @@
         android:text="Niveles"
         android:textSize="92dp"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="30dp"
         android:id="@+id/textView10"
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/holo_orange_light" />
@@ -52,6 +52,21 @@
             android:src="@drawable/rejuego9"
             android:id="@+id/imageButton9"
             android:layout_gravity="right" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:layout_marginLeft="150dp"
+            android:src="@drawable/rejuego10"
+            android:id="@+id/imageButton10" />
+
 
 
     </LinearLayout>

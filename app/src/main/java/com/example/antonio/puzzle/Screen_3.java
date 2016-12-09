@@ -68,7 +68,6 @@ public class Screen_3 extends View {
     static float MaxVelocity_y = 0;
     int color = 0;
     Mostrar_nivel mostrar = new Mostrar_nivel();
-    MainActivity main = new MainActivity();
     Registro_datos registro = new Registro_datos();
     Level registros = new Level();
 

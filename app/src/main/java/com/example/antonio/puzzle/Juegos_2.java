@@ -12,7 +12,7 @@ import android.widget.ImageButton;
  */
 public class Juegos_2 extends AppCompatActivity implements View.OnClickListener {
 
-    ImageButton btn_1, btn_2, btn_3, flechaL;
+    ImageButton btn_1, btn_2, btn_3, btn_4, flechaL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,11 +24,13 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
         btn_1 = (ImageButton) findViewById(R.id.imageButton7);
         btn_2 = (ImageButton) findViewById(R.id.imageButton8);
         btn_3 = (ImageButton) findViewById(R.id.imageButton9);
+        btn_4 = (ImageButton) findViewById(R.id.imageButton10);
         flechaL = (ImageButton) findViewById(R.id.imageLeft);
 
         btn_1.setOnClickListener(this);
         btn_2.setOnClickListener(this);
         btn_3.setOnClickListener(this);
+        btn_4.setOnClickListener(this);
         flechaL.setOnClickListener(this);
 
     }
@@ -50,6 +52,11 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
             case R.id.imageButton9:
                 click.start();
                 setContentView(new Screen_ima3(getApplicationContext(), Juegos_2.this));
+                break;
+
+            case R.id.imageButton10:
+                click.start();
+                setContentView(new Screen_ima4(getApplicationContext(), Juegos_2.this));
                 break;
 
             case R.id.imageLeft:

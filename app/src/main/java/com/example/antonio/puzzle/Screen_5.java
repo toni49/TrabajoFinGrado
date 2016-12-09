@@ -49,7 +49,7 @@ public class Screen_5 extends View {
     private SquareArea x1, x2, x3, x4;
     private int valor = 1;
 
-    private boolean flag_save = false;
+    private boolean flag_save = false, flag_pintar = false;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
     int fail = 0;
     int color;
@@ -236,8 +236,10 @@ public class Screen_5 extends View {
 
 
         //imagen boton de checkeo
-        canv.drawBitmap(next_Bitmap, 1160, 20, null);
+        if(flag_pintar == false)
         canv.drawBitmap(save_Bitmap, 1060, 20, null);
+
+        canv.drawBitmap(next_Bitmap, 1160, 20, null);
         canv.drawBitmap(speak_Bitmap, 120, 20, null);
         canv.drawBitmap(home_Bitmap, 20, 20, null);
 
@@ -514,6 +516,7 @@ public class Screen_5 extends View {
 
                 else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
                     Log.w(TAG, "Guardar variables");
+                    flag_pintar = true;
                     flag_save = true;
 
                 }

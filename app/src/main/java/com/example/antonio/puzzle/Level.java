@@ -222,7 +222,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 flash_stars.setImageResource(R.drawable.stars);
                 zoom(imagen2);
                 move(flash_stars);
-                valor = 1;
+                valor = 4;
                 break;
 
             case 5:
@@ -235,7 +235,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 zoom(imagen3);
                 move(flash_stars);
                 //slide(imagen);
-                valor = 2;
+                valor = 5;
                 break;
 
             case 6:
@@ -248,7 +248,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 flash_stars.setImageResource(R.drawable.stars);
                 zoom(imagen4);
                 move(flash_stars);
-                valor = 3;
+                valor = 6;
                 break;
 
             case 7:
@@ -259,7 +259,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 flash_stars.setImageResource(R.drawable.stars);
                 zoom(imagen4);
                 move(flash_stars);
-                valor = 1;
+                valor = 7;
                 break;
 
             case 8:
@@ -272,7 +272,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 zoom(imagen3);
                 move(flash_stars);
                 //slide(imagen);
-                valor = 2;
+                valor = 8;
                 break;
 
             case 9:
@@ -285,7 +285,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 flash_stars.setImageResource(R.drawable.stars);
                 zoom(imagen4);
                 move(flash_stars);
-                valor = 3;
+                valor = 9;
                 break;
 
             default:
@@ -316,7 +316,19 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 else if (valor == 2)
                     setContentView(new Screen_3(getApplicationContext(), Level.this));
                 else if (valor == 3)
-                    setContentView(new Screen_1(getApplicationContext(), Level.this));
+                    setContentView(new Screen_4(getApplicationContext(), Level.this));
+                else if (valor == 4)
+                    setContentView(new Screen_5(getApplicationContext(), Level.this));
+                else if (valor == 5)
+                    setContentView(new Screen_6(getApplicationContext(), Level.this));
+                else if (valor == 6)
+                    setContentView(new Screen_ima(getApplicationContext(), Level.this));
+                else if (valor == 7)
+                    setContentView(new Screen_ima2(getApplicationContext(), Level.this));
+                else if (valor == 8)
+                    setContentView(new Screen_ima3(getApplicationContext(), Level.this));
+                else
+                    setContentView(new Screen_ima4(getApplicationContext(), Level.this));
                 break;
 
             case R.id.button_exit:

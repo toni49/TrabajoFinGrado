@@ -1,7 +1,7 @@
 package com.example.antonio.puzzle;
 
 /**
- * Created by antonio on 7/30/16.
+ * Created by antonio on 12/9/16.
  */
 
 import android.app.Activity;
@@ -26,27 +26,26 @@ import java.util.HashSet;
 
 
 
-public class Screen_ima extends View {
+public class Screen_ima4 extends View {
 
-    private static final String TAG = "Screen_4";
-    private Button botonIni;
-    public Canvas canvas;
+    private static final String TAG = "Screen_ima4";
+
     // Activity de la clase Play
     private Activity newActivity = null;
-    public Ini_screen finish;
     /**
      * Main bitmap
      */
-    private Bitmap ping_1 = null, ping_sp = null, ping_2 = null, ping2_sp = null, ping_3 = null, ping3_sp = null, ping_4 = null, ping4_sp = null, ping_5 = null, ping5_sp = null, ping_6 = null, ping6_sp = null;
-    private Bitmap home_Bitmap = null, next_Bitmap = null, save_Bitmap= null, speak_Bitmap = null;
+    private Bitmap elefante_sp = null, elefante_sp180 = null, elefante_sp90 = null, elefante_sp_90 = null, elefante = null, elefante_90 = null, elefante_180 = null, elefante90 = null;
+    private Bitmap home_Bitmap = null, next_Bitmap = null, save_Bitmap = null, speak_Bitmap = null;
 
 
-    private BitArea x1, x2, x3, x4, x5, x6;
+
+    private BitArea x1, x2, x3, x4;
     private int valor = 1;
     private boolean flag_save = false, flag_pintar = false;
     long endTime= 0, initialTime = 0, totalTime = 0;
     private long tiempo1 = 0, tiempo2 = 0;
-    int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
+    int check1 = 0, check2 = 0, check3 = 0, check4 = 0;
     int fail = 0;
     VelocityTracker tracker = null;
     static float MaxVelocity_x = 0;
@@ -55,11 +54,10 @@ public class Screen_ima extends View {
     Registro_datos registro = new Registro_datos();
     Level registros = new Level();
 
-
     AudioRecordTest speak = new AudioRecordTest();
 
 
-    public Screen_ima(Context context, Activity activity) {
+    public Screen_ima4(Context context, Activity activity) {
         super(context);
         newActivity = activity;
 
@@ -67,14 +65,14 @@ public class Screen_ima extends View {
 
     }
 
-    public Screen_ima(Context context, AttributeSet attrs) {
+    public Screen_ima4(Context context, AttributeSet attrs) {
         super(context, attrs);
 
         init(context);
 
     }
 
-    public Screen_ima(Context context, AttributeSet attrs, int defStyleAttr) {
+    public Screen_ima4(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         init(context);
@@ -125,8 +123,7 @@ public class Screen_ima extends View {
     private HashSet<BitArea> mBit = new HashSet<BitArea>(SHAPES_LIMIT);
     private SparseArray<BitArea> mBitPointer = new SparseArray<BitArea>(SHAPES_LIMIT);
 
-    private HashSet<SquareArea> mSquare = new HashSet<SquareArea>(SHAPES_LIMIT);
-    private SparseArray<SquareArea> mSquarePointer = new SparseArray<SquareArea>(SHAPES_LIMIT);
+
 
 
     private void init(final Context context) {
@@ -136,18 +133,15 @@ public class Screen_ima extends View {
         speak_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.speaker);
         save_Bitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.register);
 
-        ping_1 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_1);
-        ping_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_sp);
-        ping_2 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_2);
-        ping2_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping2_sp);
-        ping_3 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_3);
-        ping3_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping3_sp);
-        ping_4 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_4);
-        ping4_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping4_sp);
-        ping_5 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_5);
-        ping5_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping5_sp);
-        ping_6 = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping_6);
-        ping6_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.ping6_sp);
+        elefante = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante);
+        elefante_90 = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante_90);
+        elefante90 = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante90);
+        elefante_180 = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante180);
+
+        elefante_sp = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante_sp);
+        elefante_sp_90 = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante_sp_90);
+        elefante_sp90 = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante_sp90);
+        elefante_sp180 = BitmapFactory.decodeResource(context.getResources(), R.drawable.elefante_sp180);
 
 
         mSquarePaint = new Paint();
@@ -179,15 +173,6 @@ public class Screen_ima extends View {
         setBackgroundResource(R.drawable.madera_1);
 
 
-
-        //Texto indicativo.
-       /* Paint paintText = new Paint();
-        paintText.setTextSize(40);
-        paintText.setColor(Color.BLACK);
-        paintText.setStrokeWidth(7);
-        String texto = "COLOQUE LAS FICHAS";
-        canv.drawText(texto, 750, 900, paintText);*/
-
         //imagen boton de checkeo
         if(flag_pintar == false)
             canv.drawBitmap(save_Bitmap, 1060, 20, null);
@@ -196,44 +181,30 @@ public class Screen_ima extends View {
         canv.drawBitmap(speak_Bitmap, 120, 20, null);
         canv.drawBitmap(home_Bitmap, 20, 20, null);
 
-        //canv.drawBitmap(next_Bitmap, 1140, 600, null);
-        //canv.drawBitmap(home_Bitmap, 70, 600, null);
-
         //silueta de las imagenes
-        canv.drawBitmap(ping_sp, 100, 200, null);
-        canv.drawBitmap(ping2_sp, 300, 200, null);
-        canv.drawBitmap(ping3_sp, 500, 200, null);
-        canv.drawBitmap(ping4_sp, 100, 500, null);
-        canv.drawBitmap(ping5_sp, 300, 500, null);
-        canv.drawBitmap(ping6_sp, 500, 500, null);
-
+        canv.drawBitmap(elefante_sp, 50, 200, null);
+        canv.drawBitmap(elefante_sp90, 350, 180, null);
+        canv.drawBitmap(elefante_sp180, 650, 200, null);
+        canv.drawBitmap(elefante_sp_90, 950, 200, null);
 
 
         // Posición inicial de figuras dinámicas
 
-        x1 = obtainTouchedBit(700, 500);
-        x2 = obtainTouchedBit(750, 450);
-        x3 = obtainTouchedBit(1050, 500);
-        x4 = obtainTouchedBit(900, 450);
-        x5 = obtainTouchedBit(850, 200);
-        x6 = obtainTouchedBit(1000, 200);
-
-
+        x1 = obtainTouchedBit(900, 430);
+        x2 = obtainTouchedBit(150, 430);
+        x3 = obtainTouchedBit(150, 430);
+        x4 = obtainTouchedBit(900, 430);
 
 
         for (BitArea imagen : mBit) {
             if (imagen.num == 1)
-                canv.drawBitmap(ping_1, imagen.leftX, imagen.leftY, null);
+                canv.drawBitmap(elefante, imagen.leftX, imagen.leftY, null);
             else if (imagen.num == 2)
-                canv.drawBitmap(ping_2, imagen.leftX, imagen.leftY, null);
+                canv.drawBitmap(elefante90, imagen.leftX, imagen.leftY, null);
             else if (imagen.num == 3)
-                canv.drawBitmap(ping_3, imagen.leftX, imagen.leftY, null);
-            else if (imagen.num == 4)
-                canv.drawBitmap(ping_4, imagen.leftX, imagen.leftY, null);
-            else if (imagen.num == 5)
-                canv.drawBitmap(ping_5, imagen.leftX, imagen.leftY, null);
+                canv.drawBitmap(elefante_180, imagen.leftX, imagen.leftY, null);
             else
-                canv.drawBitmap(ping_6, imagen.leftX, imagen.leftY, null);
+                canv.drawBitmap(elefante_90, imagen.leftX, imagen.leftY, null);
 
 
         }
@@ -344,86 +315,60 @@ public class Screen_ima extends View {
                 Log.w(TAG, "Move");
 
                 //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
-                    // Some pointer has moved, search it by pointer id
-                    pointerId = event.getPointerId(actionIndex);
+                // Some pointer has moved, search it by pointer id
+                pointerId = event.getPointerId(actionIndex);
 
-                    xTouch = (int) event.getX(actionIndex);
-                    yTouch = (int) event.getY(actionIndex);
+                xTouch = (int) event.getX(actionIndex);
+                yTouch = (int) event.getY(actionIndex);
 
-                    touchedBit = mBitPointer.get(pointerId);
+                touchedBit = mBitPointer.get(pointerId);
 
 
-                    if (null != touchedBit) {
-                        touchedBit.leftX = xTouch;
-                        touchedBit.leftY = yTouch;
+                if (null != touchedBit) {
+                    touchedBit.leftX = xTouch;
+                    touchedBit.leftY = yTouch;
 
+                }
+
+                if (touchedBit.num == 1) {
+                    //comprobamos que el circulo pulsado se situa en la posicion correcta.
+                    if ((touchedBit.leftX > 45) && (touchedBit.leftX < 55) && (touchedBit.leftY > 195) && (touchedBit.leftY < 205)) {
+                        Log.w(TAG, "circulo 1");
+                        check1 = 1;
+                        touchedBit.leftX = 50;
+                        touchedBit.leftY = 200;
                     }
+                }
 
-                    if(touchedBit.num == 1) {
-                        //comprobamos que el circulo pulsado se situa en la posicion correcta.
-                        if ((touchedBit.leftX > 90) && (touchedBit.leftX < 110) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
-                            Log.w(TAG, "circulo 1");
-                            check1 = 1;
-                            touchedBit.leftX = 100;
-                            touchedBit.leftY = 200;
+                if (touchedBit.num == 2) {
 
-                        }
+                    if ((touchedBit.leftX > 345) && (touchedBit.leftX < 355) && (touchedBit.leftY > 175) && (touchedBit.leftY < 185)) {
+                        Log.w(TAG, "circulo 2");
+                        check2 = 1;
+                        touchedBit.leftX = 350;
+                        touchedBit.leftY = 180;
                     }
+                }
 
-                    if(touchedBit.num == 2) {
+                if (touchedBit.num == 3) {
 
-                        if ((touchedBit.leftX > 290) && (touchedBit.leftX < 310) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
-                            Log.w(TAG, "circulo 2");
-                            check2 = 1;
-                            touchedBit.leftX = 300;
-                            touchedBit.leftY = 200;
-
-                        }
+                    if ((touchedBit.leftX > 645) && (touchedBit.leftX < 655) && (touchedBit.leftY > 195) && (touchedBit.leftY < 205)) {
+                        Log.w(TAG, "circulo 2");
+                        check3 = 1;
+                        touchedBit.leftX = 650;
+                        touchedBit.leftY = 200;
                     }
+                }
 
-                    if(touchedBit.num == 3) {
+                if (touchedBit.num == 4) {
 
-                        if ((touchedBit.leftX > 490) && (touchedBit.leftX < 510) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
-                            Log.w(TAG, "circulo 3");
-                            check3 = 1;
-                            touchedBit.leftX = 500;
-                            touchedBit.leftY = 200;
-
-                        }
+                    if ((touchedBit.leftX > 945) && (touchedBit.leftX < 955) && (touchedBit.leftY > 195) && (touchedBit.leftY < 205)) {
+                        Log.w(TAG, "circulo 2");
+                        check4 = 1;
+                        touchedBit.leftX = 950;
+                        touchedBit.leftY = 200;
                     }
-
-                    if(touchedBit.num == 4) {
-
-                        if ((touchedBit.leftX > 90) && (touchedBit.leftX < 110) && (touchedBit.leftY > 490) && (touchedBit.leftY < 510)) {
-                            Log.w(TAG, "circulo 4");
-                            check4 = 1;
-                            touchedBit.leftX = 100;
-                            touchedBit.leftY = 500;
-
-                        }
-                    }
-
-                    if(touchedBit.num == 5) {
-
-                        if ((touchedBit.leftX > 290) && (touchedBit.leftX < 310) && (touchedBit.leftY > 490) && (touchedBit.leftY < 510)) {
-                            Log.w(TAG, "circulo 5");
-                            check5 = 1;
-                            touchedBit.leftX = 300;
-                            touchedBit.leftY = 500;
-
-                        }
-                    }
-
-                    if(touchedBit.num == 6) {
-
-                        if ((touchedBit.leftX > 490) && (touchedBit.leftX < 510) && (touchedBit.leftY > 490) && (touchedBit.leftY < 510)) {
-                            Log.w(TAG, "circulo 6");
-                            check6 = 1;
-                            touchedBit.leftX = 500;
-                            touchedBit.leftY = 500;
-
-                        }
-                    }
+                }
 
 
                 //}
@@ -440,44 +385,42 @@ public class Screen_ima extends View {
                     String num1 = Integer.toString(check1);
                     String num2 = Integer.toString(check2);
                     String num3 = Integer.toString(check3);
-                    String num4 = Integer.toString(check4);
-                    String num5 = Integer.toString(check5);
-                    String num6 = Integer.toString(check6);
+
+
                     Log.w(num1, "valor check1");
                     Log.w(num2, "valor check2");
                     Log.w(num3, "valor check3");
-                    Log.w(num4, "valor check4");
-                    Log.w(num5, "valor check5");
-                    Log.w(num6, "valor check6");
 
 
-                    if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)){
+
+                    if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1)) {
 
                         Log.w(TAG, "funcionando");
+
                         tiempo2 = System.currentTimeMillis();
                         tiempo2 = tiempo2 - tiempo1;
                         registros.setTiempo(tiempo2);
 
                         mostrar.set_fallos(fail);
                         mostrar.set_nivel(3);
-                        registros.setPuzzle(7);
-
-
-                        //Screen_5 screen_5 = new Screen_5(getContext(), newActivity);
-                        //screen_5.destroyDrawingCache();
+                        registros.setPuzzle(9);
 
                         Intent intent = new Intent(getContext(), Level.class);
                         newActivity.startActivity(intent);
-                        /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
+
+                        // Screen_ima2 screen_ima2 = new Screen_ima2(getContext(), newActivity);
+                        // newActivity.setContentView(screen_ima2);
+
+                        // screen_ima2.destroyDrawingCache();
+                        // Intent intent = new Intent(getContext(), Level.class);
+                        /*Circles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
                         x1 = obtainTouchedSquare(1200, 200);
                         x2 = obtainTouchedSquare(200, 200);*/
 
 
                         //animation.start();
                         // playActivity.setContentView();
-                    }
-                    else
-                    {
+                    } else {
                         fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
                         String fallo = Integer.toString(fail);
                         Log.w(fallo, "numero de fallos");
@@ -485,14 +428,11 @@ public class Screen_ima extends View {
                         check2 = 0;
                         check3 = 0;
                         check4 = 0;
-                        check5 = 0;
-                        check6 = 0;
-                        x1 = obtainTouchedBit(700, 100);
-                        x2 = obtainTouchedBit(750, 450);
-                        x3 = obtainTouchedBit(1050, 300);
-                        x4 = obtainTouchedBit(900, 450);
-                        x5 = obtainTouchedBit(850, 100);
-                        x6 = obtainTouchedBit(1000, 100);
+                        mBit.clear();
+                        x1 = obtainTouchedBit(700, 300);
+                        x2 = obtainTouchedBit(700, 400);
+                        x3 = obtainTouchedBit(700, 500);
+                        x4 = obtainTouchedBit(700, 500);
                         invalidate();
                     }
 
@@ -550,11 +490,11 @@ public class Screen_ima extends View {
     /**
      * Clears all CircleArea - pointer id relations
      */
-  /*  private void clearCirclePointer() {
-        Log.w(TAG, "clearCirclePointer");
+    private void clearBitPointer() {
+        Log.w(TAG, "clear BitPointer");
 
-        mCirclePointer.clear();
-    }*/
+        mBitPointer.clear();
+    }
 
     /**
      * Search and creates new (if needed) circle based on touch area
@@ -564,7 +504,7 @@ public class Screen_ima extends View {
      * @return obtained {@link BitArea}
      */
     private BitArea obtainTouchedBit(final int xTouch, final int yTouch) {
-       BitArea touchedBit = getTouchedBit(xTouch, yTouch);
+        BitArea touchedBit = getTouchedBit(xTouch, yTouch);
 
 
         if (null == touchedBit) {
@@ -588,23 +528,13 @@ public class Screen_ima extends View {
 
                 case 4:
                     touchedBit = new BitArea(xTouch, yTouch, 4);
-                    valor = 5;
-                    break;
-
-                case 5:
-                    touchedBit = new BitArea(xTouch, yTouch, 5);
-                    valor = 6;
-                    break;
-
-                case 6:
-                    touchedBit = new BitArea(xTouch, yTouch, 6);
                     valor = 1;
                     break;
 
 
             }
 
-            if (mBit.size() < 6) {
+            if (mBit.size() < 4) {
                 Log.w(TAG, "Added imagen " + touchedBit);
                 mBit.add(touchedBit);
             }
@@ -624,7 +554,7 @@ public class Screen_ima extends View {
         BitArea touched = null;
 
         for (BitArea imagen : mBit) {
-            if ((imagen.leftX  < xTouch) && ((imagen.leftX + 250) > xTouch) && (imagen.leftY < yTouch) && ((imagen.leftY + 300) > yTouch))  {
+            if ((imagen.leftX < xTouch) && ((imagen.leftX + 300) > xTouch) && (imagen.leftY < yTouch) && ((imagen.leftY + 300) > yTouch)) {
                 touched = imagen;
                 break;
             }
@@ -634,61 +564,5 @@ public class Screen_ima extends View {
     }
     //////////////////////////////////////////////////////////////////////////////////////
 
-    private SquareArea obtainTouchedSquare(final int xTouch, final int yTouch) {
-        SquareArea touchedSquare = getTouchedSquare(xTouch, yTouch);
 
-        if (null == touchedSquare) {
-            //touchedSquare = new SquareArea(100, 100, xTouch, yTouch);
-            // touchedSquare = new SquareArea(200, 200, xTouch, yTouch);
-            //touchedSquare = new SquareArea(200, 200, xTouch, yTouch);
-
-            switch (valor) {
-
-                case 1:
-                    touchedSquare = new SquareArea(150, 150, xTouch, yTouch);
-                    valor = 2;
-                    break;
-
-                case 2:
-                    touchedSquare = new SquareArea(200, 200, xTouch, yTouch);
-                    valor = 3;
-                    break;
-
-                case 3:
-                    touchedSquare = new SquareArea(250, 250, xTouch, yTouch);
-                    valor = 4;
-                    break;
-
-                case 4:
-                    touchedSquare = new SquareArea(300, 300, xTouch, yTouch);
-                    valor = 1;
-                    break;
-
-
-            }
-
-
-            if (mSquare.size() < 4) {
-                Log.w(TAG, "Added square " + touchedSquare);
-                mSquare.add(touchedSquare);
-            }
-        }
-
-        return touchedSquare;
-    }
-
-    private SquareArea getTouchedSquare(final int xTouch, final int yTouch) {
-        SquareArea touched = null;
-
-        for (SquareArea square : mSquare) {
-            if ((((square.leftX + square.Swidth) > xTouch) && ((square.leftX) < xTouch)) && (((square.leftY + square.Sheight) > yTouch) && ((square.leftY) < yTouch))) {
-                Log.w(TAG, "cuadrado tocado");
-
-                touched = square;
-                break;
-            }
-        }
-
-        return touched;
-    }
 }
