@@ -17,6 +17,7 @@ import android.widget.TextView;
 public class Juegos extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton btn_1, btn_2, btn_3, btn_4, btn_5, btn_6, flechaR;
+    Button btn_volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class Juegos extends AppCompatActivity implements View.OnClickListener {
         btn_5 = (ImageButton) findViewById(R.id.imageButton5);
         btn_6 = (ImageButton) findViewById(R.id.imageButton6);
         flechaR = (ImageButton) findViewById(R.id.imageRight);
+        btn_volver = (Button) findViewById(R.id.buttonMenu);
 
         btn_1.setOnClickListener(this);
         btn_2.setOnClickListener(this);
@@ -40,6 +42,7 @@ public class Juegos extends AppCompatActivity implements View.OnClickListener {
         btn_5.setOnClickListener(this);
         btn_6.setOnClickListener(this);
         flechaR.setOnClickListener(this);
+        btn_volver.setOnClickListener(this);
 
     }
 
@@ -82,6 +85,11 @@ public class Juegos extends AppCompatActivity implements View.OnClickListener {
             case R.id.imageRight:
                 click.start();
                 startActivity(new Intent(this, Juegos_2.class));
+                break;
+
+            case R.id.buttonMenu:
+                click.start();
+                startActivity(new Intent(this, MainActivity.class));
                 break;
 
             default:

@@ -5,6 +5,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 /**
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 public class Juegos_2 extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton btn_1, btn_2, btn_3, btn_4, flechaL;
+    Button btn_volver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +28,14 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
         btn_3 = (ImageButton) findViewById(R.id.imageButton9);
         btn_4 = (ImageButton) findViewById(R.id.imageButton10);
         flechaL = (ImageButton) findViewById(R.id.imageLeft);
+        btn_volver = (Button) findViewById(R.id.buttonMenu);
 
         btn_1.setOnClickListener(this);
         btn_2.setOnClickListener(this);
         btn_3.setOnClickListener(this);
         btn_4.setOnClickListener(this);
         flechaL.setOnClickListener(this);
+        btn_volver.setOnClickListener(this);
 
     }
 
@@ -62,6 +66,11 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
             case R.id.imageLeft:
                 click.start();
                 startActivity(new Intent(this, Juegos.class));
+                break;
+
+            case R.id.buttonMenu:
+                click.start();
+                startActivity(new Intent(this, MainActivity.class));
                 break;
 
             default:

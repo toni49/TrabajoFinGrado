@@ -47,7 +47,7 @@ public class Screen_ima extends View {
     long endTime= 0, initialTime = 0, totalTime = 0;
     private long tiempo1 = 0, tiempo2 = 0;
     int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
-    int fail = 0;
+    int fail = 0, color;
     VelocityTracker tracker = null;
     static float MaxVelocity_x = 0;
     static float MaxVelocity_y = 0;
@@ -172,11 +172,28 @@ public class Screen_ima extends View {
     @Override
     public void onDraw(final Canvas canv) {
 
+
+        color = registro.getFondo();
+
+        switch(color){
+            case 1: setBackgroundColor(0xfffabfd0); break; //rosa
+
+            case 2: setBackgroundColor(0xffbce29a); break;  //verde
+
+            case 3: setBackgroundColor(0xffbfd3fa); break;  //azul
+
+            case 4: setBackgroundColor(0xffffffff); break;  //blanco
+
+            case 5: setBackgroundResource(R.drawable.madera_1); break;
+
+            default: setBackgroundResource(R.drawable.madera_1); break;
+        }
+
         Square_stroke = new Paint();
         Square_stroke.setStyle(Paint.Style.STROKE);
         Square_stroke.setStrokeWidth(5);
         Square_stroke.setColor(Color.RED);
-        setBackgroundResource(R.drawable.madera_1);
+        //setBackgroundResource(R.drawable.madera_1);
 
 
 
@@ -244,106 +261,107 @@ public class Screen_ima extends View {
     public boolean onTouchEvent(final MotionEvent event) {
         boolean handled = false;
 
-        //CircleArea touchedCircle;
-        BitArea touchedBit;
+        try {
 
-        int xTouch;
-        int yTouch;
-        int pointerId;
-        int actionIndex = event.getActionIndex();
+            //CircleArea touchedCircle;
+            BitArea touchedBit;
+
+            int xTouch;
+            int yTouch;
+            int pointerId;
+            int actionIndex = event.getActionIndex();
 
 
-        // get touch event coordinates and make transparent circle from it
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
+            // get touch event coordinates and make transparent circle from it
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
 
-                //Tiempo total por puzzle
-                if(flag_save) {
-                    if(tiempo1 == 0) {
-                        tiempo1 = System.currentTimeMillis();
+                    //Tiempo total por puzzle
+                    if (flag_save) {
+                        if (tiempo1 == 0) {
+                            tiempo1 = System.currentTimeMillis();
+                        }
+                        Log.w(TAG, "tiempo parcial= " + totalTime);
                     }
-                    Log.w(TAG, "tiempo parcial= " + totalTime);
-                }
 
 
-                //tiempo entre pulsaciones del usuario.
-                if(initialTime == 0){
-                    initialTime = System.currentTimeMillis();
-                }
-                else{
-                    endTime = System.currentTimeMillis();
-                    long diff = endTime - initialTime;
-                    //registro.setTime(diff);
-                    if(flag_save)
-                        registros.setTime(diff); //Clase Level
+                    //tiempo entre pulsaciones del usuario.
+                    if (initialTime == 0) {
+                        initialTime = System.currentTimeMillis();
+                    } else {
+                        endTime = System.currentTimeMillis();
+                        long diff = endTime - initialTime;
+                        //registro.setTime(diff);
+                        if (flag_save)
+                            registros.setTime(diff); //Clase Level
 
-                    initialTime = endTime;
-                    Log.i("Screen_1", "Time between clicks: " + diff);
-                }
+                        initialTime = endTime;
+                        Log.i("Screen_1", "Time between clicks: " + diff);
+                    }
 
-                ////////////////////////////////////////
+                    ////////////////////////////////////////
 
-                if (tracker == null) {
-                    tracker = VelocityTracker.obtain();
-                } else {
-                    tracker.clear();
-                }
+                    if (tracker == null) {
+                        tracker = VelocityTracker.obtain();
+                    } else {
+                        tracker.clear();
+                    }
 
-                tracker.addMovement(event); //track ACTION
-                MaxVelocity_y = 0;
-                MaxVelocity_x = 0;
-
-
-                xTouch = (int) event.getX(0);
-                yTouch = (int) event.getY(0);
+                    tracker.addMovement(event); //track ACTION
+                    MaxVelocity_y = 0;
+                    MaxVelocity_x = 0;
 
 
-                // check if we've touched inside some Circle
-                touchedBit = obtainTouchedBit(xTouch, yTouch);
-                touchedBit.leftX = xTouch;
-                touchedBit.leftY = yTouch;
-
-                mBitPointer.put(event.getPointerId(0), touchedBit);
+                    xTouch = (int) event.getX(0);
+                    yTouch = (int) event.getY(0);
 
 
-                invalidate();
-                handled = true;
-                break;
+                    // check if we've touched inside some Circle
+                    touchedBit = obtainTouchedBit(xTouch, yTouch);
+                    touchedBit.leftX = xTouch;
+                    touchedBit.leftY = yTouch;
 
-            case MotionEvent.ACTION_POINTER_DOWN:
-                //handled = true;
-                break;
+                    mBitPointer.put(event.getPointerId(0), touchedBit);
 
 
-            case MotionEvent.ACTION_MOVE:
-                //final int pointerCount = event.getPointerCount();
+                    invalidate();
+                    handled = true;
+                    break;
 
-                tracker.addMovement(event); //track ACTION
-                tracker.computeCurrentVelocity(1000);
-                float x_vel = tracker.getXVelocity();
-                float y_vel = tracker.getYVelocity();
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    //handled = true;
+                    break;
 
-                if(x_vel > 0.05f){
-                    MaxVelocity_x = x_vel;
-                    if(flag_save)
-                        registros.setVelx(MaxVelocity_x); //Clase Level
-                    //registro.setVelx(MaxVelocity_x);
-                    Log.w(TAG, "velocidad x = " + MaxVelocity_x);
-                    //registro.veloX.add(MaxVelocity_x);
-                }
 
-                if(y_vel > 0.05f){
-                    MaxVelocity_y = y_vel;
-                    if(flag_save)
-                        registros.setVely(MaxVelocity_y);   //Clase Level;
-                    //registro.setVely(MaxVelocity_y);
-                    Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+                case MotionEvent.ACTION_MOVE:
+                    //final int pointerCount = event.getPointerCount();
 
-                }
+                    tracker.addMovement(event); //track ACTION
+                    tracker.computeCurrentVelocity(1000);
+                    float x_vel = tracker.getXVelocity();
+                    float y_vel = tracker.getYVelocity();
 
-                Log.w(TAG, "Move");
+                    if (x_vel > 0.05f) {
+                        MaxVelocity_x = x_vel;
+                        if (flag_save)
+                            registros.setVelx(MaxVelocity_x); //Clase Level
+                        //registro.setVelx(MaxVelocity_x);
+                        Log.w(TAG, "velocidad x = " + MaxVelocity_x);
+                        //registro.veloX.add(MaxVelocity_x);
+                    }
 
-                //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
+                    if (y_vel > 0.05f) {
+                        MaxVelocity_y = y_vel;
+                        if (flag_save)
+                            registros.setVely(MaxVelocity_y);   //Clase Level;
+                        //registro.setVely(MaxVelocity_y);
+                        Log.w(TAG, "velocidad y = " + MaxVelocity_y);
+
+                    }
+
+                    Log.w(TAG, "Move");
+
+                    //for (actionIndex = 0; actionIndex < pointerCount; actionIndex++) {
                     // Some pointer has moved, search it by pointer id
                     pointerId = event.getPointerId(actionIndex);
 
@@ -359,7 +377,7 @@ public class Screen_ima extends View {
 
                     }
 
-                    if(touchedBit.num == 1) {
+                    if (touchedBit.num == 1) {
                         //comprobamos que el circulo pulsado se situa en la posicion correcta.
                         if ((touchedBit.leftX > 90) && (touchedBit.leftX < 110) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
                             Log.w(TAG, "circulo 1");
@@ -370,7 +388,7 @@ public class Screen_ima extends View {
                         }
                     }
 
-                    if(touchedBit.num == 2) {
+                    if (touchedBit.num == 2) {
 
                         if ((touchedBit.leftX > 290) && (touchedBit.leftX < 310) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
                             Log.w(TAG, "circulo 2");
@@ -381,7 +399,7 @@ public class Screen_ima extends View {
                         }
                     }
 
-                    if(touchedBit.num == 3) {
+                    if (touchedBit.num == 3) {
 
                         if ((touchedBit.leftX > 490) && (touchedBit.leftX < 510) && (touchedBit.leftY > 190) && (touchedBit.leftY < 210)) {
                             Log.w(TAG, "circulo 3");
@@ -392,7 +410,7 @@ public class Screen_ima extends View {
                         }
                     }
 
-                    if(touchedBit.num == 4) {
+                    if (touchedBit.num == 4) {
 
                         if ((touchedBit.leftX > 90) && (touchedBit.leftX < 110) && (touchedBit.leftY > 490) && (touchedBit.leftY < 510)) {
                             Log.w(TAG, "circulo 4");
@@ -403,7 +421,7 @@ public class Screen_ima extends View {
                         }
                     }
 
-                    if(touchedBit.num == 5) {
+                    if (touchedBit.num == 5) {
 
                         if ((touchedBit.leftX > 290) && (touchedBit.leftX < 310) && (touchedBit.leftY > 490) && (touchedBit.leftY < 510)) {
                             Log.w(TAG, "circulo 5");
@@ -414,7 +432,7 @@ public class Screen_ima extends View {
                         }
                     }
 
-                    if(touchedBit.num == 6) {
+                    if (touchedBit.num == 6) {
 
                         if ((touchedBit.leftX > 490) && (touchedBit.leftX < 510) && (touchedBit.leftY > 490) && (touchedBit.leftY < 510)) {
                             Log.w(TAG, "circulo 6");
@@ -426,123 +444,118 @@ public class Screen_ima extends View {
                     }
 
 
-                //}
-                invalidate();
-                handled = true;
-                break;
+                    //}
+                    invalidate();
+                    handled = true;
+                    break;
 
-            case MotionEvent.ACTION_UP:
-                xTouch = (int) event.getX(0);
-                yTouch = (int) event.getY(0);
+                case MotionEvent.ACTION_UP:
+                    xTouch = (int) event.getX(0);
+                    yTouch = (int) event.getY(0);
 
-                if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
-                    Log.w(TAG, "PULSADO NEXT");
-                    String num1 = Integer.toString(check1);
-                    String num2 = Integer.toString(check2);
-                    String num3 = Integer.toString(check3);
-                    String num4 = Integer.toString(check4);
-                    String num5 = Integer.toString(check5);
-                    String num6 = Integer.toString(check6);
-                    Log.w(num1, "valor check1");
-                    Log.w(num2, "valor check2");
-                    Log.w(num3, "valor check3");
-                    Log.w(num4, "valor check4");
-                    Log.w(num5, "valor check5");
-                    Log.w(num6, "valor check6");
-
-
-                    if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)){
-
-                        Log.w(TAG, "funcionando");
-                        tiempo2 = System.currentTimeMillis();
-                        tiempo2 = tiempo2 - tiempo1;
-                        registros.setTiempo(tiempo2);
-
-                        mostrar.set_fallos(fail);
-                        mostrar.set_nivel(3);
-                        registros.setPuzzle(7);
+                    if ((xTouch > 1140) && (xTouch < 1220) && (yTouch > 1) && (yTouch < 60)) {
+                        Log.w(TAG, "PULSADO NEXT");
+                        String num1 = Integer.toString(check1);
+                        String num2 = Integer.toString(check2);
+                        String num3 = Integer.toString(check3);
+                        String num4 = Integer.toString(check4);
+                        String num5 = Integer.toString(check5);
+                        String num6 = Integer.toString(check6);
+                        Log.w(num1, "valor check1");
+                        Log.w(num2, "valor check2");
+                        Log.w(num3, "valor check3");
+                        Log.w(num4, "valor check4");
+                        Log.w(num5, "valor check5");
+                        Log.w(num6, "valor check6");
 
 
-                        //Screen_5 screen_5 = new Screen_5(getContext(), newActivity);
-                        //screen_5.destroyDrawingCache();
+                        if ((check1 == 1) && (check2 == 1) && (check3 == 1) && (check4 == 1) && (check5 == 1) && (check6 == 1)) {
 
-                        Intent intent = new Intent(getContext(), Level.class);
-                        newActivity.startActivity(intent);
+                            Log.w(TAG, "funcionando");
+                            tiempo2 = System.currentTimeMillis();
+                            tiempo2 = tiempo2 - tiempo1;
+                            registros.setTiempo(tiempo2);
+
+                            mostrar.set_fallos(fail);
+                            mostrar.set_nivel(3);
+                            registros.setPuzzle(7);
+
+
+                            //Screen_5 screen_5 = new Screen_5(getContext(), newActivity);
+                            //screen_5.destroyDrawingCache();
+
+                            Intent intent = new Intent(getContext(), Level.class);
+                            newActivity.startActivity(intent);
                         /*mCircles.clear();       //Las piezas se borran y se vuelven a dibujar en la posicion exacto, creando un efecto de colocación.
                         x1 = obtainTouchedSquare(1200, 200);
                         x2 = obtainTouchedSquare(200, 200);*/
 
 
-                        //animation.start();
-                        // playActivity.setContentView();
-                    }
-                    else
-                    {
-                        fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
-                        String fallo = Integer.toString(fail);
-                        Log.w(fallo, "numero de fallos");
-                        check1 = 0;
-                        check2 = 0;
-                        check3 = 0;
-                        check4 = 0;
-                        check5 = 0;
-                        check6 = 0;
-                        x1 = obtainTouchedBit(700, 100);
-                        x2 = obtainTouchedBit(750, 450);
-                        x3 = obtainTouchedBit(1050, 300);
-                        x4 = obtainTouchedBit(900, 450);
-                        x5 = obtainTouchedBit(850, 100);
-                        x6 = obtainTouchedBit(1000, 100);
-                        invalidate();
-                    }
+                            //animation.start();
+                            // playActivity.setContentView();
+                        } else {
+                            fail = fail + 1;  //aumentamos la variable fail en caso de no acertar puzzle.
+                            String fallo = Integer.toString(fail);
+                            Log.w(fallo, "numero de fallos");
+                            check1 = 0;
+                            check2 = 0;
+                            check3 = 0;
+                            check4 = 0;
+                            check5 = 0;
+                            check6 = 0;
+                            x1 = obtainTouchedBit(700, 100);
+                            x2 = obtainTouchedBit(750, 450);
+                            x3 = obtainTouchedBit(1050, 300);
+                            x4 = obtainTouchedBit(900, 450);
+                            x5 = obtainTouchedBit(850, 100);
+                            x6 = obtainTouchedBit(1000, 100);
+                            invalidate();
+                        }
 
-                } else if ((xTouch > 1) && (xTouch < 80) && (yTouch > 1) && (yTouch < 80)) {
-                    Log.w(TAG, "PULSADO PAUSE");
+                    } else if ((xTouch > 1) && (xTouch < 80) && (yTouch > 1) && (yTouch < 80)) {
+                        Log.w(TAG, "PULSADO PAUSE");
 
                     /*Intent intent = new Intent();
                     intent.setClass(MainActivity.getContext(), FullscreenView.Class);
                     startActivity(intent);*/
 
-                    newActivity.setContentView(R.layout.activity_main);
-                    Intent intent = new Intent(getContext(), MainActivity.class);
-                    newActivity.startActivity(intent);
+                        newActivity.setContentView(R.layout.activity_main);
+                        Intent intent = new Intent(getContext(), MainActivity.class);
+                        newActivity.startActivity(intent);
 
 
-                    //finish.onDestroy();
-                    //System.exit(0);
-                }
+                        //finish.onDestroy();
+                        //System.exit(0);
+                    } else if ((xTouch > 110) && (xTouch < 180) && (yTouch > 1) && (yTouch < 80)) {
+                        Log.w(TAG, "Audio Record");
 
-                else if ((xTouch > 110) && (xTouch < 180) && (yTouch > 1) && (yTouch < 80)) {
-                    Log.w(TAG, "Audio Record");
+                        speak.startPlaying();
 
-                    speak.startPlaying();
+                    } else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
+                        Log.w(TAG, "Guardar variables");
+                        flag_pintar = true;
+                        flag_save = true;
 
-                }
+                    }
 
-                else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
-                    Log.w(TAG, "Guardar variables");
-                    flag_pintar = true;
-                    flag_save = true;
+                    invalidate();
+                    handled = true;
+                    break;
 
-                }
-
-                invalidate();
-                handled = true;
-                break;
-
-            case MotionEvent.ACTION_POINTER_UP:
-                //handled = true;
-                break;
+                case MotionEvent.ACTION_POINTER_UP:
+                    //handled = true;
+                    break;
 
 
-            case MotionEvent.ACTION_CANCEL:
-                handled = true;
-                break;
+                case MotionEvent.ACTION_CANCEL:
+                    handled = true;
+                    break;
 
-            default:
-                // do nothing
-                break;
-        }
+                default:
+                    // do nothing
+                    break;
+            }
+        }catch(NullPointerException e){e.printStackTrace();}
 
         return super.onTouchEvent(event) || handled;
     }
