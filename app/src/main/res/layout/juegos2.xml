@@ -44,7 +44,7 @@
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="200dp"
-            android:layout_marginLeft="150dp"
+            android:layout_marginLeft="350dp"
             android:src="@drawable/rejuego7"
             android:id="@+id/imageButton7" />
 
@@ -53,16 +53,7 @@
             android:layout_height="200dp"
             android:layout_marginLeft="50dp"
             android:src="@drawable/rejuego8"
-            android:id="@+id/imageButton8"
-            android:layout_gravity="center_horizontal" />
-
-        <ImageButton
-            android:layout_width="300dp"
-            android:layout_height="200dp"
-            android:layout_marginLeft="50dp"
-            android:src="@drawable/rejuego9"
-            android:id="@+id/imageButton9"
-            android:layout_gravity="right" />
+            android:id="@+id/imageButton8" />
 
     </LinearLayout>
 
@@ -74,10 +65,16 @@
         <ImageButton
             android:layout_width="300dp"
             android:layout_height="200dp"
-            android:layout_marginLeft="150dp"
+            android:layout_marginLeft="350dp"
             android:src="@drawable/rejuego10"
             android:id="@+id/imageButton10" />
 
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:src="@drawable/rejuego9"
+            android:id="@+id/imageButton9" />
 
 
     </LinearLayout>

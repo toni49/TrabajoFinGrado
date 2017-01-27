@@ -15,7 +15,7 @@ import android.widget.TextView;
 public class Preferencias extends AppCompatActivity implements View.OnClickListener{
 
 
-    Button fondo, record;
+    Button fondo, record, measures, back;
 
 
 
@@ -27,10 +27,14 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
 
         fondo = (Button) findViewById(R.id.button_fondo);
         record = (Button) findViewById(R.id.button_record);
+        measures = (Button) findViewById(R.id.button_velocityMeasures);
+        back = (Button) findViewById(R.id.button_back);
 
 
         fondo.setOnClickListener(this);
         record.setOnClickListener(this);
+        measures.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
 
@@ -47,6 +51,16 @@ public class Preferencias extends AppCompatActivity implements View.OnClickListe
                 case R.id.button_record:
                     click.start();
                     startActivity(new Intent(this, AudioRecordTest.class));
+                    break;
+
+                case R.id.button_velocityMeasures:
+                    click.start();
+                    startActivity(new Intent(this, pruebas_vel.class));
+                    break;
+
+                case R.id.button_back:
+                    click.start();
+                    startActivity(new Intent(this, MainActivity.class));
                     break;
 
 

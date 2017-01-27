@@ -19,6 +19,7 @@
         android:layout_marginTop="100dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
+        android:textSize="22dp"
         android:text="Color de Fondo"
         android:id="@+id/button_fondo"
         android:background="@color/blue_1"
@@ -30,8 +31,31 @@
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:text="Grabar Audio"
+        android:textSize="22dp"
         android:id="@+id/button_record"
         android:background="@color/blue_1"
+        android:textColor="@color/primary_dark_material_dark" />
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:text="Medidas velocidad"
+        android:id="@+id/button_velocityMeasures"
+        android:background="@color/blue_1"
+        android:textColor="@color/primary_dark_material_dark" />
+
+    <Button
+        android:layout_width="400dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="22dp"
+        android:text="Volver Menu"
+        android:id="@+id/button_back"
+        android:background="@color/nivel_3"
         android:textColor="@color/primary_dark_material_dark" />
 
 </LinearLayout>

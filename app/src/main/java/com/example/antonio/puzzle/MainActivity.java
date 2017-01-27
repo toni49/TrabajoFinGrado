@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
     private static final String TAG = "MainActivity";
-    Button empezar, logout, nivel, medidas, opciones;
+    Button empezar, logout, nivel, opciones;
     TextView nombre_usuario;
     Level registros = new Level();
     //UserLocalStore userLocalStore;
@@ -48,14 +48,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nombre_usuario = (TextView) findViewById(R.id.nombre);
         empezar=(Button)findViewById(R.id.button_start);
         logout = (Button) findViewById(R.id.button_logout);
-        medidas = (Button) findViewById(R.id.button_medidas);
         nivel = (Button) findViewById(R.id.button_nivel);
         opciones = (Button) findViewById(R.id.button_opciones);
 
         empezar.setOnClickListener(this);
         nivel.setOnClickListener(this);
         logout.setOnClickListener(this);
-        medidas.setOnClickListener(this);
         opciones.setOnClickListener(this);
 
         //userLocalStore = new UserLocalStore(this);
@@ -115,11 +113,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 click.start();
                 startActivity(new Intent(this, Juegos.class));
                 break;
-
-          /*  case R.id.button_medidas:
-                click.start();
-                startActivity(new Intent(this, pruebas_vel.class));
-                break;*/
 
             case R.id.button_opciones:
                 click.start();

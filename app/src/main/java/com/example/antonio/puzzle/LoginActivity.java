@@ -87,7 +87,7 @@ public class LoginActivity extends AppCompatActivity {
                                     LoginActivity.this.startActivity(intent);
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(LoginActivity.this);
-                                    builder.setMessage("Los datos no son validos")
+                                    builder.setMessage("Los datos introducidos no son validos")
                                             .setNegativeButton("Volver a intentar", null)
                                             .create()
                                             .show();
