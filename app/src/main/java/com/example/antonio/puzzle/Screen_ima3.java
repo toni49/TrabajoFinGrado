@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -55,7 +54,7 @@ public class Screen_ima3 extends View {
     Registro_datos registro = new Registro_datos();
     Level registros = new Level();
 
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
 
 
     public Screen_ima3(Context context, Activity activity) {

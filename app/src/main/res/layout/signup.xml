@@ -71,9 +71,19 @@
         android:layout_width="500dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Crear Cuenta"
+        android:text="Crear Usuario"
         android:textSize="24dp"
-        android:background="@color/blue_1"
+        android:background="@drawable/round_button"
         android:id="@+id/button_sign"
+        android:layout_gravity="center_horizontal" />
+
+    <Button
+        android:layout_width="500dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Volver"
+        android:textSize="24dp"
+        android:background="@drawable/round_button"
+        android:id="@+id/button_back"
         android:layout_gravity="center_horizontal" />
 </LinearLayout>

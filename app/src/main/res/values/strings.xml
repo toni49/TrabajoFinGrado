@@ -6,5 +6,12 @@
     <string name="text_nivel1">Nivel 1</string>
     <string name="text_nivel2">Nivel 2</string>
     <string name="text_nivel3">Nivel 3</string>
+    <string name="tituloIns">Instrucciones</string>
+    <string name="uno">  Colocar todas las piezas en sus respectivos huecos.</string>
+    <string name="dos">  Pulsar este botón para volver al menu principal.</string>
+    <string name="tres">  Pulsar este botón para grabar datos del usuario.</string>
+    <string name="cuatro">  Pulsar este botón para para escuchar audio.</string>
+    <string name="cinco">  Pulsar este botón cuando esten colocadas todas las piezas.</string>
+
 
 </resources>

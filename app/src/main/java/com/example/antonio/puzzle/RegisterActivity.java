@@ -33,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         final EditText etUsername = (EditText) findViewById(R.id.user_sign);
         final EditText etPassword = (EditText) findViewById(R.id.password_sign);
         final Button bRegister = (Button) findViewById(R.id.button_sign);
+        final Button bBack = (Button) findViewById(R.id.button_back);
 
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
 
@@ -45,7 +46,7 @@ public class RegisterActivity extends AppCompatActivity {
                 //final int age = Integer.parseInt(etAge.getText().toString());
                 final String password = etPassword.getText().toString().trim();
 
-                if (username.length() != 0) {
+                if (username.length() != 0 && password.length() > 5) {
 
                     Response.Listener<String> responseListener = new Response.Listener<String>() {
                         @Override
@@ -60,7 +61,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 } else {
                                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
                                     builder.setMessage("El Registro no pudo realizarse")
-                                            .setNegativeButton("Retry", null)
+                                            .setNegativeButton("Volver a intentar", null)
                                             .create()
                                             .show();
                                 }
@@ -82,13 +83,23 @@ public class RegisterActivity extends AppCompatActivity {
                 else{
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                    builder.setMessage("El nombre de usuario no es válido")
-                            .setNegativeButton("Retry", null)
+                    builder.setMessage("La contraseña debe tener más de 6 caracteres y el nombre de usuario no puede estar vacio")
+                            .setNegativeButton("Volver a intentar", null)
                             .create()
                             .show();
                 }
             }
 
+        });
+
+        bBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                click.start();
+                Intent registerIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                RegisterActivity.this.startActivity(registerIntent);
+            }
         });
     }
 }

@@ -4,35 +4,23 @@ package com.example.antonio.puzzle;
  * Created by antonio on 7/26/16.
  */
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.TranslateAnimation;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import java.util.HashSet;
-import java.util.Random;
 
 
 public class Screen_3 extends View {
@@ -42,7 +30,7 @@ public class Screen_3 extends View {
     public Canvas canvas;
     // Activity de la clase Play
     private Activity newActivity = null;
-    public Ini_screen finish;
+    public Splash_Screen finish;
     /**
      * Main bitmap
      */
@@ -72,7 +60,7 @@ public class Screen_3 extends View {
     Level registros = new Level();
 
 
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
 
 
     public Screen_3(Context context, Activity activity) {

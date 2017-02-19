@@ -13,7 +13,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
-import android.media.MediaPlayer;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -37,7 +36,7 @@ public class Screen_4 extends View {
     Mostrar_nivel mostrar = new Mostrar_nivel();
     Registro_datos registro = new Registro_datos();
 
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
     Level registros = new Level();
 
 

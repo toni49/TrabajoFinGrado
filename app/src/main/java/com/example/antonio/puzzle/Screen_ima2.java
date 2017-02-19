@@ -58,7 +58,7 @@ public class Screen_ima2 extends View {
     Level registros = new Level();
 
 
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
 
 
     public Screen_ima2(Context context, Activity activity) {

@@ -12,7 +12,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
@@ -33,7 +32,7 @@ public class Screen_ima extends View {
     public Canvas canvas;
     // Activity de la clase Play
     private Activity newActivity = null;
-    public Ini_screen finish;
+    public Splash_Screen finish;
     /**
      * Main bitmap
      */
@@ -56,7 +55,7 @@ public class Screen_ima extends View {
     Level registros = new Level();
 
 
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
 
 
     public Screen_ima(Context context, Activity activity) {

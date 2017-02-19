@@ -12,11 +12,9 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import android.widget.Button;
 
 import java.util.HashSet;
 
@@ -30,10 +28,10 @@ import java.util.HashSet;
         int valor = 1;
         int color;
 
-        private float px_1 = 0, py_1 = 0, px_2 = 0, py_2 = 0, px_3 = 0, py_3 = 0, px_4 = 0, py_4 = 0;
+        private int flag_dir = 0, flag_dir_neg = 0, flag_N2_pos = 0, flag_N2_neg = 0, flag_N3_pos = 0, flag_N3_neg = 0;
         private int N1 = 0, N2 = 0, N3 = 0, N4 = 0;
         private int nivel1 = 0, nivel2 = 0, nivel3 = 0;
-        private boolean descenso = false, ascenso = true;
+        private boolean descenso = false;
 
 
 
@@ -48,7 +46,7 @@ import java.util.HashSet;
         private float w, h;
         long endTime= 0, initialTime = 0, totalTime = 0;
         int check1 = 0, check2 = 0, check3 = 0, check4 = 0, check5 = 0, check6 = 0;
-        private boolean flag_save = false;
+        public boolean flag_save = false;
         public boolean flag_pintar = false;
         int fail = 0;
         private long tiempo1 = 0, tiempo2 = 0;
@@ -60,7 +58,7 @@ import java.util.HashSet;
         Level registros = new Level();
 
 
-        AudioRecordTest speak = new AudioRecordTest();
+        AudioRecord speak = new AudioRecord();
 
 
         public Screen_1(Context context, Activity activity) {
@@ -219,8 +217,7 @@ import java.util.HashSet;
         @Override
         public void onDraw(final Canvas canv) {
 
-            // background
-            //setBackgroundResource(R.drawable.madera_1);
+
             color = registro.getFondo();
 
             switch(color){
@@ -237,9 +234,6 @@ import java.util.HashSet;
                 default: setBackgroundResource(R.drawable.madera_1); break;
             }
 
-            //setBackgroundColor(0xFFBCE29A); //verde
-            //setBackgroundColor(0xffbfd3fa);     //azul
-            //setBackgroundColor(0xFFFABFD0);     //rosa
 
             canv.drawRect(200, 120, 350, 160, whitePaint);
             canv.drawRect(200, 120, 350, 160, red_stroke);
@@ -384,67 +378,30 @@ import java.util.HashSet;
                         float y_vel = tracker.getYVelocity();
 
 
-                        if (x_vel > 0.05f) {
+                        if (x_vel > MaxVelocity_x) {
                             MaxVelocity_x = x_vel;
                             if (flag_save)
                                 registros.setVelx(MaxVelocity_x); //Clase Level
-                            //registro.setVelx(MaxVelocity_x);
+
                             Log.w(TAG, "velocidad x = " + MaxVelocity_x);
                             //registro.veloX.add(MaxVelocity_x);
                         }
 
-                        if (y_vel > 0.05f) {
+                        if (y_vel > MaxVelocity_y) {
                             MaxVelocity_y = y_vel;
                             if (flag_save)
                                 registros.setVely(MaxVelocity_y);   //Clase Level;
-                            //registro.setVely(MaxVelocity_y);
+
                             Log.w(TAG, "velocidad y = " + MaxVelocity_y);
 
                         }
 
 
 
-                        if(x_vel > 0 && y_vel > 0) {
-                            N1 += 1;
+                        Log.w(TAG, "velocidad y = " + y_vel);
+                        Log.w(TAG, "velocidad x = " + x_vel);
 
-                        }
-                        if(x_vel < 0 && y_vel < 0){
-                            N1 -= 1;
-                        }
-
-                        if(N1 > 1 && N1 < 5 && x_vel > 0 && y_vel > 0){
-                            N2 += 1;
-                        }
-
-                        if(N1 < -1 && N1 < -5 && x_vel < 0 && y_vel < 0){
-                            N2 -= 1;
-                        }
-
-                        if(N1 > 5 && N1 < 10 && x_vel > 0 && y_vel > 0){
-                            N3 += 1;
-                        }
-
-                        if(N1 < -5 && N1 < -10 && x_vel < 0 && y_vel < 0){
-                            N3 -= 1;
-                        }
-
-
-
-
-                        if(N1 == 0)
-                            nivel1 += 1;
-
-                        //Crestas de Nivel 1
-                        if(N2 == 0)
-                            nivel2 += 1;
-
-                        if(N3 == 0)
-                            nivel3 += 1;
-
-
-
-
-
+                        jerk_function(x_vel, y_vel);
 
 
 
@@ -564,10 +521,12 @@ import java.util.HashSet;
                                 mostrar.set_nivel(1);
                                 registros.setPuzzle(1);
 
+                                registros.setJerkData(N1, N2, N3);
+
                                 //registro.registrar();
-                                Log.w(TAG, "Nivel 1 = " + nivel1);
-                                Log.w(TAG, "Nivel 2 = " + nivel2);
-                                Log.w(TAG, "Nivel 3 = " + nivel3);
+                                Log.w(TAG, "Nivel 1 = " + N1);
+                                Log.w(TAG, "Nivel 2 = " + N2);
+                                Log.w(TAG, "Nivel 3 = " + N3);
 
 
                                 //newActivity.setContentView(R.layout.activity_main);
@@ -614,6 +573,7 @@ import java.util.HashSet;
 
                         } else if ((xTouch > 1040) && (xTouch < 1120) && (yTouch > 1) && (yTouch < 80)) {
                             Log.w(TAG, "Guardar variables");
+                            registros.setFlagSave(true);
                             flag_pintar = true;
                             flag_save = true;
 
@@ -694,7 +654,7 @@ import java.util.HashSet;
             SquareArea touched = null;
 
             for (SquareArea square : mSquare) {
-                if ((((square.leftX + 200) > xTouch) && (square.leftX < xTouch)) && (((square.leftY + 200) > yTouch) && (square.leftY < yTouch)))
+                if ((((square.leftX + 200) > xTouch) && (square.leftX < xTouch)) && (((square.leftY + 60) > yTouch) && (square.leftY < yTouch)))
                 {
                     Log.w(TAG, "cuadrado tocado" );
                     touched = square;
@@ -704,5 +664,24 @@ import java.util.HashSet;
 
             return touched;
         }
+
+    private void jerk_function(float x_vel, float y_vel){
+
+        if(Math.abs(x_vel) < 150.0f && Math.abs(y_vel) < 150.0f) {
+
+            N1 += 1;
+        }
+
+        if(Math.abs(x_vel) > 160.0f && Math.abs(x_vel) < 400.0f && Math.abs(y_vel) > 160.0f && Math.abs(y_vel) < 400.0f) {
+
+            N2 += 1;
+        }
+
+        if(Math.abs(x_vel) > 410.0f && Math.abs(x_vel) < 1400.0f && Math.abs(y_vel) > 410.0f && Math.abs(y_vel) < 1400.0f) {
+
+            N3 += 1;
+        }
+
+    }
 
 }

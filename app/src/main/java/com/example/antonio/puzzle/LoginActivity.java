@@ -50,8 +50,12 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
                 click.start();
+                Level datos = new Level();
+                datos.setUsername("Invitado");
+
                 Intent registerIntent = new Intent(LoginActivity.this, MainActivity.class);
                 LoginActivity.this.startActivity(registerIntent);
+
             }
         });
 
@@ -75,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                                     userInput.setText("");  //Borramos el nombre de usuario de la vista
                                     passInput.setText("");  //Borramos la contraseña de la vista
                                     Level datos = new Level();
+
                                     datos.setUsername(username);
                                     datos.setPassword(password);
                                     // String name = jsonResponse.getString("name");

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:screenOrientation="landscape"
+    android:layout_gravity="center"
+    android:background="@color/blue_1">
+
+        <Button
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:text="Volver al Menu"
+        android:background="@drawable/round_button"
+        android:backgroundTint="@color/yellow_1"
+        android:textSize="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="12dp"
+        android:id="@+id/buttonBack" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="40dp"
+        android:text="@string/uno"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:id="@+id/textView8"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:textSize="40dp"
+        android:text="@string/dos"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:drawableLeft="@drawable/home"
+        android:drawablePadding="10dip"
+        android:id="@+id/textView11"
+        android:layout_gravity="center_horizontal" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/tres"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:layout_marginBottom="30dp"
+        android:gravity="left"
+        android:textAlignment="gravity"
+        android:drawableLeft="@drawable/register"
+        android:drawablePadding="10dip"
+        android:id="@+id/textView12"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/cuatro"
+        android:textSize="40dp"
+        android:layout_marginBottom="30dp"
+        android:gravity="left"
+        android:textStyle="bold"
+        android:textAlignment="gravity"
+        android:drawableLeft="@drawable/record"
+        android:drawablePadding="10dip"
+        android:id="@+id/textView13"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/cinco"
+        android:textSize="40dp"
+        android:textStyle="bold"
+
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="10dp"
+        android:drawableLeft="@drawable/check"
+        android:drawablePadding="10dip"
+        android:id="@+id/textView14"
+        android:layout_gravity="center_horizontal" />
+
+    </LinearLayout>

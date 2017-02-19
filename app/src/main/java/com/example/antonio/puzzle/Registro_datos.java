@@ -57,7 +57,7 @@ public class Registro_datos extends AppCompatActivity {
     }
 
 
-    //Registramos el color de fondo;
+    //Registramos el color de select_background;
 
     public void setFondo(int var) { colorFondo = var;}
 

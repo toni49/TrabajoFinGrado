@@ -1,10 +1,12 @@
 package com.example.antonio.puzzle;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,14 +35,14 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
     String TAG = "class level";
     TextView txt, txtfallos;
-    ImageView imagen, imagen2, imagen3, imagen4, flash_stars;
+    ImageView imagen, imagen2, imagen3, imagen4, flash_stars, emoticono;
     Button next_level, salir;
     int valor = 0;
     public static float tiempo = 0;
     private static String username = "";
     private static String password = "";
-    private static int puzzle = 0;
-    public boolean flag = false;
+    private static int puzzle = 0, N1 = 0, N2 = 0, N3 = 0;
+    private static boolean flag = false;
 
 
     Mostrar_nivel mostrar = new Mostrar_nivel();
@@ -93,6 +95,25 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
 
     public int getPuzzle() { return puzzle; }
 
+    public void setJerkData(int n1, int n2, int n3) {
+
+        N1 = n1;
+        N2 = n2;
+        N3 = n3;
+    }
+
+    public int getN1(){
+        return N1;
+    }
+
+    public int getN2(){
+        return N2;
+    }
+
+    public int getN3(){
+        return N3;
+    }
+
     public void setFlagSave(boolean value){
         flag = value;
         Log.w(TAG, "flag= " + flag);
@@ -114,6 +135,10 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         time.clear();
         veloX.clear();
         veloY.clear();
+        N1 = 0;
+        N2 = 0;
+        N3 = 0;
+        flag = false;
     }
 
 
@@ -123,6 +148,7 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         setContentView(R.layout.nivel);
 
         ////////////////////////////////////////////////////////////////////////////////////
+
         float maxVeloX, maxVeloY, timeMedio;
         Mostrar_nivel fallos = new Mostrar_nivel();
         int var = fallos.get_fallos();
@@ -132,20 +158,25 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
         timeMedio = mediaTiempos();
 
 
+
+
         //calcular la media de la velocidad y , de la velocidad x y de las diferencias de tiempo;
 
 
+        if(getFlag()) {
 
             LoginRequest loginRequest = new LoginRequest(getUsername(), getPassword(), responseListener);
             RequestQueue queue = Volley.newRequestQueue(Level.this);
             queue.add(loginRequest);
 
-
-            RegisterData registerData = new RegisterData(getUsername(), getDate(), getPuzzle(), maxVeloX, maxVeloY, var, timeMedio, getTiempo(), responseListener);
+            RegisterData registerData = new RegisterData(getUsername(), getDate(), getPuzzle(), maxVeloX, maxVeloY, var, timeMedio, getTiempo(), getN1(), getN2(), getN3(), responseListener);
             queue = Volley.newRequestQueue(Level.this);
             queue.add(registerData);
 
+        }
+
             borraData();
+
 
 
 
@@ -332,9 +363,10 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
                 break;
 
             case R.id.button_exit:
-                setContentView(R.layout.activity_main);
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                showMessage();
+                //setContentView(R.layout.activity_main);
+                //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                //startActivity(intent);
             default:
                 break;
         }
@@ -358,6 +390,35 @@ public class Level extends AppCompatActivity implements View.OnClickListener {
             }
         }
     };
+
+    public void showMessage(){
+
+        AlertDialog.Builder myMessage = new AlertDialog.Builder(this);
+
+        myMessage.setTitle("¿Quieres terminar de jugar?")
+
+                .setPositiveButton("Si", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        setContentView(R.layout.activity_main);
+                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                        startActivity(intent);
+                    }
+                })
+
+                .setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.dismiss();
+                    }
+                })
+
+                .setIcon(R.drawable.sad)
+                .create()
+                .show();
+    }
 
     public void setVelx(float x){
         veloX.add(x);

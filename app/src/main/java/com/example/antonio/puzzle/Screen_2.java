@@ -8,8 +8,6 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.Point;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -17,13 +15,9 @@ import android.util.SparseArray;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
 import java.util.HashSet;
-import java.util.Random;
 
 /**
  * Created by antonio on 7/21/16.
@@ -60,7 +54,7 @@ public class Screen_2 extends View {
     Mostrar_nivel mostrar = new Mostrar_nivel();
     Registro_datos registro = new Registro_datos();
     Level registros = new Level();
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
 
 
 

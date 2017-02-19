@@ -4,13 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.Button;
 import android.widget.ProgressBar;
 
 /**
  * Created by antonio on 7/16/16.
  */
-public class Ini_screen extends AppCompatActivity {
+public class Splash_Screen extends AppCompatActivity {
 
     private ProgressBar barra_progreso;
     private boolean activo = false;
@@ -21,7 +20,7 @@ public class Ini_screen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ini_screen);        //Iniciamos layout ini_screen
+        setContentView(R.layout.splash_screen);        //Iniciamos layout splash_screen
 
         barra_progreso = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -41,7 +40,7 @@ public class Ini_screen extends AppCompatActivity {
                         }
                     }
                 }catch(InterruptedException e){
-                    //tratar el error.
+                    //captura excepcion.
                 }
                 finally{
                     onPause();
@@ -55,7 +54,7 @@ public class Ini_screen extends AppCompatActivity {
     public void onResume()
     {
         super.onResume();
-        setContentView(R.layout.ini_screen);        //Iniciamos layout ini_screen
+        setContentView(R.layout.splash_screen);        //Iniciamos layout splash_screen
 
         barra_progreso = (ProgressBar) findViewById(R.id.progressBar);
 
@@ -75,7 +74,7 @@ public class Ini_screen extends AppCompatActivity {
                         }
                     }
                 }catch(InterruptedException e){
-                    //tratar el error.
+                    //captura exception.
                 }
                 finally{
                     onPause();
@@ -97,7 +96,7 @@ public class Ini_screen extends AppCompatActivity {
     public void onPause()
     {
         super.onPause();
-        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);    //Al finalizar la barra de progreso pasamos a la clase MainActivity donde esta el menu.
+        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
         Log.d(TAG, "La barra de progreso ha finalizado");
         startActivity(intent);
     }

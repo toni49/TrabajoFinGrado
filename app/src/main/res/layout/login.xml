@@ -76,7 +76,7 @@
         android:id="@+id/buttonLogin"
         android:textSize="22dp"
         android:layout_gravity="center"
-        android:background="@color/blue_1"
+        android:background="@drawable/round_button"
         android:textColor="@android:color/black"
         android:focusable="false"
         android:clickable="false" />
@@ -89,7 +89,7 @@
         android:id="@+id/buttonAn"
         android:textSize="20dp"
         android:layout_gravity="center"
-        android:background="@color/blue_1"
+        android:background="@drawable/round_button"
         android:textColor="@android:color/black" />
 
     <Button
@@ -100,7 +100,7 @@
         android:text="Crear nuevo usuario"
         android:id="@+id/newuser"
         android:layout_gravity="center"
-        android:background="@color/blue_1"
+        android:background="@drawable/round_button"
         android:textColor="@android:color/black"
         android:focusable="false"
         android:clickable="false" />

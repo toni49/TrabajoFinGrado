@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -36,6 +37,7 @@ public class pruebas_vel extends Activity {
             textMaxVelocityY = (TextView) findViewById(R.id.maxvelocityy);
             textTime = (TextView) findViewById(R.id.time);
             textPressure = (TextView) findViewById(R.id.pressure);
+
         }
 
         @Override

@@ -10,16 +10,16 @@ import android.widget.Button;
 /**
  * Created by antonio on 11/6/16.
  */
-public class Fondo extends AppCompatActivity implements View.OnClickListener{
+public class Select_Background extends AppCompatActivity implements View.OnClickListener{
 
-    Button blanco, verde, azul, rosa, madera;
+    Button blanco, verde, azul, rosa, madera, back;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.fondo);
+        setContentView(R.layout.select_background);
 
 
         blanco = (Button) findViewById(R.id.button_blanco);
@@ -27,6 +27,7 @@ public class Fondo extends AppCompatActivity implements View.OnClickListener{
         verde = (Button) findViewById(R.id.button_verde);
         azul = (Button) findViewById(R.id.button_azul);
         madera = (Button) findViewById(R.id.button_madera);
+        back = (Button) findViewById(R.id.button_back);
 
 
         blanco.setOnClickListener(this);
@@ -34,6 +35,7 @@ public class Fondo extends AppCompatActivity implements View.OnClickListener{
         verde.setOnClickListener(this);
         azul.setOnClickListener(this);
         madera.setOnClickListener(this);
+        back.setOnClickListener(this);
 
 
     }
@@ -73,6 +75,14 @@ public class Fondo extends AppCompatActivity implements View.OnClickListener{
                 registro.setFondo(5);
                 click.start();
                 startActivity(new Intent(this, MainActivity.class));
+                break;
+
+            case R.id.button_back:
+                click.start();
+                startActivity(new Intent(this, MainActivity.class));
+                break;
+
+            default:
                 break;
 
 

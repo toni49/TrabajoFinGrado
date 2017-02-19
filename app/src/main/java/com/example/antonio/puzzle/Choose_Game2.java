@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 /**
  * Created by antonio on 11/13/16.
  */
-public class Juegos_2 extends AppCompatActivity implements View.OnClickListener {
+public class Choose_Game2 extends AppCompatActivity implements View.OnClickListener {
 
     ImageButton btn_1, btn_2, btn_3, btn_4, flechaL;
     Button btn_volver;
@@ -19,7 +19,7 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.juegos2);
+        setContentView(R.layout.choose_game2);
 
         final MediaPlayer correct = MediaPlayer.create(this, R.raw.correct);
 
@@ -45,27 +45,27 @@ public class Juegos_2 extends AppCompatActivity implements View.OnClickListener 
         switch(v.getId()){
             case R.id.imageButton7:
                 click.start();
-                setContentView(new Screen_ima(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima(getApplicationContext(), Choose_Game2.this));
                 break;
 
             case R.id.imageButton8:
                 click.start();
-                setContentView(new Screen_ima2(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima2(getApplicationContext(), Choose_Game2.this));
                 break;
 
             case R.id.imageButton9:
                 click.start();
-                setContentView(new Screen_ima3(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima3(getApplicationContext(), Choose_Game2.this));
                 break;
 
             case R.id.imageButton10:
                 click.start();
-                setContentView(new Screen_ima4(getApplicationContext(), Juegos_2.this));
+                setContentView(new Screen_ima4(getApplicationContext(), Choose_Game2.this));
                 break;
 
             case R.id.imageLeft:
                 click.start();
-                startActivity(new Intent(this, Juegos.class));
+                startActivity(new Intent(this, Choose_Game.class));
                 break;
 
             case R.id.buttonMenu:

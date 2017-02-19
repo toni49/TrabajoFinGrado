@@ -31,15 +31,16 @@
         android:src="@drawable/testea"
         android:layout_gravity="center_horizontal" />
 
+
     <Button
-        android:layout_width="400dp"
-        android:layout_marginTop="100dp"
+    android:layout_width="400dp"
+        android:layout_marginTop="60dp"
         android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:textSize="22dp"
         android:text="@string/text_menu1"
         android:id="@+id/button_start"
-        android:background="@color/blue_1"
+        android:background="@drawable/round_button"
         android:textColor="@color/primary_dark_material_dark" />
 
     <Button
@@ -50,7 +51,7 @@
         android:textSize="22dp"
         android:text="@string/text_menu2"
         android:id="@+id/button_nivel"
-        android:background="@color/blue_1"
+        android:background="@drawable/round_button"
         android:textColor="@color/primary_dark_material_dark" />
 
     <Button
@@ -62,7 +63,9 @@
         android:id="@+id/button_opciones"
         android:text="Opciones"
         android:layout_gravity="center_horizontal"
-        android:background="@color/blue_1" />
+        android:background="@drawable/round_button" />
+
+
 
 
     <Button
@@ -73,7 +76,7 @@
             android:textSize="22dp"
             android:text="@string/text_menu3"
             android:id="@+id/button_logout"
-            android:background="@color/nivel_3"
+            android:background="@drawable/round_button_red"
             android:textColor="@color/primary_dark_material_dark" />
 
 

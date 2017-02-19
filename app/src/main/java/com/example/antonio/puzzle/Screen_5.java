@@ -12,12 +12,10 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.SparseArray;
 import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.widget.Button;
@@ -39,7 +37,7 @@ public class Screen_5 extends View {
 
     Mostrar_nivel mostrar = new Mostrar_nivel();
     Registro_datos registro = new Registro_datos();
-    AudioRecordTest speak = new AudioRecordTest();
+    AudioRecord speak = new AudioRecord();
     Level registros = new Level();
 
     private Bitmap next_Bitmap = null;

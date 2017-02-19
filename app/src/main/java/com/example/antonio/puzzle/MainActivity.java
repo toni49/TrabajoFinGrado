@@ -1,19 +1,18 @@
 package com.example.antonio.puzzle;
 
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.AssetManager;
 import android.media.MediaPlayer;
-import android.support.annotation.IdRes;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -27,11 +26,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button empezar, logout, nivel, opciones;
     TextView nombre_usuario;
     Level registros = new Level();
-    //UserLocalStore userLocalStore;
-
-
-
-
+    Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +35,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         Log.w(TAG, "activity_main");
 
-        //final MediaPlayer correct = MediaPlayer.create(this, R.raw.correct);
-        // requestWindowFeature(Window.FEATURE_NO_TITLE);
-        // getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        /*Relacionamos los botones del codigo java con los de
+        la vista xml*/
 
         nombre_usuario = (TextView) findViewById(R.id.nombre);
         empezar=(Button)findViewById(R.id.button_start);
@@ -51,15 +44,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         nivel = (Button) findViewById(R.id.button_nivel);
         opciones = (Button) findViewById(R.id.button_opciones);
 
-        empezar.setOnClickListener(this);
+        empezar.setOnClickListener(this);   //activamos todos los botones de la pantalla
         nivel.setOnClickListener(this);
         logout.setOnClickListener(this);
         opciones.setOnClickListener(this);
 
-        //userLocalStore = new UserLocalStore(this);
+
 
         Intent intent = getIntent();
-        // String name = intent.getStringExtra("name");
 
         String username = intent.getStringExtra("username");
         String password = intent.getStringExtra("password");
@@ -67,66 +59,76 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         username = registros.getUsername();
         nombre_usuario.setText(username);
 
-        registros.setUsername(username); // guardamos nombre de usuario
+        registros.setUsername(username); // guardamos nombre de usuario y contraseña
         registros.setPassword(password);
 
     }
 
-   /* @Override
-    protected void onStart(){
-        super.onStart();
 
-        if(authenticate() == true){
-            MostrarUsuario();
-        }
-        else {
-            startActivity(new Intent(MainActivity.this, Login.class));
-        }
 
-    }*/
-
-    private void MostrarUsuario(){
-
-       /* Intent intent = getIntent();
-        // String name = intent.getStringExtra("name");
-        String username = intent.getStringExtra("username");
-        nombre_usuario.setText(username);*/
-        //User user = userLocalStore.getLoggedInUser();
-        //nombre_usuario.setText(user.username);
-    }
-
-    /*private boolean authenticate(){
-        return userLocalStore.getUserLoggedIn();
-    }*/
 
     @Override
     public void onClick(View v) {
         final MediaPlayer click = MediaPlayer.create(this, R.raw.click);
 
+
         switch (v.getId()) {
-            case R.id.button_start:
+            case R.id.button_start: //iniciamos primer puzle
                 click.start();
-                setContentView(new Screen_1(getApplicationContext(), MainActivity.this)); //Iniciar primera pantalla del juego al pulsar el boton start.
+                setContentView(new Screen_1(getApplicationContext(), MainActivity.this));
                 break;
 
-            case R.id.button_nivel:
+            case R.id.button_nivel: //Seleccion de nivel
                 click.start();
-                startActivity(new Intent(this, Juegos.class));
+                startActivity(new Intent(this, Choose_Game.class));
                 break;
 
-            case R.id.button_opciones:
+            case R.id.button_opciones:  //Abrimos submenu opciones
                 click.start();
-                startActivity(new Intent(this, Preferencias.class));
+                startActivity(new Intent(this, Opciones.class));
                 break;
 
-            case R.id.button_logout:
-                click.start();
-                //userLocalStore.clearUserData();
-                //userLocalStore.setUserLoggedIn(false);
-                startActivity(new Intent(this, LoginActivity.class));   //Se realiza un logout volviendo a la pagina donde se solicitan los credenciales.
+
+            case R.id.button_logout:    //Logout de la aplicacion
+
+                showMessage();
+                //click.start();
+                //startActivity(new Intent(this, LoginActivity.class));
                 break;
         }
     }
 
+    public void showMessage(){
+
+        AlertDialog.Builder myMessage = new AlertDialog.Builder(this);
+
+        myMessage.setTitle("Cerrar Sesión")
+
+                .setPositiveButton("Si", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        setContentView(R.layout.login);
+                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        startActivity(intent);
+                    }
+                })
+
+                .setNegativeButton("No", new DialogInterface.OnClickListener(){
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which){
+                        dialog.dismiss();
+                    }
+                })
+
+                .setIcon(R.drawable.alert)
+                .create()
+                .show();
+    }
+
 
 }
+
+
+

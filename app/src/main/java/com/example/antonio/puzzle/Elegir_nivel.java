@@ -54,6 +54,7 @@ public class Elegir_nivel extends AppCompatActivity implements View.OnClickListe
                     setContentView(new Screen_ima3(getApplicationContext(), Elegir_nivel.this));
                     break;
 
+
                 default:
                     break;
             }

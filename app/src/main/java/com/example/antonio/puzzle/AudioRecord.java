@@ -1,18 +1,12 @@
 package com.example.antonio.puzzle;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.os.Bundle;
 import android.os.Environment;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.content.Context;
 import android.util.Log;
 import android.media.MediaRecorder;
 import android.media.MediaPlayer;
@@ -23,15 +17,17 @@ import java.io.IOException;
 /**
  * Created by antonio on 11/6/16.
  */
-public class AudioRecordTest extends AppCompatActivity implements View.OnClickListener {
+public class AudioRecord extends AppCompatActivity implements View.OnClickListener {
 
-    private static final String LOG_TAG = "AudioRecordTest";
+    private static final String LOG_TAG = "AudioRecord";
     private static String mFileName = null;
-    private static String fileNull = null;
 
     ImageButton mRecordButton = null;
     ImageButton mPlayButton = null;
     ImageButton mStopButton= null;
+    Button back;
+
+
 
 
 
@@ -44,19 +40,24 @@ public class AudioRecordTest extends AppCompatActivity implements View.OnClickLi
             case R.id.button_record:
                 click.start();
                 onRecord(true);
-                //startActivity(new Intent(this, Elegir_nivel.class));
                 break;
 
             case R.id.button_play:
                 click.start();
-                //startActivity(new Intent(this, pruebas_vel.class));
                 onPlay(true);
                 break;
 
             case R.id.button_stop:
                 click.start();
-                //startActivity(new Intent(this, pruebas_vel.class));
                 onRecord(false);
+                break;
+
+            case R.id.button_back:
+                click.start();
+                startActivity(new Intent(this, Opciones.class));
+                break;
+
+            default:
                 break;
 
         }
@@ -122,14 +123,19 @@ public class AudioRecordTest extends AppCompatActivity implements View.OnClickLi
     }
 
     private void stopRecording() {
-        mRecorder.stop();
-        mRecorder.release();
-        mRecorder = null;
+
+        try {
+            mRecorder.stop();
+            mRecorder.release();
+            mRecorder = null;
+        }catch(NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
 
 
-    public AudioRecordTest() {
+    public AudioRecord() {
         mFileName = Environment.getExternalStorageDirectory().getAbsolutePath();
         mFileName += "/audiorecordtest.3gp";
     }
@@ -139,15 +145,17 @@ public class AudioRecordTest extends AppCompatActivity implements View.OnClickLi
         super.onCreate(icicle);
 
 
-        setContentView(R.layout.record_audio);
+        setContentView(R.layout.audio_record);
 
         mRecordButton=(ImageButton)findViewById(R.id.button_record);
         mPlayButton = (ImageButton) findViewById(R.id.button_play);
         mStopButton = (ImageButton) findViewById(R.id.button_stop);
+        back = (Button) findViewById(R.id.button_back);
 
         mRecordButton.setOnClickListener(this);
         mPlayButton.setOnClickListener(this);
         mStopButton.setOnClickListener(this);
+        back.setOnClickListener(this);
     }
 
     @Override
